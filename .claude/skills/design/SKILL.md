@@ -1,9 +1,9 @@
 ---
 name: design
-description: Use before building or restyling any UI in frontend/ (pages, cards, badges, charts, video overlay, export panel) for the DriveLoop app. Defines the visual language, colour tokens, components and copy tone so every screen looks the same.
+description: Use before building or restyling any UI in frontend/ (pages, cards, badges, charts, video overlay, export panel) for the Drive Loop app. Defines the visual language, colour tokens, components and copy tone so every screen looks the same.
 ---
 
-# DriveLoop design language
+# Drive Loop design language
 
 Stack: React + Vite + Tailwind CSS 4 + shadcn/ui. Screens and data are in `docs/frontend.md` and
 `docs/api-contract.md`. Follow this file for how things look.
@@ -23,7 +23,7 @@ shadcn/ui variable names, Tailwind 4 `@theme inline` mapping. Values are oklch.
 @import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
-/* DriveLoop tokens. Night-drive palette: deep navy surfaces, electric-cyan primary.
+/* Drive Loop tokens. Night-drive palette: deep navy surfaces, electric-cyan primary.
    Semantic colours (danger, speed lines, demo) keep their meaning; see .claude/skills/design. */
 :root {
   --background: oklch(0.985 0.004 250);  --foreground: oklch(0.21 0.03 260);

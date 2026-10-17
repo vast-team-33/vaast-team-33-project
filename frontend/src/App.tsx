@@ -2,6 +2,7 @@ import { IS_MOCK } from '@/api/client'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { APP_NAME } from '@/brand'
+import Logo from '@/components/Logo'
 import { href, useRoute, type Route } from '@/router'
 import Overview from '@/pages/Overview'
 import Events from '@/pages/Events'
@@ -21,7 +22,7 @@ export default function App() {
     <div className="min-h-screen">
       <header className="border-b">
         <div className="mx-auto flex max-w-[1600px] items-center gap-6 px-4 py-3 md:px-8">
-          <a href={href({ page: 'overview' })} className="flex items-center gap-2 text-lg font-bold tracking-tight"><span className="inline-block size-2.5 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />{APP_NAME}</a>
+          <a href={href({ page: 'overview' })} className="flex items-center gap-2 text-lg font-bold tracking-tight"><Logo className="size-7" />{APP_NAME}</a>
           <nav className="flex gap-1">
             {NAV.map((n) => (
               <a

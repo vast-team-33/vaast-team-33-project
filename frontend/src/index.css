@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
-/* DriveLoop tokens. Night-drive palette: deep navy surfaces, electric-cyan primary.
+/* Drive Loop tokens. Night-drive palette: deep navy surfaces, electric-cyan primary.
    Semantic colours (danger, speed lines, demo) keep their meaning; see .claude/skills/design. */
 :root {
   --background: oklch(0.985 0.004 250);  --foreground: oklch(0.21 0.03 260);
