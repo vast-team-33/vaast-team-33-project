@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { getConfig, getDetections, getEvent, mediaUrl, type ApiEvent, type Config, type Detections } from '@/api/client'
+import { getConfig, getDetections, getEvent, listDetectors, mediaUrl, type ApiEvent, type Config, type Detections } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { href } from '@/router'
@@ -35,6 +35,46 @@ function Overlay({ det, cfg, t }: { det: Detections | null; cfg: Config | null; 
         )
       })}
     </svg>
+  )
+}
+
+// Clips found by a plain-word detector carry the judge's match confidence, not a danger score
+// (the backend stores it in `danger` as confidence × 100; newer backends also send match_confidence).
+const isMatch = (e: ApiEvent) => !!e.detector_id && e.detector_id !== 'crossing_risk'
+const matchPct = (e: ApiEvent) => {
+  const c = (e as ApiEvent & { match_confidence?: number }).match_confidence
+  return Math.round(c !== undefined ? c * 100 : e.danger)
+}
+
+function MatchCard({ e }: { e: ApiEvent }) {
+  const [name, setName] = useState('')
+  const [base, setBase] = useState<ApiEvent | null>(null)
+  useEffect(() => {
+    listDetectors().then((ds) => setName(ds.find((d) => d.id === e.detector_id)?.name ?? '')).catch(() => {})
+    const baseId = e.id.split('__')[0]
+    if (baseId !== e.id) getEvent(baseId).then(setBase).catch(() => setBase(null))
+  }, [e])
+  return (
+    <Card className="gap-3 p-4">
+      <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        Found by detector{' '}
+        <a href={href({ page: 'detector', id: e.detector_id })} className="normal-case tracking-normal text-primary hover:underline">{name || e.detector_id}</a>
+      </div>
+      <div className="flex items-baseline gap-3">
+        <span className="font-mono text-5xl font-semibold tabular-nums text-primary">{matchPct(e)}%</span>
+        <span className="text-sm font-medium uppercase tracking-wide text-muted-foreground">match confidence</span>
+      </div>
+      <div className="h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-primary" style={{ width: `${matchPct(e)}%` }} /></div>
+      <div>
+        <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Judge reason</div>
+        <p className="text-sm">{e.reason}</p>
+      </div>
+      <p className="text-xs text-muted-foreground">
+        This is how sure the judge (NVIDIA Cosmos3-Reason) is that the clip matches the detector, not a danger score. The danger score,
+        pedestrian position and driver-vs-model comparison come from the built-in pedestrian detector.
+      </p>
+      {base && <a href={href({ page: 'event', id: base.id })} className="text-sm text-primary hover:underline">This clip also has a built-in analysis: danger {base.danger} →</a>}
+    </Card>
   )
 }
 
@@ -88,7 +128,7 @@ export default function EventDetail({ id }: { id: string }) {
           </div>
         </div>
 
-        <Card className="gap-3 p-4">
+        {isMatch(e) ? <MatchCard e={e} /> : <Card className="gap-3 p-4">
           <ScoreNumber e={e} big />
           <EventBadges e={e} />
           <div className="grid grid-cols-2 gap-3 text-sm">
@@ -105,10 +145,10 @@ export default function EventDetail({ id }: { id: string }) {
             <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Judge reason</div>
             <p className="text-sm">{e.reason}</p>
           </div>
-        </Card>
+        </Card>}
       </div>
 
-      <Card className="gap-3 p-4">
+      {e.speeds.length > 0 && <Card className="gap-3 p-4">
         <h2 className="text-lg font-medium">Speed over the 5 s clip</h2>
         <SpeedChart
           measured={e.speeds} suggested={e.suggested_speeds} sampleSec={sampleSec} height={180} peak={e.peak_sec} playhead={t} axis
@@ -117,9 +157,9 @@ export default function EventDetail({ id }: { id: string }) {
         <div className="text-xs text-muted-foreground">
           <Legend /> <span className="ml-3">Red dotted line: peak danger at {e.peak_sec} s. Relative speed, no unit.</span>
         </div>
-      </Card>
+      </Card>}
 
-      <Card className="gap-3 p-4">
+      {!isMatch(e) && <Card className="gap-3 p-4">
         <h2 className="text-lg font-medium">Score breakdown</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {FACTORS.map(([k, name, why]) => (
@@ -131,7 +171,7 @@ export default function EventDetail({ id }: { id: string }) {
           ))}
         </div>
         {cfg?.score.formula && <pre className="overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs">danger = {cfg.score.formula}</pre>}
-      </Card>
+      </Card>}
 
       <Card className="gap-3 p-4">
         <h2 className="text-lg font-medium">Your label</h2>
