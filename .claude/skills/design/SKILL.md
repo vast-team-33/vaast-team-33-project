@@ -1,9 +1,9 @@
 ---
 name: design
-description: Use before building or restyling any UI in frontend/ (pages, cards, badges, charts, video overlay, export panel) for the Crossing Risk app. Defines the visual language, colour tokens, components and copy tone so every screen looks the same.
+description: Use before building or restyling any UI in frontend/ (pages, cards, badges, charts, video overlay, export panel) for the DriveLoop app. Defines the visual language, colour tokens, components and copy tone so every screen looks the same.
 ---
 
-# Crossing Risk design language
+# DriveLoop design language
 
 Stack: React + Vite + Tailwind CSS 4 + shadcn/ui. Screens and data are in `docs/frontend.md` and
 `docs/api-contract.md`. Follow this file for how things look.
@@ -23,39 +23,43 @@ shadcn/ui variable names, Tailwind 4 `@theme inline` mapping. Values are oklch.
 @import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
+/* DriveLoop tokens. Night-drive palette: deep navy surfaces, electric-cyan primary.
+   Semantic colours (danger, speed lines, demo) keep their meaning; see .claude/skills/design. */
 :root {
-  --background: oklch(0.985 0.003 250);  --foreground: oklch(0.2 0.02 255);
-  --card: oklch(1 0 0);                  --card-foreground: oklch(0.2 0.02 255);
-  --popover: oklch(1 0 0);               --popover-foreground: oklch(0.2 0.02 255);
-  --primary: oklch(0.45 0.15 255);       --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.95 0.008 250);    --secondary-foreground: oklch(0.25 0.02 255);
-  --muted: oklch(0.95 0.008 250);        --muted-foreground: oklch(0.48 0.02 255);
-  --accent: oklch(0.93 0.015 250);       --accent-foreground: oklch(0.2 0.02 255);
+  --background: oklch(0.985 0.004 250);  --foreground: oklch(0.21 0.03 260);
+  --card: oklch(1 0 0);                  --card-foreground: oklch(0.21 0.03 260);
+  --popover: oklch(1 0 0);               --popover-foreground: oklch(0.21 0.03 260);
+  --primary: oklch(0.55 0.13 215);       --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.95 0.01 250);     --secondary-foreground: oklch(0.26 0.03 260);
+  --muted: oklch(0.955 0.008 250);       --muted-foreground: oklch(0.47 0.025 258);
+  --accent: oklch(0.93 0.02 230);        --accent-foreground: oklch(0.21 0.03 260);
   --destructive: oklch(0.55 0.22 27);
-  --border: oklch(0.9 0.01 250);  --input: oklch(0.9 0.01 250);  --ring: oklch(0.55 0.15 255);
-  --radius: 0.5rem;
+  --border: oklch(0.9 0.012 250);  --input: oklch(0.9 0.012 250);  --ring: oklch(0.6 0.13 215);
+  --radius: 0.625rem;
+  --glow: oklch(0.55 0.13 215 / 8%);       /* faint page glow behind the header */
   /* semantic */
   --danger-high: oklch(0.55 0.22 27);      /* score >= 60 */
   --danger-mid:  oklch(0.7 0.16 70);       /* score >= 30 */
   --danger-low:  oklch(0.58 0.15 150);     /* else */
-  --speed-measured: oklch(0.55 0.19 255);  /* blue, solid */
+  --speed-measured: oklch(0.55 0.19 260);  /* blue, solid */
   --speed-suggested: oklch(0.75 0.16 90);  /* yellow, dashed */
   --demo: oklch(0.6 0.2 310);              /* violet "demo" badge */
 }
 .dark {
-  --background: oklch(0.15 0.015 255);   --foreground: oklch(0.96 0.005 250);
-  --card: oklch(0.2 0.02 255);           --card-foreground: oklch(0.96 0.005 250);
-  --popover: oklch(0.2 0.02 255);        --popover-foreground: oklch(0.96 0.005 250);
-  --primary: oklch(0.72 0.14 250);       --primary-foreground: oklch(0.15 0.015 255);
-  --secondary: oklch(0.26 0.02 255);     --secondary-foreground: oklch(0.96 0.005 250);
-  --muted: oklch(0.26 0.02 255);         --muted-foreground: oklch(0.7 0.02 250);
-  --accent: oklch(0.3 0.03 255);         --accent-foreground: oklch(0.96 0.005 250);
+  --background: oklch(0.14 0.022 262);   --foreground: oklch(0.96 0.006 250);
+  --card: oklch(0.185 0.026 262);        --card-foreground: oklch(0.96 0.006 250);
+  --popover: oklch(0.185 0.026 262);     --popover-foreground: oklch(0.96 0.006 250);
+  --primary: oklch(0.82 0.13 200);       --primary-foreground: oklch(0.17 0.03 240);
+  --secondary: oklch(0.25 0.03 262);     --secondary-foreground: oklch(0.96 0.006 250);
+  --muted: oklch(0.23 0.028 262);        --muted-foreground: oklch(0.72 0.025 255);
+  --accent: oklch(0.28 0.045 255);       --accent-foreground: oklch(0.96 0.006 250);
   --destructive: oklch(0.65 0.22 25);
-  --border: oklch(1 0 0 / 11%);  --input: oklch(1 0 0 / 15%);  --ring: oklch(0.65 0.14 250);
-  --danger-high: oklch(0.65 0.23 25);
+  --border: oklch(0.78 0.05 255 / 14%);  --input: oklch(0.78 0.05 255 / 18%);  --ring: oklch(0.82 0.13 200);
+  --glow: oklch(0.82 0.13 200 / 9%);
+  --danger-high: oklch(0.66 0.23 25);
   --danger-mid:  oklch(0.8 0.16 75);
-  --danger-low:  oklch(0.72 0.17 150);
-  --speed-measured: oklch(0.7 0.16 250);
+  --danger-low:  oklch(0.74 0.17 150);
+  --speed-measured: oklch(0.7 0.17 260);
   --speed-suggested: oklch(0.87 0.17 95);
   --demo: oklch(0.74 0.18 310);
 }
@@ -63,7 +67,9 @@ shadcn/ui variable names, Tailwind 4 `@theme inline` mapping. Values are oklch.
   --color-background: var(--background);  --color-foreground: var(--foreground);
   --color-card: var(--card);              --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);        --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);    --color-muted: var(--muted);
+  --color-secondary: var(--secondary);    --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);            --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);        --color-popover-foreground: var(--popover-foreground);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);          --color-destructive: var(--destructive);
   --color-border: var(--border);          --color-input: var(--input);  --color-ring: var(--ring);
@@ -110,6 +116,8 @@ Never rely on colour alone: also show the number and a word (High / Medium / Low
 - **Demo badge:** `border-demo/40 bg-demo/15 text-demo`, text "demo". Put it on everything that is simulated or sample data.
 
 ## Background imagery
+
+- Home hero: the car's front-camera frame with its real perception overlay (lane zone, stored YOLO boxes, HUD labels) next to the copy. Variants `?hero=full` and `?hero=wall` exist for comparison.
 
 - Only our own dashcam frames: `api/fixtures/media/hero/dashcam_{1,2,3}.jpg` (bright daytime Toronto with a deep blue sky, so they need heavy darkening).
 - Hero recipe: image as `bg-cover bg-center`, plus overlay `bg-gradient-to-b from-background/70 via-background/85 to-background`, optionally `blur-sm scale-105` on the image. Text must stay at least 4.5:1 contrast.

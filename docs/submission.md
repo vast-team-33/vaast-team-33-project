@@ -4,15 +4,15 @@ Form: https://tokensand.com/vastlondon → **Submit your project**. Due **16:30 
 
 ## Project name
 
-Crossing Risk
+DriveLoop
 
 ## One-line pitch
 
-Crossing Risk finds pedestrians stepping into the road in real dashcam footage, scores the danger, compares the driver with an AI model, and turns each moment into a scenario for simulator training.
+DriveLoop turns self-driving fleet video into training data: it keeps the footage on VAST, finds risky moments with NVIDIA models (pedestrians stepping into the road today, any scenario in plain words), compares the driver with the model, and packages each moment for simulator training.
 
 ## What we built (about 200 words)
 
-Crossing Risk searches the Toronto dashcam archive on the VAST VSS platform for people on the road in front of the car. We use stored YOLO11 boxes to find candidates. Cosmos3-Reason watches each clip and says where the person is (road, crosswalk or sidewalk), how risky it is, and what the car should do. We measure what the driver really did with optical flow on the video, and we give each moment a danger score from 0 to 100. Then we compare the driver with the model: more careful, as careful, or less careful.
+DriveLoop searches the Toronto dashcam archive on the VAST VSS platform for people on the road in front of the car. We use stored YOLO11 boxes to find candidates. Cosmos3-Reason watches each clip and says where the person is (road, crosswalk or sidewalk), how risky it is, and what the car should do. We measure what the driver really did with optical flow on the video, and we give each moment a danger score from 0 to 100. Then we compare the driver with the model: more careful, as careful, or less careful.
 
 People can press "who was right?" on each moment. Every answer is a labelled example for later training.
 

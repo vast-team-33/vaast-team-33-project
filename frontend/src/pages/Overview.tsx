@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
-import { getSummary, mediaUrl, type Summary } from '@/api/client'
-import { href } from '@/router'
+import { getSummary, type Summary } from '@/api/client'
+import Hero from '@/components/overview/Hero'
+
+const PILLARS = [
+  { k: '01', t: 'Store it reliably', d: 'Fleet video lands on VAST: clips in S3, detections and search vectors in VastDB, ready at petabyte scale for training and for audits later.' },
+  { k: '02', t: 'Find and check what matters', d: 'Search the archive, run built-in or plain-word detectors with NVIDIA Cosmos and Nemotron, and let a person confirm who was right: the driver or the model.' },
+  { k: '03', t: 'Simulate and train', d: 'Each confirmed moment becomes a scenario package. A simulator multiplies it into many variants (demo) to train and regression-test the next model.' },
+]
 
 const CARDS = [
-  { t: 'Detect', d: 'YOLO finds people in every dashcam frame. A lane zone tells us who is stepping into our path.' },
-  { t: 'Judge', d: 'NVIDIA Cosmos3-Reason and Nemotron VL read the moment and say how dangerous it was and why.' },
-  { t: 'Compare', d: 'Measured speed of the driver against the speed the model suggests. Where they differ, we learn.' },
+  { t: 'Detect', d: 'Stored YOLO boxes find a person in the lane ahead of the car. Today\'s built-in scenario: pedestrians on the road.' },
+  { t: 'Judge', d: 'NVIDIA Cosmos3-Reason watches the clip; Nemotron VL checks the frame: road, crosswalk or sidewalk, and how risky.' },
+  { t: 'Compare', d: 'The driver\'s measured speed against the speed the model suggests. Where they differ, the next model learns.' },
 ]
 
 function Stat({ label, value }: { label: string; value?: number }) {
@@ -24,22 +30,20 @@ export default function Overview() {
 
   return (
     <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-lg border border-border">
-        <img src={mediaUrl('media/hero/dashcam_2.jpg')} alt="" className="absolute inset-0 size-full scale-105 object-cover blur-sm" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
-        <div className="relative px-6 py-14 md:py-20">
-          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Crossing Risk</h1>
-          <p className="mt-4 max-w-2xl text-base text-foreground/90">
-            We find pedestrians stepping into the road in real dashcam footage, score the danger, compare the driver with an AI model, and package each moment for simulator training.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href={href({ page: 'events' })} className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">See dangerous moments</a>
-            <a href={href({ page: 'detectors' })} className="rounded-md border border-border bg-background/60 px-4 py-2 text-sm font-medium hover:bg-accent">Write your own detector</a>
+      <Hero />
+
+      <section className="grid gap-3 md:grid-cols-3">
+        {PILLARS.map((p) => (
+          <div key={p.k} className="rounded-lg border border-border bg-card p-5">
+            <div className="font-mono text-xs text-primary">{p.k}</div>
+            <div className="mt-1 text-base font-semibold">{p.t}</div>
+            <p className="mt-1 text-sm text-muted-foreground">{p.d}</p>
           </div>
-        </div>
+        ))}
       </section>
 
       <section>
+        <h2 className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">This demo, on real fleet footage</h2>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
           <Stat label="Clips scanned" value={s?.clips_scanned} />
           <Stat label="Candidates" value={s?.candidates} />
@@ -66,7 +70,7 @@ export default function Overview() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-lg font-medium">How it works</h2>
+        <h2 className="mb-3 text-lg font-medium">How today's built-in scenario works</h2>
         <div className="grid gap-3 md:grid-cols-3">
           {CARDS.map((c) => (
             <div key={c.t} className="rounded-lg border border-border bg-card p-4">
