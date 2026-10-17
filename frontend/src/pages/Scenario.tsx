@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import SpeedChart from '@/components/scenario/SpeedChart'
 import CopyBlock from '@/components/scenario/CopyBlock'
-import SendPanel from '@/components/scenario/SendPanel'
+import SimulatorStudio from '@/components/scenario/SimulatorStudio'
 
 const band = (d: number) => (d >= 60 ? 'var(--danger-high)' : d >= 30 ? 'var(--danger-mid)' : 'var(--danger-low)')
 const human = (s: string) => s.replace(/_/g, ' ')
@@ -100,16 +100,12 @@ export default function Scenario({ id }: { id: string }) {
         <CopyBlock text={sc.generation_prompt} />
       </Section>
 
-      <Section title="Hand-off">
+      <Section title="Simulate and train">
         <div className="space-y-4">
+          <SimulatorStudio id={id} scenario={sc} frameUrl={mediaUrl(ev.thumb_url)} />
           <Button variant="outline" onClick={() => download(sc)}>Download scenario JSON</Button>
-          <SendPanel id={id} scenario={sc} />
         </div>
       </Section>
-
-      <p className="text-sm text-muted-foreground">
-        What happens next (roadmap): the simulator generates synthetic variants of this moment; they are used to retrain the driving model.
-      </p>
     </div>
   )
 }
