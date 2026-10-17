@@ -9,11 +9,12 @@ import Events from '@/pages/Events'
 import EventDetail from '@/pages/EventDetail'
 import Scenario from '@/pages/Scenario'
 import Detectors from '@/pages/Detectors'
+import DetectorDetail from '@/pages/DetectorDetail'
 
 const NAV: { label: string; route: Route; match: Route['page'][] }[] = [
   { label: 'Overview', route: { page: 'overview' }, match: ['overview'] },
   { label: 'Events', route: { page: 'events' }, match: ['events', 'event', 'scenario'] },
-  { label: 'Detectors', route: { page: 'detectors' }, match: ['detectors'] },
+  { label: 'Detectors', route: { page: 'detectors' }, match: ['detectors', 'detector'] },
 ]
 
 export default function App() {
@@ -46,6 +47,7 @@ export default function App() {
         {route.page === 'event' && <EventDetail id={route.id} />}
         {route.page === 'scenario' && <Scenario id={route.id} />}
         {route.page === 'detectors' && <Detectors />}
+        {route.page === 'detector' && <DetectorDetail id={route.id} />}
       </main>
     </div>
   )

@@ -77,7 +77,8 @@ export const exportScenario = (id: string, target: ExportTarget) =>
     ? m<ExportResult>((x) => x.exportRes)
     : req<ExportResult>(`events/${encodeURIComponent(id)}/export`, { method: 'POST', body: { target } })
 export const listDetectors = () =>
-  IS_MOCK ? m<Detector[]>((x) => x.detectors) : req<Detector[]>('detectors')
+  (IS_MOCK ? m<Detector[] | { items: Detector[] }>((x) => x.detectors) : req<Detector[] | { items: Detector[] }>('detectors'))
+    .then((r) => (Array.isArray(r) ? r : r.items))   // the server answers { items: [...] }
 export const createDetector = (d: DetectorInput) =>
   IS_MOCK ? m<Detector>((x) => x.detector) : req<Detector>('detectors', { method: 'POST', body: d })
 export const previewDetector = (id: string, eventId?: string) =>

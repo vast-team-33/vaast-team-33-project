@@ -7,12 +7,14 @@ export type Route =
   | { page: 'event'; id: string }
   | { page: 'scenario'; id: string }
   | { page: 'detectors' }
+  | { page: 'detector'; id: string }
 
 export function parseHash(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent)
   if (parts[0] === 'events' && parts[1] && parts[2] === 'scenario') return { page: 'scenario', id: parts[1] }
   if (parts[0] === 'events' && parts[1]) return { page: 'event', id: parts[1] }
   if (parts[0] === 'events') return { page: 'events' }
+  if (parts[0] === 'detectors' && parts[1]) return { page: 'detector', id: parts[1] }
   if (parts[0] === 'detectors') return { page: 'detectors' }
   return { page: 'overview' }
 }
@@ -24,6 +26,7 @@ export function href(route: Route): string {
     case 'event': return `#/events/${encodeURIComponent(route.id)}`
     case 'scenario': return `#/events/${encodeURIComponent(route.id)}/scenario`
     case 'detectors': return '#/detectors'
+    case 'detector': return `#/detectors/${encodeURIComponent(route.id)}`
   }
 }
 
