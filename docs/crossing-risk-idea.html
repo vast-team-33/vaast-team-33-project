@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Self-Driving Training Loop</title>
+<script>
+  // ?theme=dark or ?theme=light forces a theme; the app's home screen embeds this page with the app's theme.
+  (() => { const t = new URLSearchParams(location.search).get("theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t })();
+</script>
 <!--
   Crossing Risk: the whole idea as one interactive diagram. Team 33, VAST Builders Challenge London, 17 Oct 2026.
   Self-contained, no dependencies, works from file://.
