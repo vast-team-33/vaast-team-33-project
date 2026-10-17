@@ -82,7 +82,7 @@ export default function Overview() {
       </section>
 
       <footer className="border-t border-border pt-4 text-xs text-muted-foreground">
-        VAST Data VSS · VastDB · NVIDIA Cosmos · W&amp;B Inference
+        VAST Data VSS · VastDB · NVIDIA Cosmos · CoreWeave · W&amp;B Inference · Cursor
       </footer>
     </div>
   )
