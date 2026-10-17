@@ -1,0 +1,8 @@
+ref/vss-blueprint/
+cache/
+.venv/
+.env
+*.config
+data/
+__pycache__/
+.DS_Store

@@ -1,0 +1,3 @@
+[submodule "ref/vast-builders-challenge"]
+	path = ref/vast-builders-challenge
+	url = https://github.com/vast-data/vast-builders-challenge.git
