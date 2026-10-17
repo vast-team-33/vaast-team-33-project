@@ -44,8 +44,12 @@ def suggested_curve(sp, action):
 
 LOC = {"on_road": 1.0, "on_crosswalk": 0.6, "on_sidewalk_or_curb": 0.15, "none": 0.05}
 
+dropped_non_pedestrian = 0
 events = []
 for e in raw["events"]:
+    if (e.get("verdict") or {}).get("subject", "pedestrian") != "pedestrian":
+        dropped_non_pedestrian += 1       # cyclist / scooter / other (YOLO labels riders "person")
+        continue
     v = e["verdict"] or {}
     sp = e["speeds"]
     closeness = min(1.0, e["max_box_h"] / (0.5 * e["frame_h"]))       # box half the frame tall = very close
@@ -71,7 +75,28 @@ for e in raw["events"]:
     events.append(e)
 
 events.sort(key=lambda e: -e["danger"])
-json.dump({"scanned": raw["scanned"], "in_zone": raw["in_zone"], "stop_threshold": STOP, "events": events},
+
+
+def same_footage(a, b):
+    """Identical speeds, or segment 6 of chunk N vs segment 1 of chunk N+1 of the same drive with near-identical speeds."""
+    if a["speeds"] and a["speeds"] == b["speeds"]:
+        return True
+    for x, y in ((a, b), (b, a)):
+        if (x["drive"] == y["drive"] and x["segment"] == 6 and y["segment"] == 1 and y["chunk"] == x["chunk"] + 1
+                and x["speeds"] and len(x["speeds"]) == len(y["speeds"])):
+            return max(abs(p - q) for p, q in zip(x["speeds"], y["speeds"])) <= 0.02
+    return False
+
+
+kept, dropped_duplicates = [], 0
+for e in events:                           # sorted by danger desc, so the first of a duplicate pair is the one to keep
+    if any(same_footage(e, k) for k in kept):
+        dropped_duplicates += 1
+        continue
+    kept.append(e)
+events = kept
+json.dump({"scanned": raw["scanned"], "in_zone": raw["in_zone"], "stop_threshold": STOP,
+           "dropped_non_pedestrian": dropped_non_pedestrian, "dropped_duplicates": dropped_duplicates, "events": events},
           open(os.path.join(WEB, EVENTS_OUT), "w"), indent=1)
 for e in events:
     print(f"{e['danger']:3d} {e['drive']} c{e['chunk']:02d} {(e['verdict'] or {}).get('pedestrian_position')}: "
