@@ -1,0 +1,77 @@
+# ConfigMaps (crossing-risk-backend, -frontend, -frontend-assets, -data, -bootstrap)
+# and Secret crossing-risk-s3 are created by deploy.sh. Safe to apply over the existing objects.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crossing-risk
+  namespace: team-33
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: {app: crossing-risk}
+  template:
+    metadata:
+      labels: {app: crossing-risk}
+    spec:
+      containers:
+        - name: app
+          image: python:3.12-slim
+          command: ["sh", "/app/bootstrap/start.sh"]
+          envFrom:
+            - secretRef: {name: crossing-risk-s3}
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet: {path: /api/health, port: 8080}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 60
+          resources:
+            requests: {cpu: 100m, memory: 256Mi}
+            limits: {memory: 1Gi}
+          volumeMounts:
+            - {name: backend, mountPath: /app/backend}
+            - {name: bootstrap, mountPath: /app/bootstrap}
+            - {name: frontend, mountPath: /app/frontend-dist}
+            - {name: frontend-assets, mountPath: /app/frontend-assets}
+            - {name: config-data, mountPath: /config-data}
+            - {name: data, mountPath: /data}
+      volumes:
+        - {name: backend, configMap: {name: crossing-risk-backend}}
+        - {name: bootstrap, configMap: {name: crossing-risk-bootstrap}}
+        - {name: frontend, configMap: {name: crossing-risk-frontend}}
+        - {name: frontend-assets, configMap: {name: crossing-risk-frontend-assets}}
+        - {name: config-data, configMap: {name: crossing-risk-data}}
+        - {name: data, emptyDir: {}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crossing-risk
+  namespace: team-33
+spec:
+  selector: {app: crossing-risk}
+  ports:
+    - {port: 80, targetPort: 8080}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: crossing-risk
+  namespace: team-33
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: video-lab-team-33.cosmos.vastdata.com
+      http:
+        paths:
+          - path: /app(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: crossing-risk
+                port: {number: 80}
