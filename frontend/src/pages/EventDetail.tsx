@@ -110,7 +110,10 @@ export default function EventDetail({ id }: { id: string }) {
 
       <Card className="gap-3 p-4">
         <h2 className="text-lg font-medium">Speed over the 5 s clip</h2>
-        <SpeedChart measured={e.speeds} suggested={e.suggested_speeds} sampleSec={sampleSec} height={180} peak={e.peak_sec} playhead={t} axis />
+        <SpeedChart
+          measured={e.speeds} suggested={e.suggested_speeds} sampleSec={sampleSec} height={180} peak={e.peak_sec} playhead={t} axis
+          onSeek={(s) => { if (vref.current) vref.current.currentTime = s }}
+        />
         <div className="text-xs text-muted-foreground">
           <Legend /> <span className="ml-3">Red dotted line: peak danger at {e.peak_sec} s. Relative speed, no unit.</span>
         </div>

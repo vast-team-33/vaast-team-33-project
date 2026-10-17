@@ -66,22 +66,38 @@ export function ScoreNumber({ e, big }: { e: ApiEvent; big?: boolean }) {
   )
 }
 
-/** Hand-rolled speed chart. `height` in px; `peak` marks peak_sec; `playhead` in seconds. */
+/** Hand-rolled speed chart. `height` in px; `peak` marks peak_sec; `playhead` in seconds; `onSeek` makes it clickable. */
 export function SpeedChart({
-  measured, suggested, sampleSec, height = 70, peak, playhead, axis,
+  measured, suggested, sampleSec, height = 70, peak, playhead, axis, onSeek,
 }: {
   measured: number[]; suggested: number[]; sampleSec: number; height?: number; peak?: number; playhead?: number; axis?: boolean
+  onSeek?: (sec: number) => void
 }) {
   const W = 400, H = 100
   const max = Math.max(0.01, ...measured, ...suggested) * 1.1
   const dur = Math.max(measured.length, suggested.length, 2) * sampleSec
-  const x = (s: number) => (s / dur) * W
-  const pts = (a: number[]) => a.map((v, i) => `${x(i * sampleSec)},${H - (v / max) * H}`).join(' ')
+  const x = (s: number) => Math.min(W, (s / dur) * W)
+  const y = (v: number) => H - (v / max) * H
+  const pts = (a: number[]) => a.map((v, i) => `${x(i * sampleSec)},${y(v)}`).join(' ')
   const ticks = Array.from({ length: Math.floor(dur) + 1 }, (_, i) => i)
   const line = { vectorEffect: 'non-scaling-stroke' as const }
+  // Measured speed under the playhead, interpolated between samples.
+  const at = (s: number) => {
+    const f = Math.min(measured.length - 1, Math.max(0, s / sampleSec))
+    const i = Math.floor(f), j = Math.min(measured.length - 1, i + 1)
+    return measured[i] + (measured[j] - measured[i]) * (f - i)
+  }
+  const seek = (ev: React.MouseEvent<SVGSVGElement>) => {
+    const r = ev.currentTarget.getBoundingClientRect()
+    onSeek?.(Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)) * dur)
+  }
   return (
     <div>
-      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{ height }} className="w-full rounded-md bg-muted/40">
+      <svg
+        viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{ height }} onClick={onSeek ? seek : undefined}
+        className={cn('w-full rounded-md bg-muted/40', onSeek && 'cursor-pointer')}
+        aria-label={onSeek ? 'Speed chart: click to jump the video to that moment' : 'Speed chart'}
+      >
         {[0.25, 0.5, 0.75].map((g) => (
           <line key={g} x1={0} x2={W} y1={H * g} y2={H * g} className="stroke-border" strokeWidth={1} {...line} />
         ))}
@@ -93,8 +109,11 @@ export function SpeedChart({
         )}
         <polyline points={pts(suggested)} fill="none" className="stroke-speed-suggested" strokeWidth={2} strokeDasharray="6 4" {...line} />
         <polyline points={pts(measured)} fill="none" className="stroke-speed-measured" strokeWidth={2} {...line} />
-        {playhead !== undefined && (
-          <line x1={x(playhead)} x2={x(playhead)} y1={0} y2={H} className="stroke-foreground" strokeWidth={1.5} {...line} />
+        {playhead !== undefined && measured.length > 0 && (
+          <>
+            <line x1={x(playhead)} x2={x(playhead)} y1={0} y2={H} className="stroke-foreground" strokeWidth={1.5} {...line} />
+            <circle cx={x(playhead)} cy={y(at(playhead))} r={3.5} className="fill-speed-measured stroke-foreground" strokeWidth={1.5} {...line} />
+          </>
         )}
       </svg>
       {axis && (

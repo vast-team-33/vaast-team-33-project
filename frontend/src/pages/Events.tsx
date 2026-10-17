@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getSummary, listEvents, mediaUrl, type ApiEvent, type EventParams, type Summary } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -16,6 +16,27 @@ const sel = 'h-8 rounded-md border bg-background px-2 text-sm'
 
 function EventCard({ e }: { e: ApiEvent }) {
   const sec = (e.frames_in_lane / 30).toFixed(1)
+  const vref = useRef<HTMLVideoElement>(null)
+  const [t, setT] = useState<number | undefined>(undefined)
+  const [playing, setPlaying] = useState(false)
+
+  // Follow the video smoothly while it plays; timeupdate alone only fires about 4 times a second.
+  useEffect(() => {
+    if (!playing) return
+    let raf = 0
+    const tick = () => { if (vref.current) setT(vref.current.currentTime); raf = requestAnimationFrame(tick) }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [playing])
+
+  const seek = (s: number) => {
+    const v = vref.current
+    if (!v) return
+    if (v.preload === 'none') v.preload = 'auto'
+    v.currentTime = s
+    setT(s)
+  }
+
   return (
     <Card className="gap-3 p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -23,7 +44,9 @@ function EventCard({ e }: { e: ApiEvent }) {
         <a href={href({ page: 'event', id: e.id })} className="text-sm text-primary hover:underline">Details →</a>
       </div>
       <video
-        controls muted playsInline preload="none" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)}
+        ref={vref} controls muted playsInline preload="none" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)}
+        onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
+        onSeeked={(ev) => setT(ev.currentTarget.currentTime)}
         className="aspect-video w-full rounded-lg bg-black object-cover"
       />
       <EventBadges e={e} />
@@ -37,7 +60,7 @@ function EventCard({ e }: { e: ApiEvent }) {
           <div className="font-medium">{SUGGESTED[e.suggested_action]}</div>
         </div>
       </div>
-      <SpeedChart measured={e.speeds} suggested={e.suggested_speeds} sampleSec={0.2} height={70} peak={e.peak_sec} />
+      <SpeedChart measured={e.speeds} suggested={e.suggested_speeds} sampleSec={0.2} height={70} peak={e.peak_sec} playhead={t} onSeek={seek} />
       <p className="text-sm">{e.reason}</p>
       <FeedbackBar e={e} compact />
       <div className="font-mono text-xs text-muted-foreground">
