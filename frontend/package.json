@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-idea.mjs",
+    "prebuild": "node scripts/copy-idea.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",

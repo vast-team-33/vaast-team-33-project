@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getSummary, mediaUrl, type Summary } from '@/api/client'
 import { href } from '@/router'
-import LoopDiagram from '@/components/overview/LoopDiagram'
 
 const CARDS = [
   { t: 'Detect', d: 'YOLO finds people in every dashcam frame. A lane zone tells us who is stepping into our path.' },
@@ -53,10 +52,17 @@ export default function Overview() {
         </p>
       </section>
 
-      <section className="rounded-lg border border-border bg-card p-4">
-        <h2 className="text-lg font-medium">The self-improvement loop</h2>
-        <p className="mb-4 mt-1 text-sm text-muted-foreground">Steps 1 to 6 are built. The simulator hand-off is a demo. The rest is roadmap.</p>
-        <LoopDiagram />
+      <section className="space-y-2">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-lg font-medium">The whole idea: a self-training loop</h2>
+          <a href="idea.html?theme=dark" target="_blank" rel="noopener" className="text-sm text-primary hover:underline">Open full screen ↗</a>
+        </div>
+        <p className="text-sm text-muted-foreground">Click a box or use the arrows to walk through the 10 steps. Solid boxes run today, hatched is a demo, dashed is next.</p>
+        <iframe
+          src="idea.html?theme=dark"
+          title="The self-training loop for self-driving cars"
+          className="h-[1500px] w-full rounded-lg border border-border bg-card lg:h-[760px]"
+        />
       </section>
 
       <section>
