@@ -1,60 +1,50 @@
-import { useEffect, useState } from 'react'
-import { IS_MOCK, getSummary, listEvents, mediaUrl, type ApiEvent, type Summary } from '@/api/client'
+import { IS_MOCK } from '@/api/client'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import { href, useRoute, type Route } from '@/router'
+import Overview from '@/pages/Overview'
+import Events from '@/pages/Events'
+import EventDetail from '@/pages/EventDetail'
+import Scenario from '@/pages/Scenario'
+import Detectors from '@/pages/Detectors'
 
-const dangerColor = (d: number) => (d >= 60 ? 'bg-red-600' : d >= 30 ? 'bg-amber-500' : 'bg-green-600')
+const NAV: { label: string; route: Route; match: Route['page'][] }[] = [
+  { label: 'Overview', route: { page: 'overview' }, match: ['overview'] },
+  { label: 'Events', route: { page: 'events' }, match: ['events', 'event', 'scenario'] },
+  { label: 'Detectors', route: { page: 'detectors' }, match: ['detectors'] },
+]
 
 export default function App() {
-  const [summary, setSummary] = useState<Summary | null>(null)
-  const [events, setEvents] = useState<ApiEvent[]>([])
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    Promise.all([getSummary(), listEvents({ sort: 'danger_desc' })])
-      .then(([s, e]) => {
-        setSummary(s)
-        setEvents(e.items)
-      })
-      .catch((e: Error) => setError(e.message))
-  }, [])
-
-  const stats: [string, number | undefined][] = [
-    ['Clips scanned', summary?.clips_scanned],
-    ['Candidates', summary?.candidates],
-    ['Events', summary?.events],
-    ['Driver less careful', summary?.by_agreement?.driver_less_careful],
-    ['Labels', summary?.feedback_count],
-  ]
-
+  const route = useRoute()
   return (
-    <div className="mx-auto max-w-6xl p-4">
-      <header className="mb-6 flex items-baseline justify-between">
-        <h1 className="text-2xl font-bold">Crossing Risk</h1>
-        {IS_MOCK && <Badge variant="outline">mock data</Badge>}
+    <div className="min-h-screen">
+      <header className="border-b">
+        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
+          <a href={href({ page: 'overview' })} className="text-lg font-bold tracking-tight">Crossing Risk</a>
+          <nav className="flex gap-1">
+            {NAV.map((n) => (
+              <a
+                key={n.label}
+                href={href(n.route)}
+                className={cn(
+                  'rounded-md px-3 py-1.5 text-sm',
+                  n.match.includes(route.page) ? 'bg-secondary text-foreground' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          {IS_MOCK && <Badge variant="outline" className="ml-auto">mock data</Badge>}
+        </div>
       </header>
-      {error && <p className="mb-4 text-destructive">API error: {error}</p>}
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
-        {stats.map(([label, v]) => (
-          <Card key={label} className="gap-1 p-4">
-            <div className="text-muted-foreground text-xs">{label}</div>
-            <div className="text-2xl font-semibold">{v ?? '-'}</div>
-          </Card>
-        ))}
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {events.map((e) => (
-          <Card key={e.id} className="gap-3">
-            <img src={mediaUrl(e.thumb_url)} alt="" loading="lazy" className="aspect-video w-full object-cover" />
-            <CardHeader className="flex-row items-center justify-between">
-              <span className={cn('rounded px-2 py-0.5 text-sm font-bold text-white', dangerColor(e.danger))}>{e.danger}</span>
-              <Badge variant="secondary">{e.crossing_location.replace(/_/g, ' ')}</Badge>
-            </CardHeader>
-            <CardContent className="text-muted-foreground text-sm">{e.reason}</CardContent>
-          </Card>
-        ))}
-      </div>
+      <main className="mx-auto max-w-6xl px-4 py-6">
+        {route.page === 'overview' && <Overview />}
+        {route.page === 'events' && <Events />}
+        {route.page === 'event' && <EventDetail id={route.id} />}
+        {route.page === 'scenario' && <Scenario id={route.id} />}
+        {route.page === 'detectors' && <Detectors />}
+      </main>
     </div>
   )
 }
