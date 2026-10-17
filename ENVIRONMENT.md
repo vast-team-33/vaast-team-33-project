@@ -298,3 +298,5 @@ The originals are in `vendor/vast-builders-challenge/.cursor/skills/`. `.claude/
   `segments/reingest/`. The index itself is fine. Neighbourhood chunk 0005 was re-ingested on 17 Oct,
   then restored with its original prompt.
 - **Uploads on 17 Oct:** 6 files (2 mp4, 4 avi) in the chunks bucket, none processed.
+
+- **ConfigMaps over 256 KB fail with client-side `kubectl apply`** (the last-applied annotation is capped at 262144 bytes). `deploy/deploy.sh` uses `--server-side`.
