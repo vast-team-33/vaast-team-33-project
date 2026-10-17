@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-10-17T13:28:00Z",
+  "source": "Toronto dashcam (pie_cam-3), 6 drives",
+  "clips_scanned": 1080,
+  "candidates": 558,
+  "events": 24,
+  "by_agreement": {
+    "driver_more_careful": 3,
+    "driver_less_careful": 9,
+    "driver_as_careful": 12
+  },
+  "by_crossing": {
+    "marked_crosswalk": 21,
+    "not_crossing": 2,
+    "outside_crosswalk": 1
+  },
+  "by_risk": {
+    "low": 6,
+    "medium": 14,
+    "none": 4
+  },
+  "feedback_count": 1,
+  "models": {
+    "detector": "yolo11s (COCO), stored per-frame boxes",
+    "judge": "nvidia/cosmos3-nano-reasoner",
+    "ego_speed": "optical flow (OpenCV Farneback), relative units"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "detector_id": "det_0002",
+  "sample_event_id": "20261001_065124_set04_video_chunk_0015_segment_003_of_006",
+  "result": {
+    "match": false,
+    "confidence": 0.0,
+    "moment_sec": null,
+    "reason": "No cyclists or scooters are visible near the ego car in the scene."
+  },
+  "latency_ms": 6443,
+  "model": "nvidia/cosmos3-nano-reasoner"
+}

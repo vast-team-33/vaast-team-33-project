@@ -8,6 +8,12 @@ footage, scores how dangerous each one is, and compares **what the driver actual
 **what our model says the car should have done**. Every disagreement becomes a labelled example
 for a later self-training and self-improvement loop.
 
+**The bigger idea:** each dangerous moment is packaged as a simulator-ready scenario and sent to a
+simulation system (for example NVIDIA Cosmos Transfer or Omniverse), which generates many synthetic
+variants (night, rain, a child, a faster car) to train self-driving models on. Users can also write
+their own detectors in plain words, test one on a single clip, then run it over the whole archive.
+We build the detection, scoring and scenario packaging; the simulator hand-off is shown as a demo.
+
 > **Status:** an experiment is live at https://workshop.thecosmoslabs.com → **App**.
 > The code is not in this repo yet. This first commit holds the agent instructions, the lab
 > notes and the platform test results.
@@ -57,9 +63,21 @@ read `AGENTS.md` directly.
 | `CLAUDE.md` | Claude Code entry point, imports `AGENTS.md` |
 | `ENVIRONMENT.md` | Everything known about the lab, checked live on 17 Oct |
 | `docs/platform-capabilities.md` | Results of testing every platform feature |
+| `docs/api-contract.md` | Backend contract for the frontend (endpoints, types, rules) |
+| `docs/frontend.md` | Frontend plan: React, Tailwind 4, shadcn/ui, screens, deploy limits, open tasks |
+| `api/openapi.yaml` | The contract as OpenAPI 3.1 (generate TypeScript types from it) |
+| `api/fixtures/` | Real example responses, thumbnails and background frames for mocking |
 | `docs/ideas.md` | Ideas we explored today and why we picked this one |
 | `.claude/skills/` | Links to the event skills |
 | `vendor/vast-builders-challenge/` | Copy of the event repo (skills, rules, docs); see `VENDORED.md` inside |
+
+## Open tasks
+
+- [ ] Design skill (`.claude/skills/design/SKILL.md`): visual language for every agent and teammate
+- [ ] Frontend app in `frontend/` (React + Vite + Tailwind 4 + shadcn/ui), see `docs/frontend.md`
+- [ ] Backend serving `api/openapi.yaml` (detectors, preview, runs, scenario, export)
+- [ ] Sharper on-road check (people on the sidewalk are still counted as on the road)
+- [ ] Demo app reloads its data by itself after a restart
 
 ## Submission (due 16:30 BST)
 

@@ -40,8 +40,9 @@ runs. Exact request shapes and gotchas are in `../ENVIRONMENT.md`.
 | Video summary `/videos/synthesize` | ✅ | ~4.9 s | Honours a custom `system_prompt` |
 | Video streaming `/videos/stream` | ✅ | fast | Range and seeking work; token in the query string |
 | Suggestions / key events | ✅ | 18 s full, 19 ms chips only | 1,138 pre-labelled key events |
-| VastDB read and our own tables | ⏳ | | Documented by the skills; test in progress |
-| Re-ingest with a custom prompt | ⏳ | minutes | Test in progress |
+| VastDB read | ✅ | 20–300 ms | SDK with predicates; both 256-dim vector columns readable; tables `vss-collection`, `vss-prompts-events` |
+| VastDB: our own tables | ✅ | ~110 ms create, ~160 ms insert | Created `team33_app.experiment_notes`; no primary key, so inserts can duplicate |
+| Re-ingest with a custom prompt | ⚠️ | 6–9 min per chunk | One run stalled at 5 of 6 segments, the restore run finished; job status is unreliable (in memory on one backend instance) |
 | Upload a new video | ❌ | | Accepted, never segmented |
 | Our own processing and hosting | ✅ | | Deployments, Jobs, CronJobs, ConfigMaps, Secrets in `team-33`; PVCs fail to mount |
 

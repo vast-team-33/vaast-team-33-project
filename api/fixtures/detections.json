@@ -1,0 +1,7063 @@
+{
+  "event_id": "20261001_065656_set04_video_chunk_0028_segment_005_of_006",
+  "fps": 10,
+  "frame_w": 1920,
+  "frame_h": 1080,
+  "lane_polygon": [
+    [
+      806,
+      594
+    ],
+    [
+      1114,
+      594
+    ],
+    [
+      1440,
+      1004
+    ],
+    [
+      480,
+      1004
+    ]
+  ],
+  "frames": [
+    {
+      "t": 0.0,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.908,
+          "bbox": [
+            823,
+            726,
+            1040,
+            888
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.881,
+          "bbox": [
+            168,
+            705,
+            657,
+            959
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.857,
+          "bbox": [
+            1471,
+            635,
+            1589,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.837,
+          "bbox": [
+            1242,
+            632,
+            1341,
+            936
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.733,
+          "bbox": [
+            709,
+            708,
+            758,
+            827
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.675,
+          "bbox": [
+            0,
+            756,
+            119,
+            964
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.63,
+          "bbox": [
+            801,
+            710,
+            836,
+            818
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.583,
+          "bbox": [
+            1123,
+            710,
+            1157,
+            812
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.562,
+          "bbox": [
+            0,
+            956,
+            1605,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.534,
+          "bbox": [
+            1150,
+            586,
+            1200,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.503,
+          "bbox": [
+            1054,
+            715,
+            1094,
+            828
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.476,
+          "bbox": [
+            1147,
+            706,
+            1186,
+            818
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.448,
+          "bbox": [
+            1076,
+            716,
+            1104,
+            822
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 0.1,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.905,
+          "bbox": [
+            822,
+            726,
+            1038,
+            890
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.881,
+          "bbox": [
+            164,
+            705,
+            656,
+            960
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.852,
+          "bbox": [
+            1249,
+            627,
+            1355,
+            936
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.801,
+          "bbox": [
+            1489,
+            629,
+            1607,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.754,
+          "bbox": [
+            0,
+            759,
+            111,
+            963
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.668,
+          "bbox": [
+            703,
+            708,
+            740,
+            827
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.65,
+          "bbox": [
+            1050,
+            711,
+            1112,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.589,
+          "bbox": [
+            794,
+            708,
+            845,
+            819
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.564,
+          "bbox": [
+            1148,
+            710,
+            1181,
+            819
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.562,
+          "bbox": [
+            1122,
+            711,
+            1156,
+            816
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.554,
+          "bbox": [
+            1151,
+            587,
+            1199,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.547,
+          "bbox": [
+            0,
+            957,
+            1580,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.439,
+          "bbox": [
+            1209,
+            711,
+            1255,
+            833
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 0.2,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.914,
+          "bbox": [
+            823,
+            727,
+            1039,
+            892
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.882,
+          "bbox": [
+            162,
+            704,
+            654,
+            962
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.859,
+          "bbox": [
+            1257,
+            630,
+            1367,
+            938
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.751,
+          "bbox": [
+            1493,
+            623,
+            1627,
+            972
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.702,
+          "bbox": [
+            0,
+            759,
+            109,
+            963
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.653,
+          "bbox": [
+            1124,
+            705,
+            1181,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.618,
+          "bbox": [
+            700,
+            710,
+            734,
+            828
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.512,
+          "bbox": [
+            0,
+            956,
+            1582,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.491,
+          "bbox": [
+            774,
+            708,
+            841,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.48,
+          "bbox": [
+            1122,
+            706,
+            1162,
+            819
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "handbag",
+          "confidence": 0.464,
+          "bbox": [
+            1476,
+            817,
+            1536,
+            916
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.46,
+          "bbox": [
+            1050,
+            710,
+            1095,
+            831
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 0.3,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.914,
+          "bbox": [
+            822,
+            727,
+            1039,
+            892
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.884,
+          "bbox": [
+            160,
+            706,
+            654,
+            961
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.835,
+          "bbox": [
+            1267,
+            629,
+            1374,
+            944
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.708,
+          "bbox": [
+            681,
+            717,
+            735,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.691,
+          "bbox": [
+            0,
+            760,
+            101,
+            962
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.657,
+          "bbox": [
+            1045,
+            712,
+            1089,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.649,
+          "bbox": [
+            1519,
+            623,
+            1651,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.624,
+          "bbox": [
+            1209,
+            702,
+            1260,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.57,
+          "bbox": [
+            0,
+            957,
+            1565,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.564,
+          "bbox": [
+            769,
+            710,
+            827,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.508,
+          "bbox": [
+            1121,
+            709,
+            1162,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.46,
+          "bbox": [
+            1151,
+            588,
+            1202,
+            639
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 0.4,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.914,
+          "bbox": [
+            821,
+            728,
+            1042,
+            892
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.88,
+          "bbox": [
+            157,
+            705,
+            651,
+            961
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.837,
+          "bbox": [
+            1279,
+            623,
+            1389,
+            947
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.789,
+          "bbox": [
+            1537,
+            624,
+            1674,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.753,
+          "bbox": [
+            679,
+            709,
+            734,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.72,
+          "bbox": [
+            1211,
+            702,
+            1261,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.712,
+          "bbox": [
+            0,
+            762,
+            99,
+            962
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.661,
+          "bbox": [
+            1118,
+            702,
+            1158,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "handbag",
+          "confidence": 0.637,
+          "bbox": [
+            1510,
+            807,
+            1571,
+            928
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.544,
+          "bbox": [
+            0,
+            955,
+            1565,
+            1078
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.544,
+          "bbox": [
+            768,
+            711,
+            812,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.536,
+          "bbox": [
+            1025,
+            711,
+            1088,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.422,
+          "bbox": [
+            1152,
+            587,
+            1202,
+            637
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 0.5,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.902,
+          "bbox": [
+            821,
+            728,
+            1040,
+            891
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.879,
+          "bbox": [
+            153,
+            705,
+            651,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.873,
+          "bbox": [
+            1556,
+            623,
+            1694,
+            984
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.87,
+          "bbox": [
+            1292,
+            619,
+            1403,
+            953
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.732,
+          "bbox": [
+            675,
+            713,
+            732,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.723,
+          "bbox": [
+            1116,
+            703,
+            1153,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.703,
+          "bbox": [
+            764,
+            710,
+            809,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.696,
+          "bbox": [
+            0,
+            766,
+            97,
+            961
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.653,
+          "bbox": [
+            1212,
+            700,
+            1255,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.585,
+          "bbox": [
+            0,
+            954,
+            1562,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.551,
+          "bbox": [
+            1021,
+            715,
+            1091,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.476,
+          "bbox": [
+            812,
+            704,
+            851,
+            787
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.468,
+          "bbox": [
+            1154,
+            585,
+            1203,
+            640
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.452,
+          "bbox": [
+            1477,
+            522,
+            1596,
+            893
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.448,
+          "bbox": [
+            1152,
+            712,
+            1181,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "handbag",
+          "confidence": 0.406,
+          "bbox": [
+            1529,
+            816,
+            1587,
+            940
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 0.6,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.905,
+          "bbox": [
+            821,
+            729,
+            1040,
+            892
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.871,
+          "bbox": [
+            149,
+            703,
+            650,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.867,
+          "bbox": [
+            1299,
+            612,
+            1407,
+            954
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.755,
+          "bbox": [
+            1574,
+            614,
+            1722,
+            987
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.665,
+          "bbox": [
+            0,
+            767,
+            88,
+            962
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.643,
+          "bbox": [
+            1211,
+            700,
+            1250,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.621,
+          "bbox": [
+            675,
+            714,
+            720,
+            827
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.572,
+          "bbox": [
+            1,
+            953,
+            1580,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.56,
+          "bbox": [
+            1103,
+            707,
+            1147,
+            818
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.556,
+          "bbox": [
+            756,
+            708,
+            806,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.539,
+          "bbox": [
+            1574,
+            613,
+            1677,
+            982
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.521,
+          "bbox": [
+            1154,
+            584,
+            1203,
+            641
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.501,
+          "bbox": [
+            1010,
+            713,
+            1062,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.469,
+          "bbox": [
+            775,
+            708,
+            809,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.413,
+          "bbox": [
+            1149,
+            713,
+            1180,
+            801
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 0.7,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.91,
+          "bbox": [
+            821,
+            728,
+            1039,
+            891
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.871,
+          "bbox": [
+            145,
+            703,
+            649,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.851,
+          "bbox": [
+            1304,
+            610,
+            1416,
+            971
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.766,
+          "bbox": [
+            1588,
+            606,
+            1688,
+            988
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.734,
+          "bbox": [
+            0,
+            772,
+            82,
+            964
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.645,
+          "bbox": [
+            1094,
+            707,
+            1148,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.642,
+          "bbox": [
+            1154,
+            584,
+            1204,
+            639
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.607,
+          "bbox": [
+            666,
+            726,
+            705,
+            828
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.571,
+          "bbox": [
+            1007,
+            712,
+            1051,
+            823
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.561,
+          "bbox": [
+            1147,
+            713,
+            1179,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.543,
+          "bbox": [
+            3,
+            953,
+            1598,
+            1078
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.527,
+          "bbox": [
+            740,
+            718,
+            779,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.471,
+          "bbox": [
+            1480,
+            520,
+            1602,
+            879
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.465,
+          "bbox": [
+            1207,
+            701,
+            1237,
+            823
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.459,
+          "bbox": [
+            1189,
+            701,
+            1236,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.428,
+          "bbox": [
+            770,
+            708,
+            805,
+            820
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 0.8,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.916,
+          "bbox": [
+            820,
+            728,
+            1040,
+            892
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.88,
+          "bbox": [
+            142,
+            702,
+            648,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.849,
+          "bbox": [
+            1312,
+            610,
+            1427,
+            953
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.797,
+          "bbox": [
+            658,
+            708,
+            697,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.704,
+          "bbox": [
+            0,
+            775,
+            75,
+            964
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.688,
+          "bbox": [
+            1155,
+            584,
+            1205,
+            642
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.597,
+          "bbox": [
+            1176,
+            702,
+            1222,
+            820
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.594,
+          "bbox": [
+            1604,
+            596,
+            1775,
+            993
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.592,
+          "bbox": [
+            1088,
+            706,
+            1131,
+            821
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.574,
+          "bbox": [
+            4,
+            953,
+            1585,
+            1079
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.54,
+          "bbox": [
+            1606,
+            598,
+            1712,
+            993
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.54,
+          "bbox": [
+            1004,
+            716,
+            1040,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.535,
+          "bbox": [
+            750,
+            710,
+            806,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.534,
+          "bbox": [
+            726,
+            711,
+            806,
+            822
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.533,
+          "bbox": [
+            1149,
+            714,
+            1177,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.445,
+          "bbox": [
+            800,
+            708,
+            830,
+            792
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 0.9,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.912,
+          "bbox": [
+            820,
+            728,
+            1041,
+            893
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.866,
+          "bbox": [
+            138,
+            702,
+            649,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.806,
+          "bbox": [
+            1318,
+            604,
+            1444,
+            953
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.729,
+          "bbox": [
+            1620,
+            590,
+            1740,
+            989
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.722,
+          "bbox": [
+            1155,
+            583,
+            1206,
+            639
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.693,
+          "bbox": [
+            1084,
+            706,
+            1127,
+            824
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.669,
+          "bbox": [
+            1171,
+            705,
+            1226,
+            827
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.661,
+          "bbox": [
+            0,
+            779,
+            74,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.653,
+          "bbox": [
+            652,
+            709,
+            696,
+            826
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.651,
+          "bbox": [
+            1148,
+            712,
+            1179,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.557,
+          "bbox": [
+            727,
+            708,
+            798,
+            825
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.493,
+          "bbox": [
+            7,
+            953,
+            1602,
+            1078
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 1.0,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.897,
+          "bbox": [
+            819,
+            726,
+            1043,
+            893
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.877,
+          "bbox": [
+            136,
+            703,
+            649,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.845,
+          "bbox": [
+            1332,
+            593,
+            1450,
+            957
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.696,
+          "bbox": [
+            1156,
+            582,
+            1206,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.652,
+          "bbox": [
+            1643,
+            587,
+            1766,
+            995
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.613,
+          "bbox": [
+            1079,
+            704,
+            1116,
+            824
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.578,
+          "bbox": [
+            1122,
+            713,
+            1154,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.575,
+          "bbox": [
+            643,
+            715,
+            693,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.556,
+          "bbox": [
+            726,
+            709,
+            781,
+            824
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.527,
+          "bbox": [
+            1489,
+            515,
+            1623,
+            876
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.525,
+          "bbox": [
+            1150,
+            710,
+            1181,
+            807
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.522,
+          "bbox": [
+            0,
+            783,
+            70,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.501,
+          "bbox": [
+            7,
+            951,
+            1578,
+            1078
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.412,
+          "bbox": [
+            740,
+            708,
+            777,
+            822
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 1.1,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.894,
+          "bbox": [
+            819,
+            727,
+            1042,
+            894
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.866,
+          "bbox": [
+            132,
+            703,
+            648,
+            964
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.811,
+          "bbox": [
+            1344,
+            582,
+            1475,
+            964
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.706,
+          "bbox": [
+            1156,
+            582,
+            1206,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.68,
+          "bbox": [
+            1665,
+            584,
+            1787,
+            990
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.66,
+          "bbox": [
+            1066,
+            704,
+            1114,
+            825
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.643,
+          "bbox": [
+            640,
+            710,
+            692,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.625,
+          "bbox": [
+            723,
+            707,
+            767,
+            827
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.615,
+          "bbox": [
+            1124,
+            712,
+            1156,
+            800
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.492,
+          "bbox": [
+            1167,
+            705,
+            1208,
+            824
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.452,
+          "bbox": [
+            8,
+            952,
+            1583,
+            1078
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.415,
+          "bbox": [
+            0,
+            793,
+            60,
+            965
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 1.2,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.883,
+          "bbox": [
+            819,
+            726,
+            1042,
+            899
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.883,
+          "bbox": [
+            128,
+            703,
+            647,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.857,
+          "bbox": [
+            1359,
+            572,
+            1490,
+            971
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.784,
+          "bbox": [
+            635,
+            714,
+            684,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.735,
+          "bbox": [
+            1692,
+            582,
+            1808,
+            1001
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.72,
+          "bbox": [
+            1053,
+            705,
+            1109,
+            825
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.708,
+          "bbox": [
+            1156,
+            583,
+            1208,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.681,
+          "bbox": [
+            1124,
+            714,
+            1156,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.619,
+          "bbox": [
+            710,
+            708,
+            766,
+            828
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.616,
+          "bbox": [
+            1158,
+            708,
+            1198,
+            825
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.518,
+          "bbox": [
+            774,
+            712,
+            809,
+            795
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.486,
+          "bbox": [
+            0,
+            820,
+            55,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.467,
+          "bbox": [
+            1490,
+            515,
+            1627,
+            877
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.422,
+          "bbox": [
+            1046,
+            710,
+            1083,
+            828
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 1.3,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.886,
+          "bbox": [
+            124,
+            705,
+            644,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.885,
+          "bbox": [
+            818,
+            730,
+            1044,
+            901
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.856,
+          "bbox": [
+            1374,
+            570,
+            1508,
+            989
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.726,
+          "bbox": [
+            630,
+            712,
+            680,
+            833
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.698,
+          "bbox": [
+            1147,
+            706,
+            1195,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.697,
+          "bbox": [
+            1047,
+            708,
+            1108,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.672,
+          "bbox": [
+            697,
+            712,
+            766,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.65,
+          "bbox": [
+            1156,
+            583,
+            1209,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.649,
+          "bbox": [
+            1122,
+            712,
+            1152,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.568,
+          "bbox": [
+            1721,
+            568,
+            1829,
+            992
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.54,
+          "bbox": [
+            774,
+            717,
+            808,
+            795
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.405,
+          "bbox": [
+            804,
+            728,
+            863,
+            787
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 1.4,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.9,
+          "bbox": [
+            119,
+            707,
+            643,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.883,
+          "bbox": [
+            815,
+            730,
+            1045,
+            902
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.86,
+          "bbox": [
+            1387,
+            568,
+            1533,
+            990
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.678,
+          "bbox": [
+            1130,
+            708,
+            1191,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.663,
+          "bbox": [
+            1157,
+            582,
+            1209,
+            640
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.659,
+          "bbox": [
+            762,
+            712,
+            805,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.635,
+          "bbox": [
+            692,
+            714,
+            759,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.626,
+          "bbox": [
+            1046,
+            710,
+            1102,
+            828
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.608,
+          "bbox": [
+            1513,
+            548,
+            1634,
+            881
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.546,
+          "bbox": [
+            628,
+            718,
+            668,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.537,
+          "bbox": [
+            799,
+            733,
+            856,
+            783
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "handbag",
+          "confidence": 0.436,
+          "bbox": [
+            1710,
+            815,
+            1771,
+            972
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 1.5,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.894,
+          "bbox": [
+            113,
+            707,
+            641,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.892,
+          "bbox": [
+            815,
+            730,
+            1046,
+            907
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.827,
+          "bbox": [
+            1406,
+            565,
+            1549,
+            986
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.82,
+          "bbox": [
+            623,
+            713,
+            661,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.788,
+          "bbox": [
+            1127,
+            708,
+            1189,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.716,
+          "bbox": [
+            1040,
+            708,
+            1081,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.678,
+          "bbox": [
+            1528,
+            515,
+            1638,
+            880
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.648,
+          "bbox": [
+            800,
+            731,
+            854,
+            784
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.629,
+          "bbox": [
+            1158,
+            583,
+            1209,
+            641
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.613,
+          "bbox": [
+            687,
+            714,
+            740,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.577,
+          "bbox": [
+            777,
+            717,
+            806,
+            798
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "handbag",
+          "confidence": 0.531,
+          "bbox": [
+            1739,
+            807,
+            1804,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.526,
+          "bbox": [
+            768,
+            716,
+            804,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.491,
+          "bbox": [
+            1769,
+            552,
+            1878,
+            1004
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.403,
+          "bbox": [
+            6,
+            951,
+            1595,
+            1078
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 1.6,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.9,
+          "bbox": [
+            108,
+            708,
+            639,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.897,
+          "bbox": [
+            816,
+            731,
+            1047,
+            909
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.856,
+          "bbox": [
+            1424,
+            552,
+            1579,
+            991
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.771,
+          "bbox": [
+            617,
+            713,
+            656,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.732,
+          "bbox": [
+            685,
+            715,
+            730,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.718,
+          "bbox": [
+            1557,
+            507,
+            1647,
+            883
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.711,
+          "bbox": [
+            1036,
+            709,
+            1073,
+            833
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.678,
+          "bbox": [
+            1122,
+            708,
+            1181,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.648,
+          "bbox": [
+            799,
+            731,
+            855,
+            786
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.624,
+          "bbox": [
+            762,
+            716,
+            799,
+            800
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.604,
+          "bbox": [
+            1159,
+            583,
+            1211,
+            639
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.533,
+          "bbox": [
+            1782,
+            550,
+            1917,
+            1011
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "handbag",
+          "confidence": 0.471,
+          "bbox": [
+            1770,
+            831,
+            1835,
+            978
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.443,
+          "bbox": [
+            771,
+            718,
+            800,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.425,
+          "bbox": [
+            748,
+            716,
+            779,
+            800
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 1.7,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.899,
+          "bbox": [
+            814,
+            730,
+            1047,
+            911
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.896,
+          "bbox": [
+            100,
+            708,
+            639,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.844,
+          "bbox": [
+            1440,
+            537,
+            1622,
+            985
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.824,
+          "bbox": [
+            613,
+            713,
+            654,
+            838
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.746,
+          "bbox": [
+            679,
+            714,
+            717,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.73,
+          "bbox": [
+            1028,
+            709,
+            1069,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.716,
+          "bbox": [
+            1158,
+            582,
+            1214,
+            640
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.649,
+          "bbox": [
+            1115,
+            711,
+            1157,
+            833
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.642,
+          "bbox": [
+            801,
+            731,
+            854,
+            785
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.615,
+          "bbox": [
+            744,
+            716,
+            781,
+            800
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.494,
+          "bbox": [
+            753,
+            717,
+            796,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.473,
+          "bbox": [
+            1085,
+            727,
+            1119,
+            804
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.451,
+          "bbox": [
+            1560,
+            505,
+            1649,
+            880
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.433,
+          "bbox": [
+            1148,
+            717,
+            1177,
+            814
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 1.8,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.901,
+          "bbox": [
+            814,
+            731,
+            1048,
+            911
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.882,
+          "bbox": [
+            92,
+            707,
+            637,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.87,
+          "bbox": [
+            1459,
+            526,
+            1636,
+            981
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.757,
+          "bbox": [
+            671,
+            707,
+            715,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.723,
+          "bbox": [
+            608,
+            710,
+            648,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.688,
+          "bbox": [
+            1110,
+            705,
+            1153,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.676,
+          "bbox": [
+            1016,
+            709,
+            1066,
+            837
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.634,
+          "bbox": [
+            1159,
+            581,
+            1214,
+            640
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.633,
+          "bbox": [
+            800,
+            730,
+            857,
+            783
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.628,
+          "bbox": [
+            744,
+            714,
+            795,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.503,
+          "bbox": [
+            1153,
+            714,
+            1176,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.503,
+          "bbox": [
+            1078,
+            727,
+            1111,
+            804
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 1.9,
+      "boxes": [
+        {
+          "label": "person",
+          "confidence": 0.921,
+          "bbox": [
+            1480,
+            515,
+            1664,
+            985
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.899,
+          "bbox": [
+            813,
+            731,
+            1052,
+            910
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.882,
+          "bbox": [
+            84,
+            704,
+            635,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.701,
+          "bbox": [
+            604,
+            712,
+            649,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.681,
+          "bbox": [
+            666,
+            712,
+            713,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.664,
+          "bbox": [
+            1096,
+            702,
+            1151,
+            833
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.662,
+          "bbox": [
+            799,
+            731,
+            855,
+            783
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.657,
+          "bbox": [
+            1148,
+            716,
+            1177,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.582,
+          "bbox": [
+            1162,
+            580,
+            1217,
+            637
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.423,
+          "bbox": [
+            1190,
+            718,
+            1214,
+            793
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.0,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.895,
+          "bbox": [
+            812,
+            730,
+            1050,
+            912
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.882,
+          "bbox": [
+            76,
+            704,
+            629,
+            964
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.872,
+          "bbox": [
+            1509,
+            509,
+            1687,
+            984
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.794,
+          "bbox": [
+            1079,
+            704,
+            1151,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.737,
+          "bbox": [
+            650,
+            709,
+            709,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.644,
+          "bbox": [
+            599,
+            710,
+            644,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.633,
+          "bbox": [
+            798,
+            732,
+            859,
+            785
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.59,
+          "bbox": [
+            1149,
+            717,
+            1178,
+            800
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.555,
+          "bbox": [
+            1164,
+            579,
+            1219,
+            635
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.553,
+          "bbox": [
+            1002,
+            702,
+            1046,
+            780
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.486,
+          "bbox": [
+            733,
+            711,
+            773,
+            796
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.421,
+          "bbox": [
+            1229,
+            725,
+            1275,
+            846
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.1,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.898,
+          "bbox": [
+            810,
+            729,
+            1051,
+            908
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.892,
+          "bbox": [
+            1536,
+            498,
+            1731,
+            992
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.887,
+          "bbox": [
+            68,
+            700,
+            623,
+            963
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.741,
+          "bbox": [
+            642,
+            709,
+            698,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.699,
+          "bbox": [
+            1149,
+            714,
+            1179,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.674,
+          "bbox": [
+            598,
+            713,
+            638,
+            830
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.673,
+          "bbox": [
+            796,
+            731,
+            859,
+            784
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.629,
+          "bbox": [
+            1079,
+            707,
+            1150,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.616,
+          "bbox": [
+            1165,
+            577,
+            1222,
+            633
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.584,
+          "bbox": [
+            1053,
+            719,
+            1091,
+            796
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.571,
+          "bbox": [
+            1117,
+            711,
+            1154,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.529,
+          "bbox": [
+            1232,
+            744,
+            1272,
+            846
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.505,
+          "bbox": [
+            749,
+            714,
+            774,
+            798
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.473,
+          "bbox": [
+            1001,
+            697,
+            1039,
+            784
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.469,
+          "bbox": [
+            1192,
+            714,
+            1218,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.461,
+          "bbox": [
+            1105,
+            706,
+            1152,
+            835
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.2,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.892,
+          "bbox": [
+            808,
+            727,
+            1053,
+            915
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.886,
+          "bbox": [
+            58,
+            700,
+            624,
+            962
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.858,
+          "bbox": [
+            1572,
+            475,
+            1770,
+            1000
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.765,
+          "bbox": [
+            1166,
+            576,
+            1223,
+            633
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.76,
+          "bbox": [
+            638,
+            709,
+            683,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.68,
+          "bbox": [
+            796,
+            729,
+            858,
+            782
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.641,
+          "bbox": [
+            1148,
+            712,
+            1180,
+            800
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.61,
+          "bbox": [
+            596,
+            715,
+            631,
+            826
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.545,
+          "bbox": [
+            1078,
+            703,
+            1125,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.534,
+          "bbox": [
+            745,
+            718,
+            771,
+            797
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.491,
+          "bbox": [
+            1112,
+            711,
+            1151,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.469,
+          "bbox": [
+            1119,
+            714,
+            1153,
+            815
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.462,
+          "bbox": [
+            1193,
+            717,
+            1217,
+            792
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.3,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.899,
+          "bbox": [
+            808,
+            727,
+            1054,
+            915
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.894,
+          "bbox": [
+            49,
+            702,
+            617,
+            963
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.801,
+          "bbox": [
+            632,
+            710,
+            675,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.78,
+          "bbox": [
+            1167,
+            574,
+            1225,
+            632
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.718,
+          "bbox": [
+            795,
+            730,
+            852,
+            783
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.712,
+          "bbox": [
+            1072,
+            706,
+            1116,
+            833
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.7,
+          "bbox": [
+            588,
+            710,
+            625,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.663,
+          "bbox": [
+            1150,
+            712,
+            1180,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.648,
+          "bbox": [
+            1119,
+            713,
+            1152,
+            805
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.586,
+          "bbox": [
+            1618,
+            456,
+            1819,
+            1005
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.55,
+          "bbox": [
+            1618,
+            456,
+            1813,
+            814
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.521,
+          "bbox": [
+            1192,
+            717,
+            1218,
+            792
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.501,
+          "bbox": [
+            733,
+            711,
+            769,
+            798
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.4,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.899,
+          "bbox": [
+            807,
+            727,
+            1056,
+            916
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.884,
+          "bbox": [
+            40,
+            699,
+            613,
+            962
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.849,
+          "bbox": [
+            1672,
+            434,
+            1846,
+            1011
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.824,
+          "bbox": [
+            1169,
+            573,
+            1226,
+            631
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.752,
+          "bbox": [
+            1062,
+            703,
+            1108,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.738,
+          "bbox": [
+            622,
+            707,
+            669,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.714,
+          "bbox": [
+            797,
+            730,
+            851,
+            782
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.685,
+          "bbox": [
+            1149,
+            712,
+            1180,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.622,
+          "bbox": [
+            584,
+            712,
+            622,
+            826
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.603,
+          "bbox": [
+            1118,
+            713,
+            1152,
+            806
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.498,
+          "bbox": [
+            1194,
+            718,
+            1220,
+            793
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.498,
+          "bbox": [
+            1238,
+            729,
+            1285,
+            850
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.472,
+          "bbox": [
+            761,
+            732,
+            797,
+            769
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.469,
+          "bbox": [
+            715,
+            709,
+            769,
+            797
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.5,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.906,
+          "bbox": [
+            29,
+            698,
+            612,
+            965
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.895,
+          "bbox": [
+            806,
+            727,
+            1056,
+            916
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.827,
+          "bbox": [
+            1172,
+            571,
+            1230,
+            625
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.795,
+          "bbox": [
+            1722,
+            412,
+            1902,
+            1009
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.749,
+          "bbox": [
+            613,
+            707,
+            665,
+            833
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.702,
+          "bbox": [
+            1055,
+            702,
+            1103,
+            837
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.678,
+          "bbox": [
+            579,
+            708,
+            619,
+            833
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.636,
+          "bbox": [
+            1240,
+            738,
+            1280,
+            850
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.632,
+          "bbox": [
+            1152,
+            715,
+            1181,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.615,
+          "bbox": [
+            1119,
+            714,
+            1153,
+            804
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.511,
+          "bbox": [
+            1194,
+            714,
+            1221,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.453,
+          "bbox": [
+            796,
+            730,
+            848,
+            783
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 2.6,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.906,
+          "bbox": [
+            16,
+            696,
+            609,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.9,
+          "bbox": [
+            802,
+            727,
+            1059,
+            915
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.857,
+          "bbox": [
+            1777,
+            396,
+            1918,
+            826
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.84,
+          "bbox": [
+            1175,
+            568,
+            1231,
+            628
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.69,
+          "bbox": [
+            611,
+            706,
+            660,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.685,
+          "bbox": [
+            573,
+            705,
+            615,
+            835
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.682,
+          "bbox": [
+            1150,
+            711,
+            1181,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.626,
+          "bbox": [
+            1051,
+            702,
+            1104,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.6,
+          "bbox": [
+            1120,
+            712,
+            1153,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.594,
+          "bbox": [
+            1193,
+            715,
+            1222,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.55,
+          "bbox": [
+            1241,
+            734,
+            1286,
+            851
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.488,
+          "bbox": [
+            699,
+            710,
+            733,
+            798
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.7,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.898,
+          "bbox": [
+            801,
+            726,
+            1058,
+            914
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.895,
+          "bbox": [
+            11,
+            692,
+            605,
+            963
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.802,
+          "bbox": [
+            1176,
+            566,
+            1234,
+            625
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.732,
+          "bbox": [
+            1838,
+            380,
+            1919,
+            835
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.686,
+          "bbox": [
+            603,
+            706,
+            650,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.629,
+          "bbox": [
+            1038,
+            701,
+            1102,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.593,
+          "bbox": [
+            1150,
+            713,
+            1179,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.585,
+          "bbox": [
+            569,
+            703,
+            609,
+            831
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.568,
+          "bbox": [
+            715,
+            709,
+            743,
+            797
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.541,
+          "bbox": [
+            1193,
+            713,
+            1222,
+            791
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.514,
+          "bbox": [
+            1121,
+            711,
+            1154,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.494,
+          "bbox": [
+            703,
+            709,
+            741,
+            796
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.412,
+          "bbox": [
+            693,
+            708,
+            722,
+            795
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.8,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.899,
+          "bbox": [
+            3,
+            692,
+            601,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.897,
+          "bbox": [
+            798,
+            725,
+            1063,
+            916
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.717,
+          "bbox": [
+            564,
+            705,
+            604,
+            833
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.709,
+          "bbox": [
+            1180,
+            565,
+            1238,
+            620
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.653,
+          "bbox": [
+            599,
+            703,
+            647,
+            829
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.609,
+          "bbox": [
+            1150,
+            712,
+            1180,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.556,
+          "bbox": [
+            1124,
+            711,
+            1154,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.529,
+          "bbox": [
+            687,
+            706,
+            724,
+            792
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.516,
+          "bbox": [
+            1194,
+            710,
+            1224,
+            791
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.416,
+          "bbox": [
+            1040,
+            701,
+            1073,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.401,
+          "bbox": [
+            712,
+            707,
+            737,
+            796
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 2.9,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.9,
+          "bbox": [
+            1,
+            690,
+            596,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.899,
+          "bbox": [
+            797,
+            726,
+            1065,
+            912
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.735,
+          "bbox": [
+            1181,
+            563,
+            1240,
+            617
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.623,
+          "bbox": [
+            1150,
+            711,
+            1180,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.608,
+          "bbox": [
+            592,
+            701,
+            639,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.608,
+          "bbox": [
+            1123,
+            712,
+            1154,
+            804
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.579,
+          "bbox": [
+            556,
+            703,
+            599,
+            833
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.523,
+          "bbox": [
+            1021,
+            697,
+            1070,
+            798
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            1194,
+            710,
+            1227,
+            792
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.477,
+          "bbox": [
+            783,
+            716,
+            835,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.428,
+          "bbox": [
+            701,
+            708,
+            732,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.422,
+          "bbox": [
+            677,
+            708,
+            711,
+            792
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 3.0,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.9,
+          "bbox": [
+            797,
+            724,
+            1069,
+            918
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.898,
+          "bbox": [
+            1,
+            691,
+            595,
+            968
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.769,
+          "bbox": [
+            1184,
+            561,
+            1241,
+            618
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.683,
+          "bbox": [
+            584,
+            702,
+            629,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.587,
+          "bbox": [
+            1148,
+            710,
+            1179,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.507,
+          "bbox": [
+            1123,
+            711,
+            1154,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.498,
+          "bbox": [
+            551,
+            705,
+            586,
+            815
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            1194,
+            710,
+            1226,
+            791
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.457,
+          "bbox": [
+            675,
+            711,
+            704,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.447,
+          "bbox": [
+            697,
+            711,
+            725,
+            795
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.427,
+          "bbox": [
+            764,
+            720,
+            825,
+            831
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.414,
+          "bbox": [
+            6,
+            952,
+            1814,
+            1080
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 3.1,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.905,
+          "bbox": [
+            0,
+            690,
+            591,
+            968
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.901,
+          "bbox": [
+            795,
+            724,
+            1066,
+            917
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.758,
+          "bbox": [
+            1186,
+            559,
+            1246,
+            617
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.675,
+          "bbox": [
+            545,
+            699,
+            580,
+            816
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.675,
+          "bbox": [
+            578,
+            701,
+            618,
+            828
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.661,
+          "bbox": [
+            1151,
+            708,
+            1180,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.614,
+          "bbox": [
+            1122,
+            709,
+            1156,
+            804
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.533,
+          "bbox": [
+            692,
+            709,
+            724,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.457,
+          "bbox": [
+            759,
+            716,
+            794,
+            832
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.424,
+          "bbox": [
+            1005,
+            690,
+            1054,
+            781
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.404,
+          "bbox": [
+            1194,
+            711,
+            1228,
+            791
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 3.2,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.906,
+          "bbox": [
+            795,
+            721,
+            1071,
+            918
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.904,
+          "bbox": [
+            0,
+            687,
+            586,
+            966
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.801,
+          "bbox": [
+            1189,
+            558,
+            1247,
+            617
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.682,
+          "bbox": [
+            572,
+            698,
+            616,
+            826
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.646,
+          "bbox": [
+            1152,
+            715,
+            1181,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.622,
+          "bbox": [
+            1118,
+            710,
+            1156,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.517,
+          "bbox": [
+            753,
+            706,
+            808,
+            839
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.451,
+          "bbox": [
+            1260,
+            733,
+            1305,
+            850
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.434,
+          "bbox": [
+            690,
+            706,
+            721,
+            793
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.422,
+          "bbox": [
+            539,
+            699,
+            573,
+            807
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 3.3,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.911,
+          "bbox": [
+            792,
+            720,
+            1073,
+            917
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.9,
+          "bbox": [
+            0,
+            685,
+            580,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.692,
+          "bbox": [
+            1121,
+            709,
+            1156,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.659,
+          "bbox": [
+            745,
+            704,
+            800,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.65,
+          "bbox": [
+            564,
+            698,
+            610,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.626,
+          "bbox": [
+            1153,
+            714,
+            1181,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.605,
+          "bbox": [
+            1191,
+            556,
+            1251,
+            613
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.573,
+          "bbox": [
+            793,
+            722,
+            851,
+            781
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.571,
+          "bbox": [
+            661,
+            701,
+            693,
+            793
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.53,
+          "bbox": [
+            690,
+            707,
+            713,
+            793
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.46,
+          "bbox": [
+            531,
+            701,
+            566,
+            809
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.42,
+          "bbox": [
+            437,
+            702,
+            476,
+            776
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 3.4,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.907,
+          "bbox": [
+            787,
+            720,
+            1073,
+            920
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.903,
+          "bbox": [
+            1,
+            686,
+            575,
+            968
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.76,
+          "bbox": [
+            557,
+            697,
+            603,
+            828
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.698,
+          "bbox": [
+            732,
+            707,
+            793,
+            841
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.671,
+          "bbox": [
+            1191,
+            550,
+            1255,
+            611
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.637,
+          "bbox": [
+            525,
+            702,
+            558,
+            805
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.617,
+          "bbox": [
+            1118,
+            706,
+            1156,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.612,
+          "bbox": [
+            793,
+            721,
+            853,
+            780
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.577,
+          "bbox": [
+            1150,
+            706,
+            1181,
+            798
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.531,
+          "bbox": [
+            655,
+            702,
+            695,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.497,
+          "bbox": [
+            434,
+            700,
+            469,
+            773
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.443,
+          "bbox": [
+            1263,
+            733,
+            1307,
+            851
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.422,
+          "bbox": [
+            621,
+            714,
+            655,
+            785
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.413,
+          "bbox": [
+            690,
+            704,
+            719,
+            787
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 3.5,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.917,
+          "bbox": [
+            789,
+            719,
+            1074,
+            922
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.898,
+          "bbox": [
+            1,
+            687,
+            572,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.729,
+          "bbox": [
+            717,
+            701,
+            779,
+            840
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.706,
+          "bbox": [
+            551,
+            698,
+            595,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.643,
+          "bbox": [
+            1194,
+            550,
+            1255,
+            607
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.604,
+          "bbox": [
+            1122,
+            707,
+            1158,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.601,
+          "bbox": [
+            1151,
+            707,
+            1181,
+            798
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.567,
+          "bbox": [
+            424,
+            697,
+            470,
+            777
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.544,
+          "bbox": [
+            515,
+            701,
+            554,
+            807
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.525,
+          "bbox": [
+            654,
+            700,
+            698,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.459,
+          "bbox": [
+            649,
+            702,
+            688,
+            793
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.439,
+          "bbox": [
+            1264,
+            712,
+            1311,
+            852
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "car",
+          "confidence": 0.419,
+          "bbox": [
+            794,
+            721,
+            854,
+            780
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 3.6,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.916,
+          "bbox": [
+            787,
+            720,
+            1075,
+            921
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.91,
+          "bbox": [
+            0,
+            682,
+            568,
+            968
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.727,
+          "bbox": [
+            707,
+            699,
+            770,
+            840
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.707,
+          "bbox": [
+            546,
+            695,
+            589,
+            826
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.662,
+          "bbox": [
+            1195,
+            547,
+            1256,
+            607
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.646,
+          "bbox": [
+            1125,
+            707,
+            1157,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.563,
+          "bbox": [
+            1154,
+            714,
+            1182,
+            800
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            624,
+            712,
+            651,
+            786
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.488,
+          "bbox": [
+            645,
+            702,
+            681,
+            793
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.468,
+          "bbox": [
+            511,
+            699,
+            548,
+            809
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.457,
+          "bbox": [
+            675,
+            705,
+            698,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.433,
+          "bbox": [
+            672,
+            704,
+            692,
+            793
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 3.7,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.922,
+          "bbox": [
+            0,
+            678,
+            566,
+            968
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.914,
+          "bbox": [
+            787,
+            719,
+            1076,
+            922
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.779,
+          "bbox": [
+            696,
+            702,
+            765,
+            843
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.748,
+          "bbox": [
+            1198,
+            547,
+            1260,
+            608
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.73,
+          "bbox": [
+            540,
+            696,
+            585,
+            829
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.605,
+          "bbox": [
+            1125,
+            711,
+            1159,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.561,
+          "bbox": [
+            505,
+            699,
+            540,
+            794
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.512,
+          "bbox": [
+            1155,
+            720,
+            1182,
+            797
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            414,
+            699,
+            462,
+            779
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.445,
+          "bbox": [
+            654,
+            702,
+            694,
+            794
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 3.8,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.916,
+          "bbox": [
+            0,
+            677,
+            564,
+            967
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.913,
+          "bbox": [
+            785,
+            718,
+            1078,
+            924
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.81,
+          "bbox": [
+            681,
+            704,
+            757,
+            842
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.735,
+          "bbox": [
+            532,
+            697,
+            579,
+            830
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.733,
+          "bbox": [
+            1200,
+            546,
+            1261,
+            605
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.697,
+          "bbox": [
+            497,
+            699,
+            536,
+            798
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.606,
+          "bbox": [
+            1124,
+            712,
+            1160,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.509,
+          "bbox": [
+            410,
+            701,
+            457,
+            779
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.482,
+          "bbox": [
+            1155,
+            718,
+            1182,
+            798
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.412,
+          "bbox": [
+            469,
+            705,
+            498,
+            777
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 3.9,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.918,
+          "bbox": [
+            785,
+            717,
+            1078,
+            925
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.905,
+          "bbox": [
+            0,
+            675,
+            566,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.765,
+          "bbox": [
+            1200,
+            544,
+            1263,
+            606
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.695,
+          "bbox": [
+            527,
+            696,
+            576,
+            826
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.584,
+          "bbox": [
+            1125,
+            711,
+            1158,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.572,
+          "bbox": [
+            491,
+            699,
+            524,
+            798
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.533,
+          "bbox": [
+            407,
+            699,
+            444,
+            771
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.478,
+          "bbox": [
+            687,
+            708,
+            751,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.457,
+          "bbox": [
+            1153,
+            717,
+            1181,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.416,
+          "bbox": [
+            693,
+            706,
+            734,
+            828
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 4.0,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.903,
+          "bbox": [
+            0,
+            678,
+            561,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.897,
+          "bbox": [
+            785,
+            719,
+            1080,
+            929
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.781,
+          "bbox": [
+            1201,
+            546,
+            1263,
+            607
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.67,
+          "bbox": [
+            682,
+            708,
+            724,
+            836
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.647,
+          "bbox": [
+            521,
+            696,
+            567,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.645,
+          "bbox": [
+            1123,
+            710,
+            1159,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.545,
+          "bbox": [
+            1152,
+            713,
+            1180,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.542,
+          "bbox": [
+            644,
+            702,
+            673,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            621,
+            698,
+            651,
+            792
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.432,
+          "bbox": [
+            401,
+            702,
+            439,
+            770
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.429,
+          "bbox": [
+            488,
+            697,
+            520,
+            794
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 4.1,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.914,
+          "bbox": [
+            0,
+            677,
+            556,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.902,
+          "bbox": [
+            784,
+            720,
+            1080,
+            931
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.794,
+          "bbox": [
+            1203,
+            546,
+            1266,
+            609
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.77,
+          "bbox": [
+            513,
+            696,
+            557,
+            828
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.683,
+          "bbox": [
+            673,
+            701,
+            717,
+            837
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.635,
+          "bbox": [
+            1123,
+            711,
+            1158,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.628,
+          "bbox": [
+            476,
+            696,
+            514,
+            794
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.612,
+          "bbox": [
+            644,
+            700,
+            672,
+            794
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.598,
+          "bbox": [
+            1152,
+            714,
+            1181,
+            799
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.566,
+          "bbox": [
+            619,
+            701,
+            650,
+            793
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.464,
+          "bbox": [
+            400,
+            699,
+            434,
+            769
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.422,
+          "bbox": [
+            1211,
+            709,
+            1237,
+            792
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 4.2,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.919,
+          "bbox": [
+            0,
+            675,
+            555,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.905,
+          "bbox": [
+            783,
+            720,
+            1081,
+            933
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.777,
+          "bbox": [
+            508,
+            696,
+            553,
+            827
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.764,
+          "bbox": [
+            1204,
+            546,
+            1266,
+            608
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.713,
+          "bbox": [
+            656,
+            701,
+            715,
+            840
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.697,
+          "bbox": [
+            469,
+            694,
+            508,
+            795
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.66,
+          "bbox": [
+            1122,
+            710,
+            1161,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.475,
+          "bbox": [
+            1213,
+            709,
+            1239,
+            791
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.441,
+          "bbox": [
+            619,
+            697,
+            649,
+            793
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.429,
+          "bbox": [
+            393,
+            702,
+            432,
+            774
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.416,
+          "bbox": [
+            1175,
+            713,
+            1203,
+            799
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 4.3,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.924,
+          "bbox": [
+            0,
+            675,
+            553,
+            970
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.911,
+          "bbox": [
+            784,
+            720,
+            1081,
+            932
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.796,
+          "bbox": [
+            1205,
+            545,
+            1269,
+            607
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.753,
+          "bbox": [
+            502,
+            696,
+            545,
+            823
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.669,
+          "bbox": [
+            650,
+            705,
+            700,
+            843
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.632,
+          "bbox": [
+            1123,
+            712,
+            1160,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.626,
+          "bbox": [
+            468,
+            697,
+            504,
+            798
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.571,
+          "bbox": [
+            613,
+            700,
+            648,
+            795
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.473,
+          "bbox": [
+            1154,
+            720,
+            1180,
+            801
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.401,
+          "bbox": [
+            1214,
+            708,
+            1240,
+            792
+          ],
+          "in_lane": true
+        }
+      ]
+    },
+    {
+      "t": 4.4,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.92,
+          "bbox": [
+            0,
+            675,
+            550,
+            970
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.908,
+          "bbox": [
+            783,
+            720,
+            1082,
+            934
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.8,
+          "bbox": [
+            1207,
+            544,
+            1269,
+            608
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.774,
+          "bbox": [
+            633,
+            704,
+            695,
+            844
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.756,
+          "bbox": [
+            499,
+            697,
+            541,
+            825
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.708,
+          "bbox": [
+            785,
+            696,
+            825,
+            817
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.696,
+          "bbox": [
+            1122,
+            713,
+            1157,
+            804
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.647,
+          "bbox": [
+            1152,
+            716,
+            1182,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.629,
+          "bbox": [
+            457,
+            696,
+            496,
+            795
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.412,
+          "bbox": [
+            614,
+            700,
+            649,
+            791
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 4.5,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.916,
+          "bbox": [
+            0,
+            673,
+            549,
+            970
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.908,
+          "bbox": [
+            785,
+            720,
+            1081,
+            936
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.782,
+          "bbox": [
+            1208,
+            543,
+            1271,
+            608
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.74,
+          "bbox": [
+            490,
+            698,
+            535,
+            822
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.733,
+          "bbox": [
+            629,
+            708,
+            685,
+            844
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.719,
+          "bbox": [
+            754,
+            701,
+            818,
+            830
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.719,
+          "bbox": [
+            1122,
+            713,
+            1155,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.663,
+          "bbox": [
+            1151,
+            716,
+            1182,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.532,
+          "bbox": [
+            450,
+            697,
+            488,
+            793
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.453,
+          "bbox": [
+            1214,
+            709,
+            1240,
+            792
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.406,
+          "bbox": [
+            599,
+            702,
+            628,
+            793
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 4.6,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.921,
+          "bbox": [
+            0,
+            675,
+            549,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.909,
+          "bbox": [
+            782,
+            720,
+            1081,
+            933
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.845,
+          "bbox": [
+            1209,
+            543,
+            1272,
+            608
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.767,
+          "bbox": [
+            751,
+            702,
+            810,
+            837
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.73,
+          "bbox": [
+            624,
+            700,
+            671,
+            843
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.722,
+          "bbox": [
+            482,
+            697,
+            524,
+            809
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.689,
+          "bbox": [
+            1122,
+            715,
+            1155,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.614,
+          "bbox": [
+            443,
+            695,
+            478,
+            788
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.604,
+          "bbox": [
+            1152,
+            716,
+            1180,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.587,
+          "bbox": [
+            1281,
+            706,
+            1345,
+            858
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.494,
+          "bbox": [
+            595,
+            702,
+            629,
+            793
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.409,
+          "bbox": [
+            365,
+            692,
+            402,
+            752
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 4.7,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.915,
+          "bbox": [
+            0,
+            675,
+            547,
+            969
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.906,
+          "bbox": [
+            781,
+            720,
+            1081,
+            933
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.831,
+          "bbox": [
+            1209,
+            543,
+            1272,
+            609
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.772,
+          "bbox": [
+            740,
+            700,
+            801,
+            837
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.739,
+          "bbox": [
+            1122,
+            714,
+            1156,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.724,
+          "bbox": [
+            477,
+            696,
+            517,
+            805
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.677,
+          "bbox": [
+            613,
+            700,
+            667,
+            842
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.661,
+          "bbox": [
+            431,
+            694,
+            473,
+            774
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.649,
+          "bbox": [
+            1152,
+            719,
+            1181,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.462,
+          "bbox": [
+            360,
+            696,
+            397,
+            756
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 4.8,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.907,
+          "bbox": [
+            0,
+            674,
+            548,
+            970
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.904,
+          "bbox": [
+            783,
+            719,
+            1081,
+            933
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.806,
+          "bbox": [
+            1209,
+            541,
+            1274,
+            610
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.764,
+          "bbox": [
+            468,
+            697,
+            513,
+            803
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.733,
+          "bbox": [
+            420,
+            694,
+            467,
+            793
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.712,
+          "bbox": [
+            740,
+            696,
+            792,
+            834
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.694,
+          "bbox": [
+            1120,
+            713,
+            1154,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.598,
+          "bbox": [
+            607,
+            697,
+            662,
+            844
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.576,
+          "bbox": [
+            1155,
+            718,
+            1181,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            354,
+            697,
+            390,
+            754
+          ],
+          "in_lane": false
+        }
+      ]
+    },
+    {
+      "t": 4.9,
+      "boxes": [
+        {
+          "label": "car",
+          "confidence": 0.915,
+          "bbox": [
+            0,
+            673,
+            543,
+            971
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "car",
+          "confidence": 0.905,
+          "bbox": [
+            782,
+            719,
+            1081,
+            933
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "stop sign",
+          "confidence": 0.806,
+          "bbox": [
+            1211,
+            541,
+            1276,
+            613
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.745,
+          "bbox": [
+            733,
+            695,
+            782,
+            835
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.74,
+          "bbox": [
+            464,
+            697,
+            503,
+            803
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.698,
+          "bbox": [
+            1121,
+            709,
+            1154,
+            803
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.626,
+          "bbox": [
+            1154,
+            717,
+            1182,
+            802
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.525,
+          "bbox": [
+            416,
+            694,
+            461,
+            773
+          ],
+          "in_lane": false
+        },
+        {
+          "label": "person",
+          "confidence": 0.495,
+          "bbox": [
+            580,
+            701,
+            651,
+            840
+          ],
+          "in_lane": true
+        },
+        {
+          "label": "person",
+          "confidence": 0.478,
+          "bbox": [
+            604,
+            701,
+            649,
+            835
+          ],
+          "in_lane": true
+        }
+      ]
+    }
+  ]
+}

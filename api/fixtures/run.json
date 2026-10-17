@@ -1,0 +1,13 @@
+{
+  "run_id": "run_0001",
+  "detector_id": "det_0002",
+  "status": "running",
+  "progress": {
+    "done": 12,
+    "total": 50
+  },
+  "matched": 3,
+  "started_at": "2026-10-17T13:52:00Z",
+  "finished_at": null,
+  "estimated_seconds": 150
+}

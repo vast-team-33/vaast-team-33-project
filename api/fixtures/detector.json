@@ -1,0 +1,15 @@
+{
+  "id": "det_0002",
+  "name": "Cyclist close to the car",
+  "kind": "user",
+  "prompt": "A cyclist or a person on a scooter is riding close to the ego car.",
+  "description": "Created from the UI.",
+  "prefilter": {
+    "object_class": "bicycle",
+    "in_lane": false
+  },
+  "status": "tested",
+  "created_at": "2026-10-17T13:50:00Z",
+  "last_run_id": null,
+  "event_count": 0
+}
