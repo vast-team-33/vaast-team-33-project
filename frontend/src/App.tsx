@@ -1,6 +1,7 @@
 import { IS_MOCK } from '@/api/client'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { APP_NAME } from '@/brand'
 import { href, useRoute, type Route } from '@/router'
 import Overview from '@/pages/Overview'
 import Events from '@/pages/Events'
@@ -19,8 +20,8 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <header className="border-b">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
-          <a href={href({ page: 'overview' })} className="text-lg font-bold tracking-tight">Crossing Risk</a>
+        <div className="mx-auto flex max-w-[1600px] items-center gap-6 px-4 py-3 md:px-8">
+          <a href={href({ page: 'overview' })} className="flex items-center gap-2 text-lg font-bold tracking-tight"><span className="inline-block size-2.5 rounded-full bg-primary shadow-[0_0_12px_var(--primary)]" />{APP_NAME}</a>
           <nav className="flex gap-1">
             {NAV.map((n) => (
               <a
@@ -38,7 +39,7 @@ export default function App() {
           {IS_MOCK && <Badge variant="outline" className="ml-auto">mock data</Badge>}
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-4 py-6">
+      <main className="mx-auto max-w-[1600px] px-4 py-6 md:px-8">
         {route.page === 'overview' && <Overview />}
         {route.page === 'events' && <Events />}
         {route.page === 'event' && <EventDetail id={route.id} />}

@@ -138,7 +138,7 @@ export default function Events() {
       {!items && !err && <p className="text-sm text-muted-foreground">Loading events…</p>}
       {items && items.length === 0 && <p className="text-sm text-muted-foreground">No events match these filters. Clear a filter to see more.</p>}
       {items && (
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
           {items.map((e) => <EventCard key={e.id} e={e} />)}
         </div>
       )}

@@ -1,4 +1,6 @@
-# Crossing Risk: pedestrian danger detection for self-driving cars
+# DriveLoop: a self-training data engine for self-driving cars
+
+Self-driving fleets record petabytes of camera video. DriveLoop keeps it on reliable VAST storage, finds the moments that matter with NVIDIA models, lets people check them, and turns each one into simulated training data for the next model. The built-in scenario today is pedestrians stepping into the road (formerly called Crossing Risk).
 
 Team 33 · VAST Builders Challenge, London · 17 October 2026
 
