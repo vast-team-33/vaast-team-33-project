@@ -30,7 +30,7 @@ spec:
             failureThreshold: 60
           resources:
             requests: {cpu: 100m, memory: 256Mi}
-            limits: {memory: 1Gi}
+            limits: {memory: 2Gi}
           volumeMounts:
             - {name: backend, mountPath: /app/backend}
             - {name: bootstrap, mountPath: /app/bootstrap}

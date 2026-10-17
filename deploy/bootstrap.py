@@ -32,7 +32,9 @@ def download(s3, key, dest):
         return "cached"
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     tmp = dest + ".part"
-    s3.download_file(BUCKET, key, tmp)
+    from boto3.s3.transfer import TransferConfig
+    # One thread per file: multipart threads x 8 workers ran the pod out of memory (exit 137).
+    s3.download_file(BUCKET, key, tmp, Config=TransferConfig(use_threads=False))
     os.replace(tmp, dest)
     return "downloaded"
 
@@ -91,7 +93,7 @@ def main():
                 thumb(ev, clip, th)]
 
     failed = 0
-    with ThreadPoolExecutor(max_workers=8) as ex:
+    with ThreadPoolExecutor(max_workers=4) as ex:
         futs = [(ev.get("id"), ex.submit(work, ev)) for ev in events]
         for i, (eid, f) in enumerate(futs, 1):
             try:
