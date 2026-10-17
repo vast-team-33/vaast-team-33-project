@@ -13,7 +13,7 @@ Speak slowly. Short sentences. Do not hide what is a demo.
 ### 0:15-0:45 A real event
 **On screen:** open the top event. Play the clip. Show the person box, the danger score (80), then the driver-vs-model speed chart.
 **Say:**
-"We scanned 1,080 clips from the VAST archive. YOLO found 558 candidates. Cosmos3-Reason judged the closest 24. Here is one. A person is on the road ahead of the car. The danger score is 80 out of 100. This one is a marked crosswalk. One line is what the driver did, measured with optical flow. The other line is what the model suggests. Here the driver stopped, and the model said proceed with caution. So the driver was more careful than the model."
+"We scanned 1,080 clips from the VAST archive. YOLO found 558 candidates. NVIDIA Cosmos and Nemotron judged the closest ones. Here is the top one. A woman steps onto the road ahead, outside any crosswalk. The danger score is 73 out of 100. One line is what the driver did, measured with optical flow. The other line is what the model suggests. Here the driver accelerated, and the model said stop. So the driver was less careful than the model."
 
 ### 0:45-0:55 Human label
 **On screen:** click the "who was right?" buttons. Show the label saved.

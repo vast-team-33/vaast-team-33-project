@@ -20,18 +20,19 @@ Each moment is also packaged as a simulator-ready scenario file. The "send to si
 
 Users can write their own detector in plain words, test it on one clip, and run it on the whole set.
 
-Honest limits: the scoring and the speed are rough (optical flow gives relative units only). Our first run counted some people on the sidewalk as "on road". We are fixing this with a Nemotron vision check on the peak frame.
+Honest limits: the scoring and the speed are rough (optical flow gives relative units only). Our first run counted people on the sidewalk as "on road"; a second judge (NVIDIA Nemotron VL on the peak frame) fixed that, and also removes cyclists and duplicate clips. We checked 8 of the final events by eye and all 8 were labelled correctly; the rest are unchecked.
 
 ## Numbers (from the 17 Oct run)
 
 - 1,080 clips scanned (5 s each, Toronto dashcam, 6 drives)
-- 558 candidate moments
-- 24 moments judged by Cosmos3-Reason
-- Driver vs model: 12 as careful, 9 less careful, 3 more careful
-- Crossing place: 21 marked crosswalk, 1 outside crosswalk, 2 not crossing
-- Human feedback so far: 1 label
+- 558 candidate moments (a person in the car's lane for at least 1/3 s)
+- 24 closest moments judged by Cosmos3-Reason, then checked by Nemotron VL: 2 cyclists and 2 duplicate clips removed, 20 events left
+- Where the person is: 3 on the road outside a crosswalk, 4 on a marked crosswalk, 13 on the sidewalk or curb
+- Driver vs model: 10 as careful, 8 less careful, 2 more careful
+- Eyeball check: 8 of 8 checked events labelled correctly (12 unchecked)
+- Live detector test: a user-written detector ran on one clip on the shared NVIDIA GPU in 4.6 s
 
-Source: `api/fixtures/summary.json`, generated 2026-10-17 13:28 UTC.
+Source: the live app's `api/summary` and `api/events`, 17 Oct.
 
 ## Tools used
 
