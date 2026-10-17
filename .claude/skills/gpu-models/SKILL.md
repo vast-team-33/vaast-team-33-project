@@ -1,1 +1,1 @@
-../../../ref/vast-builders-challenge/.cursor/skills/gpu/README.md
+../../../vendor/vast-builders-challenge/.cursor/skills/gpu/README.md

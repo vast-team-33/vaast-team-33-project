@@ -35,7 +35,7 @@ Submission is due at **16:30 BST**; code freeze 15:45.
 
 ## Event rules
 
-- Source: `ref/vast-builders-challenge/.cursor/rules/build-day.mdc` (git submodule, see below).
+- Source: `vendor/vast-builders-challenge/.cursor/rules/build-day.mdc` (a copy of the event repo, see below).
 - Use only the provided footage. **Never ingest video from the internet.** Uploads are accepted
   but not processed: the Segmenter is not in the challenge path.
 - Do not rebuild or redeploy the organisers' DataEngine pipeline. Our own processing runs in our
@@ -46,8 +46,9 @@ Submission is due at **16:30 BST**; code freeze 15:45.
 
 ## Skills
 
-- `.claude/skills/` links into the event repo's skills at `ref/vast-builders-challenge/.cursor/skills/`.
-  After cloning, run `git submodule update --init` so the links resolve.
+- `.claude/skills/` links into the event repo's skills at `vendor/vast-builders-challenge/.cursor/skills/`.
+  That folder is a plain copy of https://github.com/vast-data/vast-builders-challenge; see
+  `vendor/vast-builders-challenge/VENDORED.md` for the source commit and how to refresh it.
 - Skill commands assume the VM, so run them through SSH as above. Where a skill says `AskQuestion`,
   use your agent's ask-the-user tool.
 - `ENVIRONMENT.md`, section "Gotchas found today", lists where the skills are wrong

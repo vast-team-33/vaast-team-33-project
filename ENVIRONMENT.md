@@ -52,7 +52,7 @@ Each teammate has their own lab VM; the examples use `bc-systerr`. Swap in your 
   sudo apt-get install -y python3-pip python3-venv
   ```
 - **Repos:** `~/vast-builders-challenge` (event repo with the skills) and `~/vss-blueprint`
-  (pipeline source). Both are also cloned read-only into `ref/` here.
+  (pipeline source). This repo carries a copy of the event repo in `vendor/vast-builders-challenge/`.
 - **Claude Code on the VM:** installed today. The event repo there has a `CLAUDE.md` and
   `.claude/skills/` links to the Cursor skills. Both are excluded from git. First run asks you to log in:
   ```bash
@@ -77,7 +77,7 @@ Load them inside the command that needs them:
 ```bash
 set -a; source /config/team-33.config; set +a
 ```
-`ref/vast-builders-challenge/config.example` describes each variable.
+`vendor/vast-builders-challenge/config.example` describes each variable.
 
 ## What is indexed for team 33
 
@@ -230,7 +230,7 @@ Use the `deploy-app-no-registry` skill.
 
 ## Skills
 
-The originals are in `ref/vast-builders-challenge/.cursor/skills/`. `.claude/skills/` links to them.
+The originals are in `vendor/vast-builders-challenge/.cursor/skills/`. `.claude/skills/` links to them.
 
 | Skill | Use it to |
 |---|---|

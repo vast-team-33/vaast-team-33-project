@@ -43,7 +43,6 @@ gotchas are in [`ENVIRONMENT.md`](ENVIRONMENT.md).
 ```bash
 git clone git@github.com:vast-team-33/vaast-team-33-project.git
 cd vaast-team-33-project
-git submodule update --init      # event repo with the skills, under ref/vast-builders-challenge
 ```
 
 Then read [`AGENTS.md`](AGENTS.md). It covers how to run things on your lab VM, the credential
@@ -60,7 +59,7 @@ read `AGENTS.md` directly.
 | `docs/platform-capabilities.md` | Results of testing every platform feature |
 | `docs/ideas.md` | Ideas we explored today and why we picked this one |
 | `.claude/skills/` | Links to the event skills |
-| `ref/vast-builders-challenge/` | Event repo (git submodule) |
+| `vendor/vast-builders-challenge/` | Copy of the event repo (skills, rules, docs); see `VENDORED.md` inside |
 
 ## Submission (due 16:30 BST)
 
