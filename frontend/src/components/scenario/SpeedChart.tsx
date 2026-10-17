@@ -8,7 +8,7 @@ export default function SpeedChart({ measured, suggested, step }: { measured: nu
   const secs = ((n - 1) * step).toFixed(1)
   return (
     <figure>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Measured versus suggested speed">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-2xl" role="img" aria-label="Measured versus suggested speed">
         <line x1={P} y1={H - P} x2={W - P} y2={H - P} stroke="var(--border)" />
         <line x1={P} y1={P} x2={P} y2={H - P} stroke="var(--border)" />
         <polyline points={pts(measured)} fill="none" stroke="var(--speed-measured)" strokeWidth="2.5" />
