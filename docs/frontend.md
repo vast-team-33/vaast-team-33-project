@@ -78,8 +78,6 @@ real dashcam → detect → score danger → driver vs model → human label →
 ## Still to do
 
 - [ ] Backend: detectors, preview, runs and export endpoints (contract is ready, none implemented yet).
-- [ ] **Design skill:** a `.claude/skills/design/SKILL.md` describing the visual language
-  (colours and danger bands, typography, spacing, card and badge styles, chart style, dark and light
-  theme, shadcn theme tokens). Then every agent and teammate builds UI that looks consistent.
+- [x] **Design skill:** done, see [`.claude/skills/design/SKILL.md`](../.claude/skills/design/SKILL.md).
 - [ ] Scaffold the Vite + React + Tailwind 4 + shadcn app in `frontend/`.
 - [ ] Backend serves the contract (currently the older experiment shape).
