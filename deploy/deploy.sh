@@ -54,6 +54,7 @@ cm crossing-risk-bootstrap "${BOOT[@]}"
     --from-literal=ACCESS_KEY="$ACCESS_KEY" \
     --from-literal=SECRET_KEY="$SECRET_KEY" \
     --from-literal=S3_SEGMENTS_BUCKET="$S3_SEGMENTS_BUCKET" \
+    --from-literal=GPU_BEARER_TOKEN="$GPU_BEARER_TOKEN" \
     --dry-run=client -o yaml | $K apply -f - > /dev/null
   echo "secret crossing-risk-s3 applied"
 )

@@ -3,7 +3,9 @@ import json
 import os
 import tempfile
 import threading
+import time
 import unittest
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.error
 import urllib.request
 
@@ -24,9 +26,51 @@ def ev(i, drive, danger, t, agreement, crossing):
             "actual_action": "stopped", "suggested_action": "stop", "agreement": agreement}
 
 
+class Judge(BaseHTTPRequestHandler):
+    calls = []
+    gate = threading.Event()
+    fail = False
+    lock = threading.Lock()
+    live = 0
+    peak = 0
+
+    def log_message(self, *a):
+        pass
+
+    def do_POST(self):
+        body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+        cls = Judge
+        with cls.lock:
+            cls.live += 1
+            cls.peak = max(cls.peak, cls.live)
+            cls.calls.append({"auth": self.headers.get("Authorization"), "body": body})
+        cls.gate.wait(10)
+        with cls.lock:
+            cls.live -= 1
+        if cls.fail:
+            self.send_response(500)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+        text = body["messages"][0]["content"][0]["text"]
+        match = "cyclist" in text
+        content = '<think>hmm {not json}</think> ok {"match": %s, "confidence": 0.8, "moment_sec": 2.5, "reason": "A cyclist."} bye' % (
+            "true" if match else "false")
+        out = json.dumps({"choices": [{"message": {"content": content}}]}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(out)))
+        self.end_headers()
+        self.wfile.write(out)
+
+
 class T(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.judge = HTTPServer(("127.0.0.1", 0), Judge)
+        threading.Thread(target=cls.judge.serve_forever, daemon=True).start()
+        os.environ["COSMOS_URL"] = "http://127.0.0.1:%d/v1/chat/completions" % cls.judge.server_address[1]
+        os.environ["GPU_BEARER_TOKEN"] = "tok"
         cls.tmp = tempfile.TemporaryDirectory()
         d = cls.tmp.name
         for sub in ("clips", "thumbs", "sidecars"):
@@ -42,6 +86,8 @@ class T(unittest.TestCase):
             {"label": "person", "confidence": 0.9, "bbox": [900, 600, 1000, 900]},
             {"label": "person", "confidence": 0.2, "bbox": [900, 600, 1000, 900]},
             {"label": "person", "confidence": 0.8, "bbox": [100, 600, 200, 900]}]} for i in range(9)]
+        with open(os.path.join(d, "clips", B + ".mp4"), "wb") as f:
+            f.write(cls.clip)
         with gzip.open(os.path.join(d, "sidecars", A + ".json.gz"), "wt") as f:
             json.dump({"video_shape": [1080, 1920], "fps": 30, "frames": frames}, f)
         cls.srv = server.make_server("127.0.0.1", 0, d, os.path.join(d, "nostatic"))
@@ -51,6 +97,7 @@ class T(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.srv.shutdown()
+        cls.judge.shutdown()
         cls.srv.server_close()
         cls.tmp.cleanup()
 
@@ -145,11 +192,103 @@ class T(unittest.TestCase):
         self.assertEqual(self.req("/api/health")[1], {"ok": True})
         self.assertEqual(self.req("/api/config")[1]["stop_threshold"], 0.35)
         self.assertEqual(self.req("/api/detectors")[1]["items"][0]["event_count"], 2)
-        self.assertEqual(self.req("/api/runs/x")[0], 501)
-        self.assertEqual(self.req("/api/detectors/det_1/runs", "POST", {})[0], 501)
+        self.assertEqual(self.req("/api/runs/x")[0], 404)
         s, b, _ = self.req("/", raw=True)
         self.assertEqual(s, 200)
         self.assertIn(b"not built", b)
+
+    def wait_run(self, rid):
+        for _ in range(100):
+            run = self.req("/api/runs/" + rid)[1]
+            if run["status"] != "running":
+                break
+            time.sleep(0.1)
+        return run
+
+    def test_detectors_flow(self):
+        good = {"name": "Cyclist", "prompt": "A cyclist rides close.", "description": "d",
+                "prefilter": {"object_class": "person", "in_lane": True}}
+        for bad in ({}, {"name": "x"}, dict(good, name="n" * 81), dict(good, prompt="p" * 801),
+                    dict(good, description="d" * 301), dict(good, prefilter={"in_lane": "yes"}),
+                    dict(good, prefilter="x")):
+            self.assertEqual(self.req("/api/detectors", "POST", bad)[0], 400, bad)
+        s, d, _ = self.req("/api/detectors", "POST", good)
+        self.assertEqual(s, 201)
+        self.assertRegex(d["id"], r"^det_\d{4}$")
+        self.assertEqual((d["status"], d["kind"], d["event_count"]), ("draft", "user", 0))
+        did = d["id"]
+        self.assertEqual(self.req("/api/detectors/" + did)[1]["name"], "Cyclist")
+        self.assertEqual(self.req("/api/detectors/nope")[0], 404)
+        items = self.req("/api/detectors")[1]["items"]
+        self.assertEqual([i["id"] for i in items][:2], ["crossing_risk", did])
+        self.assertEqual(self.req("/api/detectors/nope/preview", "POST", {})[0], 404)
+        self.assertEqual(self.req("/api/detectors/%s/preview" % did, "POST", {"event_id": "zzz"})[0], 404)
+
+        Judge.gate.set()
+        s, j, _ = self.req("/api/detectors/%s/preview" % did, "POST", {"event_id": B})
+        self.assertEqual(s, 200)
+        self.assertEqual((j["sample_event_id"], j["result"]["match"], j["result"]["confidence"]), (B, True, 0.8))
+        self.assertEqual((j["result"]["moment_sec"], j["model"]), (2.5, "nvidia/cosmos3-nano-reasoner"))
+        self.assertIsInstance(j["latency_ms"], int)
+        c = Judge.calls[-1]
+        self.assertEqual(c["auth"], "Bearer tok")
+        self.assertEqual(c["body"]["temperature"], 0)
+        self.assertEqual(c["body"]["max_tokens"], 200)
+        self.assertIn("A cyclist rides close.", c["body"]["messages"][0]["content"][0]["text"])
+        self.assertTrue(c["body"]["messages"][0]["content"][1]["video_url"]["url"].startswith("data:video/mp4;base64,"))
+        self.assertEqual(self.req("/api/detectors/" + did)[1]["status"], "tested")
+        s, j, _ = self.req("/api/detectors/%s/preview" % did, "POST")
+        self.assertEqual((s, j["sample_event_id"]), (200, A))
+
+        Judge.gate.clear()
+        Judge.peak = 0
+        s, r, _ = self.req("/api/detectors/%s/runs" % did, "POST", {"max_clips": 10})
+        self.assertEqual(s, 202)
+        self.assertEqual(r["detector_id"], did)
+        self.assertEqual(self.req("/api/detectors/%s/runs" % did, "POST", {})[0], 409)
+        self.assertEqual(self.req("/api/detectors/" + did)[1]["status"], "running")
+        time.sleep(0.3)
+        mid = self.req("/api/runs/" + r["run_id"])[1]
+        self.assertEqual(mid["status"], "running")
+        self.assertEqual(mid["progress"]["total"], 1)  # only A has a person in the lane sidecar
+        Judge.gate.set()
+        run = self.wait_run(r["run_id"])
+        self.assertEqual(run["status"], "completed")
+        self.assertEqual((run["progress"], run["matched"]), ({"done": 1, "total": 1}, 1))
+        self.assertTrue(run["finished_at"])
+        self.assertLessEqual(Judge.peak, 2)
+        self.assertEqual(self.req("/api/detectors/" + did)[1]["status"], "active")
+        self.assertEqual(self.req("/api/detectors/" + did)[1]["event_count"], 1)
+        j = self.req("/api/events?detector_id=" + did)[1]
+        self.assertEqual(j["total"], 1)
+        e = j["items"][0]
+        self.assertEqual((e["detector_id"], e["danger"], e["reason"], e["drive"]), (did, 80, "A cyclist.", "set01"))
+        self.assertEqual((e["clip_url"], e["risk"], e["speeds"]), ("media/clips/%s.mp4" % A, "none", []))
+        self.assertEqual(self.req("/api/events/" + e["id"])[0], 200)
+        self.assertEqual(self.req("/api/events")[1]["total"], 2)
+        self.assertEqual(self.req("/api/events?detector_id=crossing_risk")[1]["total"], 2)
+
+        s, d2, _ = self.req("/api/detectors", "POST", {"name": "Dog", "prompt": "A dog."})
+        s, r2, _ = self.req("/api/detectors/%s/runs" % d2["id"], "POST", {"drives": ["set02"]})
+        run = self.wait_run(r2["run_id"])
+        self.assertEqual((run["status"], run["progress"], run["matched"]), ("completed", {"done": 1, "total": 1}, 0))
+        self.assertEqual(self.req("/api/runs/nope")[0], 404)
+
+        Judge.fail = True
+        try:
+            s, j, _ = self.req("/api/detectors/%s/preview" % did, "POST", {})
+            self.assertEqual((s, j["error"]["code"]), (502, "gpu_error"))
+            s, r3, _ = self.req("/api/detectors/%s/runs" % d2["id"], "POST", {})
+            self.assertEqual(self.wait_run(r3["run_id"])["status"], "failed")
+            self.assertEqual(self.req("/api/detectors/" + d2["id"])[1]["status"], "failed")
+        finally:
+            Judge.fail = False
+
+        p = "/api/detectors/%s/export" % did
+        s, j, _ = self.req(p, "POST", {"target": "openscenario", "min_danger": 10})
+        self.assertEqual((s, j["demo"], j["status"], j["message"]), (202, True, "queued", server.DEMO_MSG))
+        self.assertEqual(self.req(p, "POST", {"target": "x"})[0], 400)
+        self.assertEqual(self.req("/api/detectors/nope/export", "POST", {"target": "omniverse"})[0], 404)
 
 
 if __name__ == "__main__":
