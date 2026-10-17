@@ -6,6 +6,11 @@ import mimetypes
 import os
 import re
 import threading
+import time
+import base64
+import urllib.error
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs, unquote
@@ -26,6 +31,16 @@ MODELS = {"detector": "yolo11s (COCO), stored per-frame boxes",
           "judge": "nvidia/cosmos3-nano-reasoner",
           "ego_speed": "optical flow (OpenCV Farneback), relative units"}
 MAX_BODY = 2048
+JUDGE_MODEL = "nvidia/cosmos3-nano-reasoner"
+DEFAULT_COSMOS_URL = "http://166.19.38.112:8001/v1/chat/completions"
+JUDGE_TIMEOUT = 120
+JUDGE_PROMPT = ('You are a detector for a dashcam clip from a car (the ego car).\n'
+                'Detector definition, written by a user: "%s"\n'
+                'Answer with JSON only: {"match": true or false, "confidence": 0.0 to 1.0, '
+                '"moment_sec": seconds into the clip where it is clearest or null, '
+                '"reason": "one short sentence"}')
+CLIP_RE = re.compile(r"^(\d{8}_\d{6})_(set\d+)_.*?chunk_(\d+)_segment_(\d+)_of_(\d+)$")
+BUILTIN_ID = "crossing_risk"
 ID_RE = re.compile(r"^[A-Za-z0-9_.\-]+$")
 
 
@@ -36,6 +51,50 @@ def now_iso():
 class ApiError(Exception):
     def __init__(self, status, code, message):
         self.status, self.code, self.message = status, code, message
+
+
+def judge_clip(clip_path, user_prompt):
+    """Ask the Cosmos judge about one clip. Returns (result dict, latency_ms). Raises ApiError(502)."""
+    url = os.environ.get("COSMOS_URL") or DEFAULT_COSMOS_URL
+    token = os.environ.get("GPU_BEARER_TOKEN", "")
+    try:
+        with open(clip_path, "rb") as f:
+            b64 = base64.b64encode(f.read()).decode()
+    except OSError:
+        raise ApiError(404, "not_found", "clip not found")
+    payload = {"model": JUDGE_MODEL, "temperature": 0, "max_tokens": 200,
+               "messages": [{"role": "user", "content": [
+                   {"type": "text", "text": JUDGE_PROMPT % user_prompt},
+                   {"type": "video_url", "video_url": {"url": "data:video/mp4;base64," + b64}}]}]}
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(), method="POST",
+                                 headers={"Content-Type": "application/json",
+                                          "Authorization": "Bearer " + token})
+    t0 = time.time()
+    try:
+        with urllib.request.urlopen(req, timeout=JUDGE_TIMEOUT) as resp:
+            out = json.loads(resp.read().decode())
+        text = out["choices"][0]["message"]["content"] or ""
+    except Exception as e:  # noqa
+        raise ApiError(502, "gpu_error", "judge call failed: %s" % type(e).__name__)
+    latency = int((time.time() - t0) * 1000)
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
+    a, b = text.find("{"), text.rfind("}")
+    if a < 0 or b < a:
+        raise ApiError(502, "gpu_error", "judge returned no JSON")
+    try:
+        raw = json.loads(text[a:b + 1])
+        if not isinstance(raw, dict):
+            raise ValueError
+    except ValueError:
+        raise ApiError(502, "gpu_error", "judge returned invalid JSON")
+    try:
+        conf = max(0.0, min(1.0, float(raw.get("confidence") or 0)))
+    except (TypeError, ValueError):
+        conf = 0.0
+    m = raw.get("moment_sec")
+    m = float(m) if isinstance(m, (int, float)) and not isinstance(m, bool) else None
+    return {"match": raw.get("match") is True, "confidence": conf, "moment_sec": m,
+            "reason": str(raw.get("reason") or "")[:300]}, latency
 
 
 def point_in_poly(x, y, poly):
@@ -61,6 +120,10 @@ class Store:
         self.by_id = {}
         self.feedback = []
         self.export_n = 0
+        self.user_detectors = []
+        self.det_events = []
+        self.runs = {}
+        self.run_n = 0
         self.load()
 
     def load(self):
@@ -84,6 +147,28 @@ class Store:
             pass
         self.events = [self.convert(e) for e in self.raw.get("events", [])]
         self.by_id = {e["id"]: e for e in self.events}
+        self.user_detectors = self._load_json("detectors.json", [])
+        self.det_events = self._load_json("detector_events.json", [])
+        for e in self.det_events:
+            self.by_id[e["id"]] = e
+
+    def _load_json(self, name, default):
+        try:
+            with open(os.path.join(self.data_dir, name)) as f:
+                v = json.load(f)
+            return v if isinstance(v, list) else default
+        except (OSError, ValueError):
+            return default
+
+    def _save_json(self, name, obj):
+        p = os.path.join(self.data_dir, name)
+        try:
+            os.makedirs(self.data_dir, exist_ok=True)
+            with open(p + ".tmp", "w") as f:
+                json.dump(obj, f)
+            os.replace(p + ".tmp", p)
+        except OSError:
+            pass
 
     @staticmethod
     def convert(e):
@@ -181,13 +266,237 @@ class Store:
                           "moving_weights": {"moving": 1.0, "stopped": 0.35}},
                 "feedback_choices": CHOICES}
 
-    def detectors(self):
-        return {"items": [{
-            "id": "crossing_risk", "name": "Pedestrian in the car's path", "kind": "builtin",
+    def builtin_detector(self):
+        return {
+            "id": BUILTIN_ID, "name": "Pedestrian in the car's path", "kind": "builtin",
             "prompt": "A pedestrian is on the road ahead of the ego car; is it at a marked crosswalk or outside one, is the car moving, how risky is it, and what should the car do?",
             "description": "Built-in detector: YOLO person in the lane zone, judged by Cosmos3-Reason, scored 0-100.",
             "prefilter": {"object_class": "person", "in_lane": True}, "status": "active",
-            "created_at": now_iso(), "last_run_id": None, "event_count": len(self.events)}]}
+            "created_at": now_iso(), "last_run_id": None, "event_count": len(self.events)}
+
+    def detector_view(self, d):
+        v = dict(d)
+        v["event_count"] = sum(1 for e in self.det_events if e["detector_id"] == d["id"])
+        return v
+
+    def detectors(self):
+        with self.lock:
+            return {"items": [self.builtin_detector()] + [self.detector_view(d) for d in self.user_detectors]}
+
+    def get_detector(self, did):
+        if did == BUILTIN_ID:
+            return self.builtin_detector()
+        with self.lock:
+            for d in self.user_detectors:
+                if d["id"] == did:
+                    return self.detector_view(d)
+        raise ApiError(404, "not_found", "detector not found: %s" % did)
+
+    def create_detector(self, body):
+        def text(key, maxlen, required):
+            v = body.get(key)
+            if v is None and not required:
+                return ""
+            if not isinstance(v, str) or (required and not v.strip()):
+                raise ApiError(400, "bad_request", "%s must be a non-empty string" % key if required
+                               else "%s must be a string" % key)
+            if len(v) > maxlen:
+                raise ApiError(400, "bad_request", "%s must be at most %d characters" % (key, maxlen))
+            return v
+        name = text("name", 80, True)
+        prompt = text("prompt", 800, True)
+        desc = text("description", 300, False)
+        pf_in = body.get("prefilter")
+        pf = {}
+        if pf_in is not None:
+            if not isinstance(pf_in, dict):
+                raise ApiError(400, "bad_request", "prefilter must be an object")
+            oc = pf_in.get("object_class")
+            if oc is not None:
+                if not isinstance(oc, str) or not oc.strip() or len(oc) > 40:
+                    raise ApiError(400, "bad_request", "prefilter.object_class must be a short string")
+                pf["object_class"] = oc.strip()
+            il = pf_in.get("in_lane")
+            if il is not None:
+                if not isinstance(il, bool):
+                    raise ApiError(400, "bad_request", "prefilter.in_lane must be a boolean")
+                pf["in_lane"] = il
+        with self.lock:
+            nums = [int(d["id"][4:]) for d in self.user_detectors if d["id"][4:].isdigit()]
+            nid = "det_%04d" % (max(nums + [0]) + 1)
+            d = {"id": nid, "name": name, "kind": "user", "prompt": prompt, "description": desc,
+                 "prefilter": pf, "status": "draft", "created_at": now_iso(), "last_run_id": None,
+                 "event_count": 0}
+            self.user_detectors.append(d)
+            self._save_json("detectors.json", self.user_detectors)
+            return dict(d)
+
+    def set_detector(self, did, **kw):
+        with self.lock:
+            for d in self.user_detectors:
+                if d["id"] == did:
+                    d.update(kw)
+                    self._save_json("detectors.json", self.user_detectors)
+
+    # --- clips, preview, runs
+    def clip_ids(self):
+        d = os.path.join(self.data_dir, "clips")
+        try:
+            return sorted(n[:-4] for n in os.listdir(d) if n.endswith(".mp4") and ID_RE.match(n))
+        except OSError:
+            return []
+
+    def clip_path(self, cid):
+        return os.path.join(self.data_dir, "clips", cid + ".mp4")
+
+    def preview(self, did, event_id):
+        det = self.get_detector(did)
+        if event_id is not None:
+            if not isinstance(event_id, str) or not ID_RE.match(event_id):
+                raise ApiError(400, "bad_request", "event_id must be a string")
+            cid = event_id[:-4] if event_id.endswith(".mp4") else event_id
+            src = self.by_id.get(event_id)
+            if src:
+                cid = src["id"].split("__")[0]
+            if not os.path.isfile(self.clip_path(cid)):
+                raise ApiError(404, "not_found", "no clip for event: %s" % event_id)
+        else:
+            ids = self.clip_ids()
+            if not ids:
+                raise ApiError(404, "not_found", "no clips available")
+            cid = ids[0]
+        result, latency = judge_clip(self.clip_path(cid), det["prompt"])
+        if det["kind"] == "user":
+            self.set_detector(did, status="tested")
+        return {"detector_id": did, "sample_event_id": cid, "result": result,
+                "latency_ms": latency, "model": JUDGE_MODEL}
+
+    def source_event(self, cid):
+        e = self.by_id.get(cid)
+        if e and e.get("detector_id") == BUILTIN_ID:
+            return e
+        m = CLIP_RE.match(cid)
+        drive = m.group(2) if m else ""
+        chunk = int(m.group(3)) if m else 0
+        seg = int(m.group(4)) if m else 0
+        return {"id": cid, "drive": drive, "chunk": chunk, "segment": seg,
+                "drive_time_sec": chunk * 30 + max(seg - 1, 0) * 5, "peak_sec": 0,
+                "frame_w": FRAME_W, "frame_h": 1080,
+                "clip_url": "media/clips/%s.mp4" % cid, "thumb_url": "media/thumbs/%s.jpg" % cid}
+
+    def prefilter_ok(self, cid, pf):
+        oc = pf.get("object_class")
+        if not oc:
+            return True
+        p = os.path.join(self.data_dir, "sidecars", cid + ".json.gz")
+        try:
+            with gzip.open(p, "rt") as f:
+                raw = json.load(f)
+        except (OSError, ValueError):
+            return False
+        for fr in raw.get("frames", []):
+            for d in fr.get("detections", []):
+                if d.get("label") != oc or d.get("confidence", 0) < 0.3:
+                    continue
+                if pf.get("in_lane"):
+                    x1, y1, x2, y2 = d["bbox"]
+                    if not point_in_poly((x1 + x2) / 2, y2, LANE):
+                        continue
+                return True
+        return False
+
+    def start_run(self, did, body):
+        det = self.get_detector(did)
+        drives = body.get("drives")
+        if drives is not None and (not isinstance(drives, list) or not all(isinstance(x, str) for x in drives)):
+            raise ApiError(400, "bad_request", "drives must be an array of strings")
+        mc = body.get("max_clips", 50)
+        if isinstance(mc, bool) or not isinstance(mc, int) or mc < 1:
+            raise ApiError(400, "bad_request", "max_clips must be a positive integer")
+        mc = min(mc, 200)
+        with self.lock:
+            for r in self.runs.values():
+                if r["detector_id"] == did and r["status"] in ("queued", "running"):
+                    raise ApiError(409, "conflict", "a run of this detector is already in progress")
+            self.run_n += 1
+            run = {"run_id": "run_%04d" % self.run_n, "detector_id": did, "status": "running",
+                   "progress": {"done": 0, "total": 0}, "matched": 0, "started_at": now_iso(),
+                   "finished_at": None, "estimated_seconds": 0}
+            self.runs[run["run_id"]] = run
+        if det["kind"] == "user":
+            self.set_detector(did, status="running", last_run_id=run["run_id"])
+        threading.Thread(target=self._run_worker, args=(run, det, drives, mc), daemon=True).start()
+        with self.lock:
+            return json.loads(json.dumps(run))
+
+    def get_run(self, rid):
+        with self.lock:
+            r = self.runs.get(rid)
+            if not r:
+                raise ApiError(404, "not_found", "run not found: %s" % rid)
+            return json.loads(json.dumps(r))
+
+    def _run_worker(self, run, det, drives, max_clips):
+        errors = []
+        try:
+            cands = []
+            for cid in self.clip_ids():
+                src = self.source_event(cid)
+                if drives and src["drive"] not in drives:
+                    continue
+                if self.prefilter_ok(cid, det.get("prefilter") or {}):
+                    cands.append(src)
+                    if len(cands) >= max_clips:
+                        break
+            with self.lock:
+                run["progress"]["total"] = len(cands)
+                run["estimated_seconds"] = len(cands) * 3
+
+            def one(src):
+                try:
+                    res, _ = judge_clip(self.clip_path(src["id"]), det["prompt"])
+                    if res["match"]:
+                        ev = self.make_event(det["id"], src, res)
+                        with self.lock:
+                            self.det_events.append(ev)
+                            self.by_id[ev["id"]] = ev
+                            self._save_json("detector_events.json", self.det_events)
+                            run["matched"] += 1
+                except Exception as e:  # noqa
+                    errors.append(str(getattr(e, "message", e)))
+                finally:
+                    with self.lock:
+                        run["progress"]["done"] += 1
+            with ThreadPoolExecutor(max_workers=2) as ex:
+                list(ex.map(one, cands))
+            failed = bool(cands) and len(errors) == len(cands)
+            with self.lock:
+                run["status"] = "failed" if failed else "completed"
+                if failed:
+                    run["error"] = errors[0]
+        except Exception as e:  # noqa
+            with self.lock:
+                run["status"] = "failed"
+                run["error"] = str(e)
+        with self.lock:
+            run["finished_at"] = now_iso()
+            ok = run["status"] == "completed"
+        if det["kind"] == "user":
+            self.set_detector(det["id"], status="active" if ok else "failed")
+
+    @staticmethod
+    def make_event(did, src, res):
+        return {
+            "id": "%s__%s" % (src["id"], did), "detector_id": did, "drive": src["drive"],
+            "chunk": src["chunk"], "segment": src["segment"], "drive_time_sec": src["drive_time_sec"],
+            "peak_sec": res["moment_sec"] if res["moment_sec"] is not None else 0,
+            "danger": int(round(res["confidence"] * 100)),
+            "factors": {"closeness": 0, "exposure": 0, "location": 0, "moving": 0},
+            "pedestrian_position": "none", "crossing_location": "unclear", "risk": "none",
+            "reason": res["reason"], "actual_action": "unknown", "suggested_action": "unknown",
+            "agreement": "unknown", "speeds": [], "suggested_speeds": [], "person_bbox": [0, 0, 0, 0],
+            "frame_w": FRAME_W, "frame_h": src.get("frame_h", 1080), "frames_in_lane": 0,
+            "clip_url": src["clip_url"], "thumb_url": src["thumb_url"]}
 
     def scenario(self, e):
         eid = e["id"]
@@ -243,12 +552,16 @@ def list_events(store, q):
     def one(name):
         v = q.get(name)
         return v[0] if v and v[0] != "" else None
-    items = list(store.events)
+    did = one("detector_id")
+    if did is None or did == BUILTIN_ID:
+        items = list(store.events)
+    else:
+        items = [e for e in store.det_events if e["detector_id"] == did]
     md = to_int(q, "min_danger", None)
     if md is not None:
         items = [e for e in items if e["danger"] >= md]
     for key, qn in (("agreement", "agreement"), ("crossing_location", "crossing"),
-                    ("pedestrian_position", "position"), ("drive", "drive"), ("detector_id", "detector_id")):
+                    ("pedestrian_position", "position"), ("drive", "drive")):
         v = one(qn)
         if v is not None:
             items = [e for e in items if e[key] == v]
@@ -295,7 +608,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_json(status, {"error": {"code": code, "message": message}},
                        api_get=self.path.startswith("/api"))
 
-    def read_json(self):
+    def read_json(self, optional=False):
         try:
             length = int(self.headers.get("Content-Length") or 0)
         except ValueError:
@@ -304,6 +617,8 @@ class Handler(BaseHTTPRequestHandler):
             self.close_connection = True
             raise ApiError(413, "payload_too_large", "body must be at most 2 KB")
         raw = self.rfile.read(length) if length else b""
+        if optional and not raw.strip():
+            return {}
         try:
             obj = json.loads(raw.decode() or "null")
         except ValueError:
@@ -389,8 +704,10 @@ class Handler(BaseHTTPRequestHandler):
             return out({"items": items})
         if parts == ["detectors"]:
             return out(s.detectors())
-        if parts and parts[0] in ("detectors", "runs"):
-            raise ApiError(501, "not_implemented", "detector endpoints are not implemented yet")
+        if len(parts) == 2 and parts[0] == "detectors":
+            return out(s.get_detector(unquote(parts[1])))
+        if len(parts) == 2 and parts[0] == "runs":
+            return out(s.get_run(unquote(parts[1])))
         raise ApiError(404, "not_found", "unknown route")
 
     def api_post(self, path):
@@ -415,8 +732,29 @@ class Handler(BaseHTTPRequestHandler):
             return self.send_json(202, {"export_id": "exp_%04d" % s.next_export(), "event_id": e["id"],
                                         "target": target, "status": "queued", "demo": True,
                                         "message": DEMO_MSG, "created_at": now_iso()})
-        if parts and parts[0] in ("detectors", "runs"):
-            raise ApiError(501, "not_implemented", "detector endpoints are not implemented yet")
+        if parts == ["detectors"]:
+            return self.send_json(201, s.create_detector(self.read_json()))
+        if len(parts) == 3 and parts[0] == "detectors":
+            did = unquote(parts[1])
+            if parts[2] == "preview":
+                s.get_detector(did)
+                body = self.read_json(optional=True)
+                return self.send_json(200, s.preview(did, body.get("event_id")))
+            if parts[2] == "runs":
+                s.get_detector(did)
+                return self.send_json(202, s.start_run(did, self.read_json(optional=True)))
+            if parts[2] == "export":
+                s.get_detector(did)
+                body = self.read_json()
+                target = body.get("target")
+                if target not in [t["id"] for t in TARGETS]:
+                    raise ApiError(400, "bad_request", "target must be one of: cosmos_transfer, omniverse, openscenario")
+                md = body.get("min_danger")
+                if md is not None and (isinstance(md, bool) or not isinstance(md, int)):
+                    raise ApiError(400, "bad_request", "min_danger must be an integer")
+                return self.send_json(202, {"export_id": "exp_%04d" % s.next_export(), "event_id": did,
+                                            "target": target, "status": "queued", "demo": True,
+                                            "message": DEMO_MSG, "created_at": now_iso()})
         raise ApiError(404, "not_found", "unknown route")
 
     # --- files

@@ -11,6 +11,8 @@ Standard-library Python 3.12 server for the API in `api/openapi.yaml` (boto3 is 
 | `DATA_DIR` | `./data` |
 | `STATIC_DIR` | `../frontend/dist` (relative to `server.py`) |
 | `FEEDBACK_FILE` | `$DATA_DIR/feedback.jsonl` |
+| `COSMOS_URL` | `http://166.19.38.112:8001/v1/chat/completions` |
+| `GPU_BEARER_TOKEN` | none (secret, never log it) |
 
 ## Data layout (`DATA_DIR`)
 
@@ -20,7 +22,7 @@ Standard-library Python 3.12 server for the API in `api/openapi.yaml` (boto3 is 
 - `sidecars/<id>.json.gz`: raw YOLO boxes, used for `/api/events/{id}/detections` and the scenario `image_track`.
 - `feedback.jsonl`: appended by `POST /api/events/{id}/feedback`.
 
-Detector routes other than `GET /api/detectors` answer 501 `not_implemented`.
+Detectors: user detectors persist in `detectors.json`, run matches in `detector_events.json` (served by `GET /api/events?detector_id=`; the default listing stays crossing_risk only). Preview and runs call the Cosmos judge at `COSMOS_URL` with `Authorization: Bearer $GPU_BEARER_TOKEN`, 120 s timeout, at most 2 concurrent calls; GPU errors give 502. Runs are kept in memory.
 
 ## Run
 
