@@ -73,11 +73,8 @@ read `AGENTS.md` directly.
 
 ## Open tasks
 
-- [ ] Design skill (`.claude/skills/design/SKILL.md`): visual language for every agent and teammate
-- [ ] Frontend app in `frontend/` (React + Vite + Tailwind 4 + shadcn/ui), see `docs/frontend.md`
-- [ ] Backend serving `api/openapi.yaml` (detectors, preview, runs, scenario, export)
-- [ ] Sharper on-road check (people on the sidewalk are still counted as on the road)
-- [ ] Demo app reloads its data by itself after a restart
+Tracked as [GitHub issues](https://github.com/vast-team-33/vaast-team-33-project/issues), labelled by area
+(`frontend`, `backend`, `pipeline`, `design`, `deploy`, `submission`) and priority (`P0` must have, `P1` should, `P2` nice).
 
 ## Submission (due 16:30 BST)
 
