@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Driving Training Loop</title>
+<!--
+  Crossing Risk: the whole idea as one interactive diagram. Team 33, VAST Builders Challenge London, 17 Oct 2026.
+  Self-contained, no dependencies, works from file://.
+
+  How to edit:
+  - Boxes and arrows are the SVG below. data-steps="n" puts an element in step n; data-info="key" makes a box clickable.
+  - Step titles and texts are the <ol class="steps"> list.
+  - Box details are INFO in the script at the bottom.
+  Keys: ← → step through · A or Esc show everything
+-->
+<style>
+/* Layout: one screen. Diagram canvas on the left, steps and box details on the right; stacks into one column on phones. */
+:root{
+  --bg:#f6f5f1; --panel:#ffffff; --ink:#1d2127; --muted:#5d6672; --line:#dcd8ce; --soft:#efede7;
+  --frame-bg:#faf9f6; --frame-line:#d6d2c8; --frame-ink:#7a8290;
+  --node-bg:#ffffff; --node-line:#6b7280; --sub:#4b5563; --edge:#4b5563; --edge-on:#111827; --arrow:#374151;
+  --badge:#1f2937; --badge-ink:#ffffff; --hatch:#dfe1e5;
+  --accent:#c2255c; --accent-bg:#fff0f5; --accent-line:#f3b6c8;
+  --vast:#0f766e; --vast-bg:#dcf1ee; --vast-top:#c4e6e1;
+  --nv:#4d7c0f; --nv-bg:#e9f4d6; --wb:#a16207; --wb-bg:#fbf0cf;
+  --us:#4338ca; --us-bg:#e6e7fb; --hu:#be123c; --hu-bg:#fde4ea; --nx:#6b7280; --nx-bg:#f3f4f6;
+  --real-bg:#dcfce7; --real-ink:#166534; --real-line:#bbf7d0;
+  --part-bg:#ecfccb; --part-ink:#3f6212; --part-line:#d9f99d;
+  --demo-bg:#fef3c7; --demo-ink:#92400e; --demo-line:#fde68a;
+  --next-ink:#4b5563; --next-line:#9ca3af;
+  --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141619; --panel:#1c1f23; --ink:#e9e7e2; --muted:#a2a9b3; --line:#32363c; --soft:#262a2f;
+    --frame-bg:#191c20; --frame-line:#3a3f46; --frame-ink:#8f97a2;
+    --node-bg:#1c1f23; --node-line:#8b929c; --sub:#b4bac3; --edge:#9aa1ab; --edge-on:#f2f1ee; --arrow:#b4bac3;
+    --badge:#e9e7e2; --badge-ink:#141619; --hatch:#343a42;
+    --accent:#f06595; --accent-bg:#3a1d29; --accent-line:#7a2e4a;
+    --vast:#2dd4bf; --vast-bg:#0f2f2c; --vast-top:#16423e;
+    --nv:#a3e635; --nv-bg:#222d0e; --wb:#fbbf24; --wb-bg:#372b0d;
+    --us:#a5b4fc; --us-bg:#22254a; --hu:#fb7185; --hu-bg:#3c1921; --nx:#8b929c; --nx-bg:#2a2e33;
+    --real-bg:#13321e; --real-ink:#86efac; --real-line:#1f5130;
+    --part-bg:#263110; --part-ink:#bef264; --part-line:#3b4a16;
+    --demo-bg:#382a0b; --demo-ink:#fcd34d; --demo-line:#5a4512;
+    --next-ink:#b4bac3; --next-line:#6b7280;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#141619; --panel:#1c1f23; --ink:#e9e7e2; --muted:#a2a9b3; --line:#32363c; --soft:#262a2f;
+    --frame-bg:#191c20; --frame-line:#3a3f46; --frame-ink:#8f97a2;
+    --node-bg:#1c1f23; --node-line:#8b929c; --sub:#b4bac3; --edge:#9aa1ab; --edge-on:#f2f1ee; --arrow:#b4bac3;
+    --badge:#e9e7e2; --badge-ink:#141619; --hatch:#343a42;
+    --accent:#f06595; --accent-bg:#3a1d29; --accent-line:#7a2e4a;
+    --vast:#2dd4bf; --vast-bg:#0f2f2c; --vast-top:#16423e;
+    --nv:#a3e635; --nv-bg:#222d0e; --wb:#fbbf24; --wb-bg:#372b0d;
+    --us:#a5b4fc; --us-bg:#22254a; --hu:#fb7185; --hu-bg:#3c1921; --nx:#8b929c; --nx-bg:#2a2e33;
+    --real-bg:#13321e; --real-ink:#86efac; --real-line:#1f5130;
+    --part-bg:#263110; --part-ink:#bef264; --part-line:#3b4a16;
+    --demo-bg:#382a0b; --demo-ink:#fcd34d; --demo-line:#5a4512;
+    --next-ink:#b4bac3; --next-line:#6b7280;
+    color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+code{font-size:.92em}
+
+header{padding-block:16px 10px}
+.eyebrow{text-transform:uppercase;letter-spacing:.09em;font-size:11.5px;color:var(--muted);font-weight:650;margin:0 0 2px}
+h1{font-size:26px;line-height:1.15;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 span{color:var(--accent)}
+.pitch{margin:4px 0 0;color:var(--ink);opacity:.85;max-width:1040px}
+.scen{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:13px}
+.scen .muted{color:var(--muted);margin-right:2px}
+
+.app{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;padding-bottom:20px;align-items:start}
+.canvas{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;min-height:0;min-width:0;max-height:100%}
+.canvas svg{display:block;width:100%;flex:0 1 auto;height:auto;aspect-ratio:1000/710;min-height:0;font-family:var(--font)}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden;max-height:100%}
+.side .scroll{flex:1;min-height:0;overflow-y:auto;padding:12px 14px 14px}
+
+/* one screen on desktop; normal page scroll on small screens */
+@media (min-width:1001px) and (min-height:600px){
+  html,body{height:100%}
+  body{padding-left:max(24px, env(safe-area-inset-left, 0px));padding-right:max(24px, env(safe-area-inset-right, 0px))}
+}
+@media (max-width:1000px){
+  .app{grid-template-columns:minmax(0,1fr);padding-bottom:16px}
+  header{padding-block:14px 8px}
+  .canvas svg{flex:none;height:auto}
+  .side{overflow:visible} .side .scroll{overflow:visible}
+}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:12.5px;color:var(--muted);padding:8px 4px 2px;border-top:1px dashed var(--line);margin-top:6px}
+.sw{display:inline-block;width:20px;height:13px;border-radius:4px;vertical-align:-2px;margin-right:5px;border:1.6px solid}
+.sw.real{background:var(--node-bg);border-color:var(--arrow)}
+.sw.demo{border-color:var(--arrow);background:repeating-linear-gradient(45deg,var(--node-bg) 0 4px,var(--hatch) 4px 6px)}
+.sw.next{background:var(--node-bg);border-style:dashed;border-color:var(--nx)}
+.sw.o-vast{background:var(--vast-bg);border-color:var(--vast)} .sw.o-nv{background:var(--nv-bg);border-color:var(--nv)}
+.sw.o-wb{background:var(--wb-bg);border-color:var(--wb)} .sw.o-us{background:var(--us-bg);border-color:var(--us)}
+.sw.o-hu{background:var(--hu-bg);border-color:var(--hu)} .sw.o-nx{background:var(--node-bg);border-color:var(--nx)}
+
+/* side panel */
+.controls{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid var(--soft)}
+.controls button{font:600 13px var(--font);border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:5px 11px;cursor:pointer;color:var(--ink)}
+.controls button:hover{border-color:var(--muted)}
+.controls button:focus-visible,ol.steps li:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.controls .count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.details{background:var(--soft);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:14px}
+.details .hint{color:var(--muted);margin:0}
+.details h3{margin:6px 0 4px;font-size:16px}
+.details p{margin:0 0 6px}
+.details ul{margin:4px 0 0;padding-left:18px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-block;font:650 11px var(--font);letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.chip.real{background:var(--real-bg);color:var(--real-ink);border-color:var(--real-line)}
+.chip.part{background:var(--part-bg);color:var(--part-ink);border-color:var(--part-line)}
+.chip.demo{background:var(--demo-bg);color:var(--demo-ink);border-color:var(--demo-line)}
+.chip.next{background:var(--panel);color:var(--next-ink);border:1px dashed var(--next-line)}
+.chip.o-vast{background:var(--vast-bg);color:var(--vast)} .chip.o-nv{background:var(--nv-bg);color:var(--nv)}
+.chip.o-wb{background:var(--wb-bg);color:var(--wb)} .chip.o-us{background:var(--us-bg);color:var(--us)}
+.chip.o-hu{background:var(--hu-bg);color:var(--hu)} .chip.o-nx{background:var(--nx-bg);color:var(--next-ink)}
+
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+ol.steps li{counter-increment:s;position:relative;padding:7px 10px 7px 38px;border-radius:10px;cursor:pointer;color:var(--muted);font-size:13.5px;line-height:1.4}
+ol.steps li::before{content:counter(s);position:absolute;left:8px;top:7px;width:21px;height:21px;border-radius:50%;background:var(--badge);color:var(--badge-ink);font:700 11.5px var(--font);display:grid;place-items:center}
+ol.steps li b{display:block;color:var(--ink);font-size:14px}
+ol.steps li span{display:none}
+ol.steps li.active span{display:block;margin-top:2px}
+ol.steps li:hover{background:var(--soft)}
+ol.steps li.active{background:var(--accent-bg);box-shadow:inset 0 0 0 1.5px var(--accent-line)}
+ol.steps li.active::before{background:var(--accent);color:var(--badge-ink)}
+
+/* SVG vocabulary */
+.dg text{dominant-baseline:middle}
+.dg .frame rect{fill:var(--frame-bg);stroke:var(--frame-line);stroke-width:1.2;stroke-dasharray:5 4}
+.dg .frame-label{font-size:12px;font-weight:650;fill:var(--frame-ink);letter-spacing:.06em;text-transform:uppercase}
+.dg .node rect,.dg .node circle,.dg .node .shape{fill:var(--node-bg);stroke:var(--node-line);stroke-width:1.6;transition:stroke-width .2s}
+.dg .node .label{font-size:15.5px;font-weight:700;fill:var(--ink);text-anchor:middle}
+.dg .node .sub{font-size:12.5px;fill:var(--sub);text-anchor:middle}
+.dg .node.vast rect,.dg .node.vast .shape{fill:var(--vast-bg);stroke:var(--vast)}
+.dg .node.vast .shape.top{fill:var(--vast-top)}
+.dg .node.nv rect{fill:var(--nv-bg);stroke:var(--nv)}
+.dg .node.wb rect{fill:var(--wb-bg);stroke:var(--wb)}
+.dg .node.us rect{fill:var(--us-bg);stroke:var(--us)}
+.dg .node.hu rect{fill:var(--hu-bg);stroke:var(--hu)}
+.dg .node.nx rect,.dg .node.nx circle{fill:var(--node-bg);stroke:var(--nx)}
+.dg .node.demo rect{fill:url(#hatch)}
+.dg .node.next rect,.dg .node.next circle{stroke-dasharray:7 5}
+.dg .node.next.us rect,.dg .node.next.hu rect{fill:var(--node-bg)}
+.dg .node{cursor:pointer}
+.dg .node:hover rect,.dg .node:hover circle,.dg .node:hover .shape{stroke-width:2.8}
+.dg .node.sel rect,.dg .node.sel circle,.dg .node.sel .shape{stroke:var(--accent)!important;stroke-width:3.2}
+.dg .edge{fill:none;stroke:var(--edge);stroke-width:2}
+.dg .edge.dash{stroke-dasharray:6 5}
+.dg .edge-label{font-size:12px;fill:var(--sub);text-anchor:middle;paint-order:stroke;stroke:var(--frame-bg);stroke-width:4px;stroke-linejoin:round}
+.dg .badge circle{fill:var(--badge)}
+.dg .badge text{fill:var(--badge-ink);font-size:12px;font-weight:700;text-anchor:middle}
+.dg [data-steps]{transition:opacity .25s}
+.dg.stepping [data-steps]:not(.on){opacity:.14}
+.dg.stepping .link.on .edge{stroke:var(--edge-on);stroke-width:3}
+.dg.stepping .node.on rect,.dg.stepping .node.on circle,.dg.stepping .node.on .shape{stroke-width:3}
+.dg.stepping .badge.on circle{fill:var(--accent)}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Team 33 · Crossing Risk · VAST Builders Challenge London · 17 Oct 2026</p>
+  <h1>A self-training loop for <span>self-driving cars</span></h1>
+  <p class="pitch">Not just detection: a pipeline that finds risky moments in fleet video, scores them, packages each one for a simulator to multiply, and trains the next model. Today a person labels each case; next, auto triage calls people in only for dangerous or uncertain ones.</p>
+  <div class="scen"><span class="muted">Scenarios:</span><span class="chip real">Pedestrian crossing · running</span><span class="chip real">Your own, in plain words · running</span><span class="muted" style="margin-left:6px">Possible next as plain-word detectors:</span><span class="chip next">Trucks and big vehicles</span><span class="chip next">Traffic jams</span><span class="chip next">Road works</span><span class="chip next">Collisions and near-misses</span></div>
+</header>
+
+<div class="app">
+  <div class="canvas">
+    <svg class="dg" id="dg" viewBox="0 0 1000 710" role="img" aria-label="Three layers. Top: car video, our pipeline, database, W&amp;B, detect the scenario, danger score. Middle: developer, rules, auto triage, human escalation. Bottom: simulator, 1,000+ variants, model versions, model n, model back in the car, new videos ingested into the platform.">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--arrow)"/></marker>
+        <pattern id="hatch" patternUnits="userSpaceOnUse" width="9" height="9" patternTransform="rotate(45)"><rect width="9" height="9" style="fill:var(--node-bg)"/><line x1="0" y1="0" x2="0" y2="9" style="stroke:var(--hatch)" stroke-width="2.6"/></pattern>
+      </defs>
+
+      <g class="frame"><rect x="10" y="12" width="980" height="238" rx="12"/><text class="frame-label" x="60" y="32">1 · Video, pipeline, detection</text></g>
+      <g class="frame"><rect x="10" y="268" width="980" height="152" rx="12"/><text class="frame-label" x="60" y="288">2 · Rules, triage and escalation</text></g>
+      <g class="frame"><rect x="10" y="438" width="980" height="258" rx="12"/><text class="frame-label" x="975" y="458" style="text-anchor:end">3 · Simulation and the next model</text></g>
+
+      <!-- layer 1 -->
+      <g class="node vast real" data-steps="1 10" data-info="video"><rect x="50" y="98" width="130" height="64" rx="12"/><text class="label" x="115" y="122">Car video</text><text class="sub" x="115" y="144">clips in S3 on VAST</text></g>
+      <g class="node vast next" data-steps="10" data-info="ingest"><rect x="50" y="192" width="130" height="48" rx="12"/><text class="label" x="115" y="209">Ingest</text><text class="sub" x="115" y="228">new videos → VAST</text></g>
+      <g class="node us real" data-steps="1" data-info="pipe"><rect x="250" y="50" width="170" height="70" rx="12"/><text class="label" x="335" y="77">Our pipeline</text><text class="sub" x="335" y="99">mine · judge · build</text></g>
+      <g class="node vast real" data-steps="1" data-info="db"><path class="shape" d="M560,58 L560,112 A100,10 0 0 0 760,112 L760,58 A100,10 0 0 0 560,58 Z"/><ellipse class="shape top" cx="660" cy="58" rx="100" ry="10"/><text class="label" x="660" y="86">Database</text><text class="sub" x="660" y="106">VastDB: events, labels</text></g>
+      <g class="node wb real" data-steps="2" data-info="wb"><rect x="830" y="50" width="150" height="70" rx="12"/><text class="label" x="905" y="77">W&amp;B</text><text class="sub" x="905" y="99">Inference + Weave</text></g>
+      <g class="node nv real" data-steps="2" data-info="detect"><rect x="250" y="150" width="250" height="62" rx="12"/><text class="label" x="375" y="172">Detect the scenario</text><text class="sub" x="375" y="194">today: pedestrian crossing</text></g>
+      <g class="node us real" data-steps="3" data-info="score"><rect x="560" y="150" width="180" height="62" rx="12"/><text class="label" x="650" y="172">Danger score</text><text class="sub" x="650" y="194">+ driver vs model</text></g>
+
+      <!-- layer 2 -->
+      <g class="node hu real" data-steps="4" data-info="dev"><rect x="70" y="320" width="140" height="70" rx="12"/><text class="label" x="140" y="347">Developer</text><text class="sub" x="140" y="369">plain-word rule</text></g>
+      <g class="node us part" data-steps="4" data-info="rules"><rect x="260" y="320" width="190" height="70" rx="12"/><text class="label" x="355" y="347">Detectors</text><text class="sub" x="355" y="369">built-in + your own</text></g>
+      <g class="node us next" data-steps="5" data-info="triage"><rect x="560" y="320" width="200" height="70" rx="12"/><text class="label" x="660" y="347">Auto triage</text><text class="sub" x="660" y="369">confident → auto-label</text></g>
+      <g class="node hu real" data-steps="5" data-info="human"><rect x="800" y="320" width="180" height="70" rx="12"/><text class="label" x="890" y="347">Human review</text><text class="sub" x="890" y="369">who was right?</text></g>
+
+      <!-- layer 3 -->
+      <g class="node nx next" data-steps="9" data-info="car"><circle cx="120" cy="510" r="38"/><text class="label" x="120" y="502" style="font-size:22px">M</text><text class="sub" x="120" y="526">in the car</text></g>
+      <g class="node nx next" data-steps="8" data-info="model"><rect x="30" y="585" width="180" height="72" rx="12"/><text class="label" x="120" y="611">Model n</text><text class="sub" x="120" y="633">trained on variants</text></g>
+      <g class="node nx next" data-steps="8" data-info="versions">
+        <circle cx="270" cy="621" r="22"/><circle cx="312" cy="621" r="22"/><circle cx="354" cy="621" r="22"/>
+        <text class="sub" x="270" y="621">v1</text><text class="sub" x="312" y="621">v2</text><text class="sub" x="354" y="621">v3…</text>
+      </g>
+      <g class="node nv demo" data-steps="6" data-info="sim"><rect x="420" y="585" width="220" height="72" rx="12"/><text class="label" x="530" y="611">Simulator</text><text class="sub" x="530" y="633">each case → many scenes</text></g>
+      <g class="node nv next" data-steps="7" data-info="sims"><rect x="690" y="585" width="180" height="72" rx="12"/><text class="label" x="780" y="611">1,000+ variants</text><text class="sub" x="780" y="633">a lot, per case</text></g>
+
+      <!-- links: the arrows that belong to step n carry data-steps="n" -->
+      <g class="link" data-steps="1"><path class="edge" d="M182,130 C215,130 215,85 248,85" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="1"><path class="edge" d="M422,85 L558,85" marker-end="url(#arr)"/><text class="edge-label" x="490" y="72">events</text></g>
+      <g class="link" data-steps="2"><path class="edge" d="M335,122 L335,148" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="2"><path class="edge dash" d="M420,58 C520,6 800,6 880,48" marker-end="url(#arr)"/><text class="edge-label" x="650" y="22">model calls traced</text></g>
+      <g class="link" data-steps="3"><path class="edge" d="M502,181 L558,181" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="3"><path class="edge" d="M650,148 L650,125" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="4"><path class="edge" d="M212,355 L258,355" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="4"><path class="edge" d="M355,318 L355,214" marker-end="url(#arr)"/><text class="edge-label" x="365" y="262" style="text-anchor:start">what to find</text></g>
+      <g class="link" data-steps="5"><path class="edge" d="M752,120 L752,318" marker-start="url(#arr)" marker-end="url(#arr)"/><text class="edge-label" x="764" y="254" style="text-anchor:start">events ↓</text><text class="edge-label" x="764" y="272" style="text-anchor:start">labels ↑</text></g>
+      <g class="link" data-steps="6"><path class="edge dash" d="M355,392 L355,480 L530,480 L530,583" marker-end="url(#arr)"/><path class="edge" d="M660,392 L660,480 L532,480"/><text class="edge-label" x="542" y="530" style="text-anchor:start">each confirmed case</text></g>
+      <g class="link" data-steps="5"><path class="edge" d="M762,355 L798,355" marker-start="url(#arr)" marker-end="url(#arr)"/><text class="edge-label" x="782" y="404">escalate (next)</text></g>
+      <g class="link" data-steps="7"><path class="edge dash" d="M642,621 L688,621" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="8"><path class="edge dash" d="M780,659 L780,680 L312,680 L312,645" marker-end="url(#arr)"/><text class="edge-label" x="550" y="680">train</text><path class="edge dash" d="M246,621 L212,621" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="9"><path class="edge dash" d="M120,583 L120,550" marker-end="url(#arr)"/></g>
+      <g class="link" data-steps="10"><path class="edge dash" d="M82,510 L36,510 L36,216 L48,216" marker-end="url(#arr)"/><text class="edge-label" x="26" y="360" transform="rotate(-90 26 360)">new videos</text><path class="edge dash" d="M115,190 L115,164" marker-end="url(#arr)"/></g>
+
+      <g class="badge" data-steps="1"><circle cx="52" cy="100" r="13"/><text x="52" y="100">1</text></g>
+      <g class="badge" data-steps="10"><circle cx="182" cy="194" r="13"/><text x="182" y="194">10</text></g>
+      <g class="badge" data-steps="2"><circle cx="252" cy="152" r="13"/><text x="252" y="152">2</text></g>
+      <g class="badge" data-steps="3"><circle cx="562" cy="152" r="13"/><text x="562" y="152">3</text></g>
+      <g class="badge" data-steps="4"><circle cx="72" cy="322" r="13"/><text x="72" y="322">4</text></g>
+      <g class="badge" data-steps="5"><circle cx="562" cy="322" r="13"/><text x="562" y="322">5</text></g>
+      <g class="badge" data-steps="6"><circle cx="422" cy="587" r="13"/><text x="422" y="587">6</text></g>
+      <g class="badge" data-steps="7"><circle cx="692" cy="587" r="13"/><text x="692" y="587">7</text></g>
+      <g class="badge" data-steps="8"><circle cx="32" cy="587" r="13"/><text x="32" y="587">8</text></g>
+      <g class="badge" data-steps="9"><circle cx="90" cy="482" r="13"/><text x="90" y="482">9</text></g>
+    </svg>
+    <div class="legend">
+      <span><i class="sw real"></i>Running today</span>
+      <span><i class="sw demo"></i>Demo</span>
+      <span><i class="sw next"></i>Next</span>
+      <span style="margin-left:6px"><i class="sw o-vast"></i>VAST</span>
+      <span><i class="sw o-nv"></i>NVIDIA</span>
+      <span><i class="sw o-wb"></i>W&amp;B</span>
+      <span><i class="sw o-us"></i>Team 33</span>
+      <span><i class="sw o-hu"></i>People</span>
+      <span><i class="sw o-nx"></i>Car / AV team</span>
+    </div>
+  </div>
+
+  <aside class="side">
+    <div class="controls">
+      <button type="button" data-act="prev" title="Previous step (←)">◀</button>
+      <button type="button" data-act="next" title="Next step (→)">▶</button>
+      <button type="button" data-act="all" title="Show everything (A)">All</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="scroll">
+      <div class="details" id="details"><p class="hint">Click a box or a step. Use ← → to walk through.</p></div>
+      <ol class="steps" id="steps">
+        <li tabindex="0"><b>Car video → our pipeline → database</b><span>Dashcam clips sit in S3 on VAST. Our pipeline reads them and writes every event into the database.</span></li>
+        <li tabindex="0"><b>Detect the scenario</b><span>Today: a pedestrian crossing. Stored YOLO boxes, then Cosmos3-Reason on the clip, then Nemotron VL on one frame. Model calls are traced in W&amp;B.</span></li>
+        <li tabindex="0"><b>Score it</b><span>Danger 0–100, plus what the driver did vs what the model suggests. Scores go into the database.</span></li>
+        <li tabindex="0"><b>Detectors for any scenario, in plain words</b><span>Pedestrian crossing is the built-in detector. Anyone can write a new one in plain words, test it on one clip (Cosmos, about 5 s) and run it over the clips. Next: tuned detectors with their own danger score for trucks, jams, road works and collisions.</span></li>
+        <li tabindex="0"><b>People label cases; auto triage is next</b><span>Today a person can label any case: driver right, model right, both fine or false alarm. Next: confident low-risk cases are labelled automatically, and only dangerous or unsure ones (high danger, driver and model disagree, low confidence) go to a person.</span></li>
+        <li tabindex="0"><b>Each case is packaged for a simulator (send is a demo)</b><span>Every case worth learning from becomes a scenario package (real today, with Download JSON). Sending it to a simulator is a demo: nothing is connected.</span></li>
+        <li tabindex="0"><b>1,000+ variants per case (next)</b><span>Built today: each package lists suggested variations (night, rain, a child, a faster car, a later step-out, a hidden pedestrian) and a generation prompt for Cosmos Transfer. Generating the variants is next.</span></li>
+        <li tabindex="0"><b>Train model n (next)</b><span>Every round makes a new version: v1, v2, v3 and so on.</span></li>
+        <li tabindex="0"><b>The model goes back into the car (next)</b><span>The new version drives in shadow mode next to the human driver.</span></li>
+        <li tabindex="0"><b>New videos are ingested: the loop is closed (next)</b><span>The car records new drives, they are ingested into the platform, and step 1 starts again with a better model.</span></li>
+      </ol>
+    </div>
+  </aside>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  // Box details. s: real | demo | next.  o: vast | nv | wb | us | hu | nx
+  const INFO = {
+    video:    { t: "Car video", s: "real", o: "vast", b: "<p>Dashcam drives, stored in S3 on VAST. Today: 1,080 five-second Toronto clips that the organisers already ingested, with per-frame YOLO boxes stored next to them.</p><p>In production: a fleet's whole drive log, plus new drives recorded by the car's own model (step 10).</p>" },
+    pipe:     { t: "Our pipeline", s: "real", o: "us", b: "<p>Three Python scripts on the lab VM:</p><ul><li><code>mine.py</code>: find candidates, measure the car's speed, ask Cosmos.</li><li><code>judge_position.py</code>: Nemotron check.</li><li><code>build.py</code>: score and compare.</li></ul>" },
+    db:        { t: "Database", s: "part", o: "vast", b: "<p>The hub of the loop: every event, its score, the driver-vs-model comparison and the human label.</p><ul><li><b>Today:</b> the scored events ship with the app, and its clips and boxes are reloaded from S3 on VAST at every start. Labels and user detectors live in the app and a restart clears them. VastDB holds the platform's search index (and our test table).</li><li><b>Next:</b> events and labels as VastDB tables, so labels survive and can be queried for training.</li></ul>" },
+    wb:       { t: "Weights & Biases", s: "real", o: "wb", b: "<p><b>W&amp;B Inference</b> serves Nemotron VL. <b>Weave</b> traces every call: input, output, latency (project vastdata/team-33).</p><p>Next: use the human labels as an evaluation set for the judges.</p>" },
+    detect:    { t: "Detect the scenario", s: "real", o: "nv", b: "<p>Today's scenario: a pedestrian on the road in front of the car. Other scenarios reuse the same chain through plain-word detectors.</p><ul><li><b>YOLO boxes</b> (already stored): a person in the lane ahead for 1/3 s or more. 1,080 clips → 558 candidates, no GPU.</li><li><b>Cosmos3-Reason</b> watches the closest 24 clips: crosswalk or not, risk, what the car should do.</li><li><b>Nemotron VL</b> checks one frame: pedestrian or cyclist, road, crosswalk or sidewalk. 2 cyclists and 2 duplicate clips removed, 20 events left; 8 of 8 checked by eye were labelled correctly.</li></ul>" },
+    score:    { t: "Danger score", s: "real", o: "us", b: "<p>100 × closeness<sup>0.7</sup> × (0.6 + 0.4 × time in lane) × location × car moving.</p><p>Also compares what the driver did (optical-flow speed) with the model's suggestion: agree, driver more careful, or driver less careful.</p>" },
+    dev:       { t: "Developer", s: "real", o: "hu", b: "<p>A safety engineer describes a new scenario in plain words (\"a truck cuts into the lane\", \"road works ahead\"), tests it on one clip (about 5 s on the shared NVIDIA GPU), then runs it over the clips.</p><p>Live today on the Detectors page. Example: \"Cyclist close to the car\".</p>" },
+    rules:     { t: "Detectors for any scenario", s: "part", o: "us", b: "<p>One detector per scenario.</p><ul><li><b>Running:</b> the built-in pedestrian-crossing detector (scored 0–100), and plain-word detectors anyone can write (match, confidence, reason).</li><li><b>Next:</b> tuned detectors with their own danger score for trucks and big vehicles, traffic jams, road works, collisions and near-misses.</li></ul>" },
+    triage:    { t: "Auto triage", s: "next", o: "us", b: "<p>Not built yet. It would decide who labels each case, so the loop runs without people most of the time.</p><ul><li><b>Auto-label:</b> low danger, driver and model agree, the judges are confident.</li><li><b>Escalate to a person:</b> high danger, driver and model disagree, or the judges are unsure.</li></ul><p>The inputs exist today: danger score, driver-vs-model agreement, judge confidence. The events list is sorted by danger.</p>" },
+    human:     { t: "Human review", s: "real", o: "hu", b: "<p>A person sees the clip, the score and both speed curves, and answers one question: who was right, the driver or the model?</p><p>Today anyone can label any case. Next: only the escalated cases. A restart of the app clears the labels until they move to VastDB.</p>" },
+    sim:       { t: "Simulator", s: "demo", o: "nv", b: "<p>Each case is packaged as a scenario (pedestrian track, car speed, environment, suggested variations, a text prompt) for NVIDIA Cosmos Transfer, Omniverse, or an OpenSCENARIO file for CARLA.</p><p>The package is real today (Download JSON); sending it is a demo.</p>" },
+    sims:      { t: "1,000+ variants per case", s: "next", o: "nv", b: "<p>Every combination of lighting, weather, pedestrian, timing, car speed and occlusion is one synthetic clip of the same real moment.</p><p>Lighting (3) × weather (4) × pedestrian (4) × timing (3) × car speed (3) × occlusion (3) = 1,296 variants from one real case.</p><p>Today the package lists 6 suggested variations and the prompt; nothing is generated yet.</p>" },
+    versions: { t: "Model versions", s: "next", o: "nx", b: "<p>Each turn of the loop trains a new version: v1, v2, v3…</p><p>The variants stay as a regression test: a new version must handle every case the old ones did.</p>" },
+    model:    { t: "Model n", s: "next", o: "nx", b: "<p>The driving model trained on the synthetic variants. This is the AV team's side.</p>" },
+    car:      { t: "Model in the car", s: "next", o: "nx", b: "<p>The new model runs in shadow mode next to the driver. Where it disagrees with the driver, that's a new weak spot worth finding.</p><p>Every drive it records becomes new video for the platform (step 10).</p>" },
+    ingest:   { t: "Ingest new videos", s: "next", o: "vast", b: "<p>The car uploads its new drives to the platform. VAST ingest cuts them into clips, runs YOLO, indexes them, and stores everything in S3 and VastDB, ready for our pipeline.</p><p>That closes the loop: each turn starts from fresh footage recorded by a better model.</p><p>In this challenge, uploads are accepted but not processed, so this step is shown, not run.</p>" },
+  };
+  const STATUS = { real: "Running today", part: "Partly today", demo: "Demo", next: "Next" };
+  const OWNER = { vast: "VAST", nv: "NVIDIA", wb: "W&B", us: "Team 33", hu: "People", nx: "Car / AV team" };
+
+  const svg = document.getElementById("dg");
+  const items = [...document.querySelectorAll("#steps > li")];
+  const details = document.getElementById("details");
+  const count = document.getElementById("count");
+  const hint = details.innerHTML;
+  let step = 0;
+
+  const stepsOf = (el) => (el.getAttribute("data-steps") || "").split(/\s+/).filter(Boolean).map(Number);
+
+  function go(n, node) {
+    step = n;
+    svg.classList.toggle("stepping", n > 0);
+    svg.querySelectorAll("[data-steps]").forEach((el) => el.classList.toggle("on", n > 0 && stepsOf(el).includes(n)));
+    items.forEach((li, i) => li.classList.toggle("active", i + 1 === n));
+    count.textContent = n ? `Step ${n} of ${items.length}` : `All ${items.length} steps`;
+    const nodes = [...svg.querySelectorAll(".node")];
+    show(node || (n > 0 ? nodes.find((el) => stepsOf(el)[0] === n) || nodes.find((el) => stepsOf(el).includes(n)) : null));
+  }
+
+  function show(node) {
+    svg.querySelectorAll(".node.sel").forEach((el) => el.classList.remove("sel"));
+    const d = node && INFO[node.dataset.info];
+    if (!d) { details.innerHTML = hint; return; }
+    node.classList.add("sel");
+    details.innerHTML =
+      `<div class="chips"><span class="chip ${d.s}">${STATUS[d.s]}</span><span class="chip o-${d.o}">${OWNER[d.o]}</span></div>` +
+      `<h3>${d.t}</h3>${d.b}`;
+  }
+
+  // a box: jump to its step and show its details
+  svg.querySelectorAll(".node").forEach((node) => node.addEventListener("click", (e) => {
+    e.stopPropagation();
+    go(stepsOf(node)[0] || 0, node);
+  }));
+  // empty space: back to the whole picture
+  svg.addEventListener("click", () => go(0));
+
+  items.forEach((li, i) => li.addEventListener("click", () => go(step === i + 1 ? 0 : i + 1)));
+  items.forEach((li) => li.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); li.click(); } }));
+
+  document.querySelector(".controls").addEventListener("click", (e) => {
+    const act = e.target.closest("button")?.dataset.act;
+    if (act === "prev") go(Math.max(step - 1, 0));
+    if (act === "next") go(Math.min(step + 1, items.length));
+    if (act === "all") go(0);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); go(Math.min(step + 1, items.length)); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(Math.max(step - 1, 0)); }
+    else if (e.key === "Escape" || e.key === "a" || e.key === "A") go(0);
+  });
+
+  go(0);
+})();
+</script>
+</body>
+</html>
