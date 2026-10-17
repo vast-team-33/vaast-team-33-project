@@ -33,14 +33,15 @@ cm() { # name, files...
   local name=$1; shift
   local args=() f
   for f in "$@"; do args+=(--from-file="$f"); done
-  $K create configmap "$name" "${args[@]}" --dry-run=client -o yaml | $K apply -f -
+  # Server-side apply: client-side apply keeps a copy in an annotation capped at 256 KB.
+  $K create configmap "$name" "${args[@]}" --dry-run=client -o yaml | $K apply --server-side --force-conflicts -f -
 }
 cm crossing-risk-backend "${BACK[@]}"
 cm crossing-risk-frontend "${FRONT[@]}"
 if [ "${#ASSETS[@]}" -gt 0 ]; then
   cm crossing-risk-frontend-assets "${ASSETS[@]}"
 else
-  $K create configmap crossing-risk-frontend-assets --dry-run=client -o yaml | $K apply -f -
+  $K create configmap crossing-risk-frontend-assets --dry-run=client -o yaml | $K apply --server-side --force-conflicts -f -
 fi
 cm crossing-risk-data "${DATA[@]}"
 cm crossing-risk-bootstrap "${BOOT[@]}"
