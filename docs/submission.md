@@ -66,7 +66,6 @@ Source: the live app's `api/summary` and `api/events`, 17 Oct.
 ## Checklist before you submit
 
 - [ ] Reviewers can open the repo (add them, or make it public)
-- [ ] Remove the batch-sync / prefill line from `AGENTS.md` and `ENVIRONMENT.md` before the repo is public
 - [ ] No credentials in the repo (check `git log` and files)
 - [ ] Demo video is uploaded and the link works in a private window
 - [ ] Video is under 2:10 and has sound

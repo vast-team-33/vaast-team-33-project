@@ -287,7 +287,6 @@ The originals are in `vendor/vast-builders-challenge/.cursor/skills/`. `.claude/
 - **The indoor warehouse is `capture_type=crowds`, `location=indoor`**, not `warehouse`.
 - **`/videos/stream`** needs the JWT as `?token=` and supports Range, but returns
   `binary/octet-stream`. `/videos/chunk` and `/streaming/*` return 404.
-- **Never call `/api/v1/batch-sync/prefill` from an app:** it returns the S3 keys in plain text.
 - **VastDB SDK:** `vastdb.connect(endpoint=$S3_ENDPOINT, access=…, secret=…, ssl_verify=False)`. It prints a
   harmless "elysium" RPC warning each time a table opens. `get_stats().num_rows` lags, so count with a scan.
   Our own schema is `team33_app` (`experiment_notes` holds test rows).

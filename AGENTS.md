@@ -31,7 +31,6 @@ Submission is due at **16:30 BST**; code freeze 15:45.
   never print them, never commit them. List variable names with `env | cut -d= -f1 | sort`;
   never run bare `env` or `printenv`.
 - `INGRESS_URL` already includes `http://`. TLS on S3 and the backend is self-signed: `verify=False`.
-- Never call `/api/v1/batch-sync/prefill` from code: it returns storage credentials in plain text.
 
 ## Event rules
 
