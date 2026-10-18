@@ -8,6 +8,8 @@
     "prebuild": "node scripts/copy-idea.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "prebuild:archive": "node scripts/copy-idea.mjs",
+    "build:archive": "tsc -b && VITE_ARCHIVE=1 vite build --outDir dist-archive && node scripts/copy-archive.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "types": "openapi-typescript ../api/openapi.yaml -o src/api/types.ts"

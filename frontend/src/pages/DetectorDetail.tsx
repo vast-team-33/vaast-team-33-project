@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { getRun, listDetectors, listEvents, mediaUrl, startRun, type ApiEvent, type Detector, type Run } from '@/api/client'
+import { getRun, listDetectors, listEvents, mediaUrl, noVideo, startRun, type ApiEvent, type Detector, type Run } from '@/api/client'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { StatusBadge } from '@/components/detectors/common'
+import { StatusBadge, StepError } from '@/components/detectors/common'
 import { href } from '@/router'
-import { mmss } from '@/components/events/shared'
+import { StillFrame, mmss } from '@/components/events/shared'
 
 function Match({ e }: { e: ApiEvent }) {
   const conf = Math.max(0, Math.min(100, e.danger))
   return (
     <Card className="gap-3 p-4">
-      <video controls muted playsInline preload="none" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)} className="aspect-video w-full rounded-lg bg-black object-cover" />
+      {noVideo(e) ? <StillFrame e={e} /> : <video controls muted playsInline preload="none" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)} className="aspect-video w-full rounded-lg bg-black object-cover" />}
       <div className="space-y-1">
         <div className="flex items-center justify-between text-xs font-medium uppercase tracking-wide text-muted-foreground">
           <span>Match confidence</span>
@@ -33,6 +33,7 @@ export default function DetectorDetail({ id }: { id: string }) {
   const [items, setItems] = useState<ApiEvent[] | null>(null)
   const [err, setErr] = useState('')
   const [run, setRun] = useState<Run | null>(null)
+  const [runErr, setRunErr] = useState<unknown>(null)
   const timer = useRef<number | undefined>(undefined)
 
   const load = useCallback(() => {
@@ -44,6 +45,7 @@ export default function DetectorDetail({ id }: { id: string }) {
   useEffect(() => () => window.clearTimeout(timer.current), [])
 
   const rerun = async () => {
+    setRunErr(null)
     try {
       const r = await startRun(id, { max_clips: 50 })
       setRun(r)
@@ -54,7 +56,7 @@ export default function DetectorDetail({ id }: { id: string }) {
         else load()
       }
       timer.current = window.setTimeout(poll, 2000)
-    } catch (x) { setErr(String((x as Error).message ?? x)) }
+    } catch (x) { setRunErr(x) }   // keep the page; show why the run could not start
   }
 
   const back = <a href={href({ page: 'detectors' })} className="text-sm text-primary hover:underline">← All detectors</a>
@@ -80,6 +82,7 @@ export default function DetectorDetail({ id }: { id: string }) {
             ? <a href={href({ page: 'events' })} className="text-primary hover:underline">Full details with scores and speed charts →</a>
             : <Button size="sm" variant="outline" onClick={rerun} disabled={!!running}>{running ? 'Running…' : 'Run again on the footage'}</Button>}
         </div>
+        <StepError error={runErr} />
         {run && (
           <div className="space-y-1">
             <div className="h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-primary transition-[width]" style={{ width: `${(run.progress.done / Math.max(1, run.progress.total)) * 100}%` }} /></div>

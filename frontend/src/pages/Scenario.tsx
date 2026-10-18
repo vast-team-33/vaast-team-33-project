@@ -51,10 +51,10 @@ export default function Scenario({ id }: { id: string }) {
       <a href={href({ page: 'event', id })} className="text-sm text-primary hover:underline">← Back to event</a>
       <header className="flex flex-wrap items-start gap-4">
         {ev.thumb_url && <img src={mediaUrl(ev.thumb_url)} alt="Event thumbnail" className="h-28 rounded-md border object-cover" />}
-        <div className="min-w-0 flex-1 space-y-1">
+        <div className="min-w-[16rem] flex-1 space-y-1">
           <h1 className="text-2xl font-semibold">Scenario package</h1>
           <p className="text-muted-foreground">{sc.summary}</p>
-          <p className="font-mono text-xs text-muted-foreground">{sc.scenario_id} · {sc.format}</p>
+          <p className="break-all font-mono text-xs text-muted-foreground">{sc.scenario_id} · {sc.format}</p>
         </div>
         <div className="text-right">
           <div className="font-mono text-4xl font-semibold tabular-nums" style={{ color: band(sc.danger) }}>{sc.danger}</div>

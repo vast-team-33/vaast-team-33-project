@@ -16,9 +16,52 @@ variants (night, rain, a child, a faster car) to train self-driving models on. U
 their own detectors in plain words, test one on a single clip, then run it over the whole archive.
 We build the detection, scoring and scenario packaging; the simulator hand-off is shown as a demo.
 
-> **Status:** an experiment is live at https://workshop.thecosmoslabs.com → **App**.
-> The code is not in this repo yet. This first commit holds the agent instructions, the lab
-> notes and the platform test results.
+> **Status:** the event is over and the lab is offline. The [archived demo](#archived-demo) runs
+> without it.
+
+## Links
+
+| What | Link |
+|---|---|
+| Archived demo (works now) | https://vast-team-33.github.io/vaast-team-33-project/ |
+| The whole idea, as an interactive diagram | https://vast-team-33.github.io/vaast-team-33-project/idea.html |
+| Demo video | https://youtu.be/cKueRONRbL0 |
+| Project page | https://tokensand.com/p/drive-loop |
+| Hackathon: Real-Time Video Agents Hack, London, 17 Oct 2026 | https://tokensand.com/vastlondon |
+| All projects | https://tokensand.com/vastlondon/projects |
+| Event on Luma | https://luma.com/vastlondon |
+| Event repo (VAST Builders Challenge: rules, skills, platform) | https://github.com/vast-data/vast-builders-challenge |
+| Live app during the event (lab sign-in only, now offline) | https://team-33-app.thecosmoslabs.com/app |
+
+Built with
+[VAST Data](https://www.vastdata.com/platform/ai-os) (storage, VastDB, the VSS pipeline),
+[NVIDIA VSS](https://docs.nvidia.com/vss/latest/) and [NVIDIA Cosmos](https://www.nvidia.com/en-us/ai/cosmos/) models,
+[CoreWeave](https://coreweave.com/) GPUs,
+[W&B Inference](https://docs.wandb.ai/inference) and [Weave](https://wandb.ai/site/weave/), and
+[Cursor](https://cursor.com/).
+
+## Archived demo
+
+**https://vast-team-33.github.io/vaast-team-33-project/**
+
+A read-only snapshot of the app with data that was already processed during the event: the VAST
+Data VSS pipeline (video segments and YOLO11 boxes) and our own steps on the lab GPUs (NVIDIA
+Cosmos3-Reason, Nemotron VL position judge, optical-flow speed). There is no backend: labels are
+not saved and new detectors cannot run. It holds 20 events, with video for 1 of them; cyclists and
+duplicate clips were removed, as in the final live version. Faces and number plates are blurred.
+
+To rebuild it:
+
+```bash
+# blur the media first, in its own venv (see the header of scripts/blur_media.py)
+python scripts/blur_media.py img data/demo-snapshot/thumbs data/demo-media-blurred/thumbs scripts/blur_manual.json
+python scripts/blur_media.py vid data/demo-snapshot/clips/<id>.mp4 data/demo-media-blurred/clips/<id>.mp4
+python3 scripts/build_archive.py         # data/demo-snapshot + data/demo-media-blurred (git-ignored) -> archive/
+cd frontend && npm run build:archive     # -> frontend/dist-archive/ (the app plus archive/)
+```
+
+A push to `main` that touches `frontend/` or `archive/` deploys it with
+`.github/workflows/pages.yml` (the repo's Pages source must be "GitHub Actions").
 
 ## How it works (experiment v2)
 
@@ -69,6 +112,7 @@ read `AGENTS.md` directly.
 | `docs/frontend.md` | Frontend plan: React, Tailwind 4, shadcn/ui, screens, deploy limits, open tasks |
 | `api/openapi.yaml` | The contract as OpenAPI 3.1 (generate TypeScript types from it) |
 | `api/fixtures/` | Real example responses, thumbnails and background frames for mocking |
+| `archive/` | Static snapshot for the archived demo (API answers as JSON, thumbnails, one clip); built by `scripts/build_archive.py` |
 | `docs/ideas.md` | Ideas we explored today and why we picked this one |
 | `.claude/skills/` | Links to the event skills |
 | `vendor/vast-builders-challenge/` | Copy of the event repo (skills, rules, docs); see `VENDORED.md` inside |

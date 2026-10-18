@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { getSummary, listEvents, mediaUrl, type ApiEvent, type EventParams, type Summary } from '@/api/client'
+import { getSummary, listEvents, mediaUrl, noVideo, type ApiEvent, type EventParams, type Summary } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { href } from '@/router'
-import { ACTUAL, SUGGESTED, EventBadges, FeedbackBar, Legend, ScoreNumber, SpeedChart, mmss } from '@/components/events/shared'
+import { ACTUAL, SUGGESTED, EventBadges, FeedbackBar, Legend, ScoreNumber, SpeedChart, StillFrame, mmss } from '@/components/events/shared'
 
 const QUICK = [
   { key: 'all', label: 'All', p: {} as EventParams },
@@ -16,6 +16,7 @@ const sel = 'h-8 rounded-md border bg-background px-2 text-sm'
 
 function EventCard({ e }: { e: ApiEvent }) {
   const sec = (e.frames_in_lane / 30).toFixed(1)
+  const still = noVideo(e)
   const vref = useRef<HTMLVideoElement>(null)
   const [t, setT] = useState<number | undefined>(undefined)
   const [playing, setPlaying] = useState(false)
@@ -43,12 +44,12 @@ function EventCard({ e }: { e: ApiEvent }) {
         <ScoreNumber e={e} />
         <a href={href({ page: 'event', id: e.id })} className="text-sm text-primary hover:underline">Details →</a>
       </div>
-      <video
+      {still ? <StillFrame e={e} /> : <video
         ref={vref} controls muted playsInline preload="none" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)}
         onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
         onSeeked={(ev) => setT(ev.currentTarget.currentTime)}
         className="aspect-video w-full rounded-lg bg-black object-cover"
-      />
+      />}
       <EventBadges e={e} />
       <div className="grid grid-cols-2 gap-3 text-sm">
         <div>
@@ -60,7 +61,7 @@ function EventCard({ e }: { e: ApiEvent }) {
           <div className="font-medium">{SUGGESTED[e.suggested_action]}</div>
         </div>
       </div>
-      <SpeedChart measured={e.speeds} suggested={e.suggested_speeds} sampleSec={0.2} height={70} peak={e.peak_sec} playhead={t} onSeek={seek} />
+      <SpeedChart measured={e.speeds} suggested={e.suggested_speeds} sampleSec={0.2} height={70} peak={e.peak_sec} playhead={t} onSeek={still ? undefined : seek} />
       <p className="text-sm">{e.reason}</p>
       <FeedbackBar e={e} compact />
       <div className="font-mono text-xs text-muted-foreground">

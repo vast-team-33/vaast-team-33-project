@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { postFeedback, type ApiEvent, type Feedback, type FeedbackChoice } from '@/api/client'
+import { IS_ARCHIVE, mediaUrl, postFeedback, type ApiEvent, type Feedback, type FeedbackChoice } from '@/api/client'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -39,6 +39,19 @@ const SHORT: Record<string, string> = { driver_right: 'Driver', model_right: 'Mo
 export const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`
 
 const RED = 'bg-danger-high/15 text-danger-high border-danger-high/40'
+
+// Archive mode: the snapshot holds video for only a few events (see noVideo in api/client).
+export const NO_VIDEO = 'Video not included in this archive.'
+
+/** Stand-in for a card's video when the archive has no clip: the thumbnail plus one line saying so. */
+export function StillFrame({ e }: { e: ApiEvent }) {
+  return (
+    <div className="space-y-1">
+      <img src={mediaUrl(e.thumb_url)} alt="Frame at the moment of closest approach" loading="lazy" className="aspect-video w-full rounded-lg bg-black object-cover" />
+      <p className="text-xs text-muted-foreground">{NO_VIDEO}</p>
+    </div>
+  )
+}
 
 export function EventBadges({ e }: { e: ApiEvent }) {
   const riskTint = e.risk === 'high' ? BAND_TINT.high : e.risk === 'medium' ? BAND_TINT.mid : e.risk === 'low' ? BAND_TINT.low : ''
@@ -164,7 +177,7 @@ export function FeedbackBar({ e, compact }: { e: ApiEvent; compact?: boolean }) 
             {compact ? SHORT[c] : CHOICE[c]}
           </Button>
         ))}
-        {flash && <span className="text-xs text-muted-foreground">Saved</span>}
+        {flash && <span className="text-xs text-muted-foreground">{IS_ARCHIVE ? 'Kept until you reload (archived demo)' : 'Saved'}</span>}
       </div>
       {saved && <div className="text-xs text-muted-foreground">Labelled: <span className="font-medium text-foreground">{CHOICE[saved.choice]}</span></div>}
       {err && <div className="text-xs text-danger-high">{err}</div>}
