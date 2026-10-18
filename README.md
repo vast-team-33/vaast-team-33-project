@@ -16,9 +16,29 @@ variants (night, rain, a child, a faster car) to train self-driving models on. U
 their own detectors in plain words, test one on a single clip, then run it over the whole archive.
 We build the detection, scoring and scenario packaging; the simulator hand-off is shown as a demo.
 
-> **Status:** an experiment is live at https://workshop.thecosmoslabs.com → **App**.
-> The code is not in this repo yet. This first commit holds the agent instructions, the lab
-> notes and the platform test results.
+> **Status:** the event is over and the lab is offline. The [archived demo](#archived-demo) runs
+> without it.
+
+## Links
+
+| What | Link |
+|---|---|
+| Archived demo (works now) | https://vast-team-33.github.io/vaast-team-33-project/ |
+| The whole idea, as an interactive diagram | https://vast-team-33.github.io/vaast-team-33-project/idea.html |
+| Demo video | https://youtu.be/cKueRONRbL0 |
+| Project page | https://tokensand.com/p/drive-loop |
+| Hackathon: Real-Time Video Agents Hack, London, 17 Oct 2026 | https://tokensand.com/vastlondon |
+| All projects | https://tokensand.com/vastlondon/projects |
+| Event on Luma | https://luma.com/vastlondon |
+| Event repo (VAST Builders Challenge: rules, skills, platform) | https://github.com/vast-data/vast-builders-challenge |
+| Live app during the event (lab sign-in only, now offline) | https://team-33-app.thecosmoslabs.com/app |
+
+Built with
+[VAST Data](https://www.vastdata.com/platform/ai-os) (storage, VastDB, the VSS pipeline),
+[NVIDIA VSS](https://docs.nvidia.com/vss/latest/) and [NVIDIA Cosmos](https://www.nvidia.com/en-us/ai/cosmos/) models,
+[CoreWeave](https://coreweave.com/) GPUs,
+[W&B Inference](https://docs.wandb.ai/inference) and [Weave](https://wandb.ai/site/weave/), and
+[Cursor](https://cursor.com/).
 
 ## Archived demo
 
