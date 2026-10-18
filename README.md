@@ -40,6 +40,15 @@ Built with
 [W&B Inference](https://docs.wandb.ai/inference) and [Weave](https://wandb.ai/site/weave/), and
 [Cursor](https://cursor.com/).
 
+## Team
+
+Team 33: Andrei Lahunou,
+[Dimitrios Koutsoumpos](https://www.linkedin.com/in/koutsoubosdimitrios/),
+[Divya Bisht](https://www.linkedin.com/in/divyabishtx/) and
+[Vladimir Lebedev](https://www.linkedin.com/in/lebedevv/).
+
+Contact: Andrei Lahunou.
+
 ## Archived demo
 
 **https://vast-team-33.github.io/vaast-team-33-project/**
