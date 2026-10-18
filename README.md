@@ -42,12 +42,12 @@ Built with
 
 ## Team
 
-Team 33: Andrei Lahunou,
+Team 33: [Andrei Lahunou](https://www.linkedin.com/in/andrey-logunov/),
 [Dimitrios Koutsoumpos](https://www.linkedin.com/in/koutsoubosdimitrios/),
 [Divya Bisht](https://www.linkedin.com/in/divyabishtx/) and
 [Vladimir Lebedev](https://www.linkedin.com/in/lebedevv/).
 
-Contact: Andrei Lahunou.
+Contact: [Andrei Lahunou](https://www.linkedin.com/in/andrey-logunov/).
 
 ## Archived demo
 
