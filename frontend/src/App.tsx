@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { APP_NAME } from '@/brand'
 import Logo from '@/components/Logo'
 import ArchiveBanner from '@/components/ArchiveBanner'
+import ArchiveFooter from '@/components/ArchiveFooter'
 import { href, useRoute, type Route } from '@/router'
 import Overview from '@/pages/Overview'
 import Events from '@/pages/Events'
@@ -51,6 +52,7 @@ export default function App() {
         {route.page === 'detectors' && <Detectors />}
         {route.page === 'detector' && <DetectorDetail id={route.id} />}
       </main>
+      {IS_ARCHIVE && <ArchiveFooter />}
     </div>
   )
 }

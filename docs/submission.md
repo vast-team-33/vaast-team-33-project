@@ -57,11 +57,12 @@ Source: the live app's `api/summary` and `api/events`, 17 Oct.
 
 ## Team
 
-| Name | Email |
+| Name | LinkedIn |
 |---|---|
-| TODO | TODO |
-| TODO | TODO |
-| TODO | TODO |
+| Andrei Lahunou (contact) | |
+| Dimitrios Koutsoumpos | https://www.linkedin.com/in/koutsoubosdimitrios/ |
+| Divya Bisht | https://www.linkedin.com/in/divyabishtx/ |
+| Vladimir Lebedev | https://www.linkedin.com/in/lebedevv/ |
 
 ## Checklist before you submit
 

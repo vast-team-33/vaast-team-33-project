@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- For Google Search Console: crawlers only read robots.txt at the host root, which this sub-path site cannot have. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://vast-team-33.github.io/vaast-team-33-project/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://vast-team-33.github.io/vaast-team-33-project/idea.html</loc><lastmod>2026-10-18</lastmod></url>
+</urlset>
