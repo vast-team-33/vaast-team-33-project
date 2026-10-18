@@ -59,7 +59,7 @@ Source: the live app's `api/summary` and `api/events`, 17 Oct.
 
 | Name | LinkedIn |
 |---|---|
-| Andrei Lahunou (contact) | |
+| Andrei Lahunou (contact) | https://www.linkedin.com/in/andrey-logunov/ |
 | Dimitrios Koutsoumpos | https://www.linkedin.com/in/koutsoubosdimitrios/ |
 | Divya Bisht | https://www.linkedin.com/in/divyabishtx/ |
 | Vladimir Lebedev | https://www.linkedin.com/in/lebedevv/ |

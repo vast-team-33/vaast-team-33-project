@@ -3,7 +3,7 @@
 export interface Member { name: string; linkedin?: string }
 
 export const TEAM: Member[] = [
-  { name: 'Andrei Lahunou' },
+  { name: 'Andrei Lahunou', linkedin: 'https://www.linkedin.com/in/andrey-logunov/' },
   { name: 'Dimitrios Koutsoumpos', linkedin: 'https://www.linkedin.com/in/koutsoubosdimitrios/' },
   { name: 'Divya Bisht', linkedin: 'https://www.linkedin.com/in/divyabishtx/' },
   { name: 'Vladimir Lebedev', linkedin: 'https://www.linkedin.com/in/lebedevv/' },
