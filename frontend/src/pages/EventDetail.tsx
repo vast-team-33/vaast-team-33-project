@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { getConfig, getDetections, getEvent, listDetectors, mediaUrl, type ApiEvent, type Config, type Detections } from '@/api/client'
+import { getConfig, getDetections, getEvent, listDetectors, mediaUrl, noVideo, type ApiEvent, type Config, type Detections } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { href } from '@/router'
-import { ACTUAL, SUGGESTED, EventBadges, FeedbackBar, Legend, ScoreNumber, SpeedChart, mmss } from '@/components/events/shared'
+import { ACTUAL, NO_VIDEO, SUGGESTED, EventBadges, FeedbackBar, Legend, ScoreNumber, SpeedChart, mmss } from '@/components/events/shared'
 
 const FACTORS: [keyof ApiEvent['factors'], string, string][] = [
   ['closeness', 'Closeness', 'How near the person is to the car (larger box means closer).'],
@@ -106,6 +106,7 @@ export default function EventDetail({ id }: { id: string }) {
   if (!e) return <div className="space-y-3">{back}<p className="text-sm text-muted-foreground">Loading event…</p></div>
 
   const sampleSec = cfg?.speed_sample_sec ?? 0.2
+  const still = noVideo(e)
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -116,9 +117,12 @@ export default function EventDetail({ id }: { id: string }) {
       <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
         <div className="space-y-2">
           <div className="relative aspect-video overflow-hidden rounded-lg border bg-black">
-            <video ref={vref} controls muted playsInline preload="metadata" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)} className="absolute inset-0 h-full w-full" />
-            {overlay && <Overlay det={det} cfg={cfg} t={t} />}
+            {still
+              ? <img src={mediaUrl(e.thumb_url)} alt="Frame at the moment of closest approach" className="absolute inset-0 h-full w-full object-contain" />
+              : <video ref={vref} controls muted playsInline preload="metadata" poster={mediaUrl(e.thumb_url)} src={mediaUrl(e.clip_url)} className="absolute inset-0 h-full w-full" />}
+            {overlay && <Overlay det={det} cfg={cfg} t={still ? e.peak_sec : t} />}
           </div>
+          {still && <p className="text-sm text-muted-foreground">{NO_VIDEO}</p>}
           <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input type="checkbox" checked={overlay} onChange={(ev) => setOverlay(ev.target.checked)} /> Show overlay (lane and detections)
             {!det && <span className="text-xs">· detections unavailable, showing lane only</span>}
@@ -151,8 +155,8 @@ export default function EventDetail({ id }: { id: string }) {
       {e.speeds.length > 0 && <Card className="gap-3 p-4">
         <h2 className="text-lg font-medium">Speed over the 5 s clip</h2>
         <SpeedChart
-          measured={e.speeds} suggested={e.suggested_speeds} sampleSec={sampleSec} height={180} peak={e.peak_sec} playhead={t} axis
-          onSeek={(s) => { if (vref.current) vref.current.currentTime = s }}
+          measured={e.speeds} suggested={e.suggested_speeds} sampleSec={sampleSec} height={180} peak={e.peak_sec} playhead={still ? undefined : t} axis
+          onSeek={still ? undefined : (s) => { if (vref.current) vref.current.currentTime = s }}
         />
         <div className="text-xs text-muted-foreground">
           <Legend /> <span className="ml-3">Red dotted line: peak danger at {e.peak_sec} s. Relative speed, no unit.</span>

@@ -11,6 +11,9 @@ npm run dev                      # proxies /api and /media to http://127.0.0.1:8
 VITE_MOCK=1 npm run dev          # no backend: reads ../api/fixtures (JSON imported in src/api/mock.ts,
                                  # thumbnails served from ../api/fixtures/media by a dev-only Vite plugin)
 npm run build                    # tsc -b && vite build -> dist/
+npm run build:archive            # archived demo for GitHub Pages -> dist-archive/: VITE_ARCHIVE=1 answers from
+                                 # static api/*.json (src/api/archive.ts) and copies ../archive in (build it first
+                                 # with `python3 scripts/build_archive.py` from the repo root)
 npm run types                    # regenerate src/api/types.ts from ../api/openapi.yaml
 ```
 

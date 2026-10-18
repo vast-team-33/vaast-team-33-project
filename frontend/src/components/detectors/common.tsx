@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
+import { ARCHIVE_OFFLINE } from '@/api/client'
 
 export const is501 = (e: unknown) => e instanceof Error && e.message.startsWith('501')
 
@@ -11,9 +12,17 @@ export function NotLive() {
   )
 }
 
+/** Archive mode: the lab GPUs are gone, so this is a fact to state, not an error to retry. */
+export function ArchiveOffline() {
+  return (
+    <p className="rounded-md border border-demo/40 bg-demo/15 px-3 py-2 text-sm text-demo">{ARCHIVE_OFFLINE}</p>
+  )
+}
+
 export function StepError({ error }: { error: unknown }) {
   if (!error) return null
   if (is501(error)) return <NotLive />
+  if (error instanceof Error && error.message === ARCHIVE_OFFLINE) return <ArchiveOffline />
   return (
     <p className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
       {error instanceof Error ? error.message : 'Something went wrong.'} Try again.

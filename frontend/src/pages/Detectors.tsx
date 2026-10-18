@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import { listDetectors, type Detector } from '@/api/client'
+import { IS_ARCHIVE, listDetectors, type Detector } from '@/api/client'
 import { DetectorCard } from '@/components/detectors/DetectorCard'
 import { Wizard } from '@/components/detectors/Wizard'
-import { StepError } from '@/components/detectors/common'
+import { ArchiveOffline, StepError } from '@/components/detectors/common'
 
 export default function Detectors() {
   const [items, setItems] = useState<Detector[] | null>(null)
@@ -34,6 +34,7 @@ export default function Detectors() {
       {creating && (
         <div className="space-y-3">
           <h2 className="text-lg font-medium">New detector</h2>
+          {IS_ARCHIVE && <ArchiveOffline />}
           <Wizard onCreated={load} />
         </div>
       )}

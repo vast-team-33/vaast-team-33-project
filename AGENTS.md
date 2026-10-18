@@ -65,5 +65,5 @@ Submission is due at **16:30 BST**; code freeze 15:45.
 ## Conventions
 
 - Keep dependencies light (standard library, `requests`, `boto3`). The deploy image installs with pip at start.
-- No secrets, footage or large data files in git. Generated data goes under `data/` (ignored).
+- No secrets or large data files in git. The only footage in git is `archive/` (a small snapshot, about 6 MB, for the archived demo on GitHub Pages) and the stills in `api/fixtures/media/`. All of it has faces and number plates blurred with `scripts/blur_media.py`; never commit unblurred footage. Generated data goes under `data/` (ignored).
 - Mark experiments as throwaway in their header comment until the team decides to keep them.
