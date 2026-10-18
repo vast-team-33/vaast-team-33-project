@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { getConfig, getDetections, getEvent, listDetectors, mediaUrl, noVideo, type ApiEvent, type Config, type Detections } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import OriginalVideo from '@/components/OriginalVideo'
 import { href } from '@/router'
 import { ACTUAL, NO_VIDEO, SUGGESTED, EventBadges, FeedbackBar, Legend, ScoreNumber, SpeedChart, mmss } from '@/components/events/shared'
 
@@ -130,6 +131,7 @@ export default function EventDetail({ id }: { id: string }) {
           <div className="font-mono text-xs text-muted-foreground">
             {e.drive} · chunk {e.chunk} · {mmss(e.drive_time_sec)} into the drive · person in the lane for {(e.frames_in_lane / 30).toFixed(1)} s
           </div>
+          <OriginalVideo id={e.id} />
         </div>
 
         {isMatch(e) ? <MatchCard e={e} /> : <Card className="gap-3 p-4">

@@ -8,6 +8,7 @@ is written to: excluded events are filtered in a temporary copy of events.json.
 
 The archive is public, so media is copied from the blurred copy (faces and number plates, made by
 scripts/blur_media.py), never from the raw snapshot. A referenced file missing there stops the build.
+The manifest (api/archive.json) also names the original PIE video and time range of each clip.
 
     python3 scripts/build_archive.py                      # data/demo-snapshot -> archive/
     python3 scripts/build_archive.py --exclude ID1,ID2    # leave more events out
@@ -25,7 +26,9 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from pie_clips import CLIP_SEC, PIE as PIE_CLIPS, TIMES as PIE_TIMES
+
+ROOT =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGE = 200  # the server caps ?limit at 200
 TARGETS = ["cosmos_transfer", "omniverse", "openscenario"]
 MANIFEST_FORMAT = "drive-loop-archive/v1"
@@ -240,13 +243,18 @@ def main():
     media = blurred
     with_video = sorted(e for e in event_ids if (files["events/%s.json" % e].get("clip_url")))
     main_ids = [e["id"] for e in files["events.json"]["items"]]
+    # The public PIE video and time range each clip was cut from (scripts/pie_clips.py), shown on the event page
+    pie = json.load(open(PIE_TIMES))
+    sources = {e: {"dataset": "PIE", "file": pie[e]["file"], "start_sec": pie[e]["start_sec"],
+                   "end_sec": round(pie[e]["start_sec"] + CLIP_SEC, 2), "url": "%s/%s" % (PIE_CLIPS, pie[e]["file"])}
+               for e in with_video if e in pie}
 
     files["archive.json"] = {
         "format": MANIFEST_FORMAT, "captured_at": args.captured_at, "captured_label": args.captured_label,
         "events": len(main_ids), "events_with_video": sum(1 for e in main_ids if e in with_video),
         "detectors": len(files["detectors.json"]["items"]), "with_video": with_video,
         "with_detections": sorted(with_detections), "excluded": sorted(exclude),
-        "note": "" if args.no_default_exclude else DEFAULT_EXCLUDE_NOTE,
+        "note": "" if args.no_default_exclude else DEFAULT_EXCLUDE_NOTE, "sources": sources,
     }
 
     if os.path.exists(out_dir):
@@ -271,6 +279,8 @@ def main():
         media_bytes[kind] = media_bytes.get(kind, 0) + size
         counts[kind] = counts.get(kind, 0) + 1
         total += size
+    # the footage is the PIE dataset (MIT License): its notice travels with the copies
+    shutil.copyfile(os.path.join(ROOT, "third_party", "PIE-LICENSE.txt"), os.path.join(out_dir, "media", "PIE-LICENSE.txt"))
 
     m = files["archive.json"]
     print("archive written to %s" % os.path.relpath(out_dir, os.getcwd()))

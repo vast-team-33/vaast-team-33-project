@@ -19,6 +19,16 @@ export interface ArchiveInfo {
   with_detections: string[]
   excluded: string[]
   note?: string
+  sources?: Record<string, ClipSource>
+}
+
+/** The public PIE video a clip was cut from (scripts/pie_clips.py). Times are seconds into that file. */
+export interface ClipSource {
+  dataset: string
+  file: string
+  start_sec: number
+  end_sec: number
+  url: string
 }
 
 const BUILTIN_ID = 'crossing_risk'
