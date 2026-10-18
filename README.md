@@ -47,12 +47,49 @@ Built with
 A read-only snapshot of the app with data that was already processed during the event: the VAST
 Data VSS pipeline (video segments and YOLO11 boxes) and our own steps on the lab GPUs (NVIDIA
 Cosmos3-Reason, Nemotron VL position judge, optical-flow speed). There is no backend: labels are
-not saved and new detectors cannot run. It holds 20 events, with video for 1 of them; cyclists and
-duplicate clips were removed, as in the final live version. Faces and number plates are blurred.
+not saved and new detectors cannot run. It holds 20 events, all with video; cyclists and duplicate
+clips were removed, as in the final live version. Faces and number plates are blurred.
+
+The lab's copies of the clips went offline with the lab. The footage is the public
+[PIE dataset](https://data.nvision2.eecs.yorku.ca/PIE_dataset), so the clips were cut again from the
+original PIE videos at the same moments: each one was placed by matching its event thumbnail, which
+lands within 0.1 s of the event's peak (`scripts/pie_clips.py`, times in `scripts/pie_clip_times.json`).
+
+Each event page names the original PIE video of its clip and links to it at that moment. The
+originals are on York University's server and are not blurred. The list:
+
+<details>
+<summary>The 20 clips and the original PIE videos they were cut from</summary>
+
+| Event (lab drive, time into it) | Original PIE video | Clip in the original |
+|---|---|---|
+| set02 · 1:00 into the drive | [set02/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set02/video_0001.mp4#t=58.3,63.3) | 0:58.3 to 1:03.3 |
+| set02 · 1:45 into the drive | [set02/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set02/video_0001.mp4#t=98.3,103.3) | 1:38.3 to 1:43.3 |
+| set02 · 12:55 into the drive | [set02/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set02/video_0002.mp4#t=175.0,180.0) | 2:55.0 to 3:00.0 |
+| set02 · 14:50 into the drive | [set02/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set02/video_0002.mp4#t=285.0,290.0) | 4:45.0 to 4:50.0 |
+| set03 · 2:25 into the drive | [set03/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set03/video_0001.mp4#t=143.4,148.4) | 2:23.4 to 2:28.4 |
+| set03 · 9:35 into the drive | [set03/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set03/video_0001.mp4#t=573.4,578.4) | 9:33.4 to 9:38.4 |
+| set03 · 13:30 into the drive | [set03/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set03/video_0002.mp4#t=206.3,211.3) | 3:26.3 to 3:31.3 |
+| set04 · 7:40 into the drive | [set04/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0001.mp4#t=453.7,458.7) | 7:33.7 to 7:38.7 |
+| set04 · 9:55 into the drive | [set04/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0002.mp4#t=50.0,55.0) | 0:50.0 to 0:55.0 |
+| set04 · 10:50 into the drive | [set04/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0002.mp4#t=103.3,108.3) | 1:43.3 to 1:48.3 |
+| set04 · 11:05 into the drive | [set04/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0002.mp4#t=121.6,126.6) | 2:01.6 to 2:06.6 |
+| set04 · 11:40 into the drive | [set04/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0002.mp4#t=160.0,165.0) | 2:40.0 to 2:45.0 |
+| set04 · 14:20 into the drive | [set04/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0002.mp4#t=312.0,317.0) | 5:12.0 to 5:17.0 |
+| set04 · 14:30 into the drive | [set04/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set04/video_0002.mp4#t=325.3,330.3) | 5:25.3 to 5:30.3 |
+| set06 · 5:30 into the drive | [set06/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set06/video_0001.mp4#t=328.6,333.6) | 5:28.6 to 5:33.6 |
+| set06 · 8:05 into the drive | [set06/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set06/video_0001.mp4#t=483.6,488.6) | 8:03.6 to 8:08.6 |
+| set06 · 8:55 into the drive | [set06/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set06/video_0001.mp4#t=528.7,533.7) | 8:48.7 to 8:53.7 |
+| set06 · 9:20 into the drive | [set06/video_0001.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set06/video_0001.mp4#t=557.0,562.0) | 9:17.0 to 9:22.0 |
+| set06 · 11:20 into the drive | [set06/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set06/video_0002.mp4#t=78.3,83.3) | 1:18.3 to 1:23.3 |
+| set06 · 14:35 into the drive | [set06/video_0002.mp4](https://data.nvision2.eecs.yorku.ca/PIE_dataset/PIE_clips/set06/video_0002.mp4#t=271.3,276.3) | 4:31.3 to 4:36.3 |
+
+</details>
 
 To rebuild it:
 
 ```bash
+python3 scripts/pie_clips.py cut         # missing clips from PIE -> data/demo-snapshot/clips/
 # blur the media first, in its own venv (see the header of scripts/blur_media.py)
 python scripts/blur_media.py img data/demo-snapshot/thumbs data/demo-media-blurred/thumbs scripts/blur_manual.json
 python scripts/blur_media.py vid data/demo-snapshot/clips/<id>.mp4 data/demo-media-blurred/clips/<id>.mp4
@@ -62,6 +99,20 @@ cd frontend && npm run build:archive     # -> frontend/dist-archive/ (the app pl
 
 A push to `main` that touches `frontend/` or `archive/` deploys it with
 `.github/workflows/pages.yml` (the repo's Pages source must be "GitHub Actions").
+
+## A note on the footage
+
+VAST initially told us we could bring and use our own external video. During the event we found
+out that external video was not approved after all: the rules allowed only the footage provided
+on the platform, and uploads were accepted but never processed (the Segmenter was not part of the
+challenge pipeline). So we had to drop our first idea, which needed our own footage, and build on
+the library that was provided: Toronto dashcam footage (`pie_cam-3`), which turned out to be the
+public PIE dataset.
+
+**Credit:** PIE dataset by Amir Rasouli, Iuliia Kotseruba, Toni Kunic and John K. Tsotsos, York
+University: "PIE: A Large-Scale Dataset and Models for Pedestrian Intention Estimation and
+Trajectory Prediction", ICCV 2019. Videos and annotations are released under the MIT License
+(`third_party/PIE-LICENSE.txt`, also served with the archive's media).
 
 ## How it works (experiment v2)
 
@@ -112,7 +163,8 @@ read `AGENTS.md` directly.
 | `docs/frontend.md` | Frontend plan: React, Tailwind 4, shadcn/ui, screens, deploy limits, open tasks |
 | `api/openapi.yaml` | The contract as OpenAPI 3.1 (generate TypeScript types from it) |
 | `api/fixtures/` | Real example responses, thumbnails and background frames for mocking |
-| `archive/` | Static snapshot for the archived demo (API answers as JSON, thumbnails, one clip); built by `scripts/build_archive.py` |
+| `archive/` | Static snapshot for the archived demo (API answers as JSON, thumbnails, 20 blurred clips); built by `scripts/build_archive.py` |
+| `third_party/` | Licences of outside material we ship (the PIE dataset's MIT License) |
 | `docs/ideas.md` | Ideas we explored today and why we picked this one |
 | `.claude/skills/` | Links to the event skills |
 | `vendor/vast-builders-challenge/` | Copy of the event repo (skills, rules, docs); see `VENDORED.md` inside |

@@ -13,7 +13,7 @@ How it finds things:
           YOLO person box, which also covers people seen side-on or from behind.
   plates  stills: white plate-shaped patches inside each YOLO vehicle box, plus manual boxes for the
           ones it misses (blur_manual.json, image pixels, checked by eye on close-up crops).
-          video: the whole lower part of each nearby vehicle, since 150 frames cannot be fixed by hand.
+          video: each nearby vehicle from about 30% of its height down, since 150 frames cannot be fixed by hand.
 Far people and vehicles (under 70 px at 1920 px wide) are left alone: nothing there is readable.
 
 How the archive was made (17 Oct snapshot):
@@ -46,7 +46,8 @@ def faces(img, up):
 
 
 def objects(img):
-    r = DET.predict(img, imgsz=1280, conf=0.2, verbose=False)[0]
+    # BLUR_DEVICE=mps runs YOLO on the Mac GPU: 0.2 s a frame instead of 0.8 s on the CPU
+    r = DET.predict(img, imgsz=1280, conf=0.2, verbose=False, device=os.environ.get("BLUR_DEVICE") or None)[0]
     return [(r.names[int(c)], tuple(b)) for c, b in zip(r.boxes.cls.tolist(), r.boxes.xyxy.tolist())]
 
 
@@ -112,7 +113,8 @@ def blur_box(img, box, scale=1.0, ellipse=True):
 def anonymise(img, manual=None, band=False):
     """Blur in place; returns counts. Size thresholds scale with the frame (tuned on 1920 px wide)."""
     s = img.shape[1] / 1920
-    fs = faces(img, 3 if img.shape[1] < 1400 else 1.5)
+    # video skips the upscaling (3x faster): anyone near enough to recognise also gets the head blur below
+    fs = faces(img, 3 if img.shape[1] < 1400 else 1 if band else 1.5)
     heads = plates = 0
     for b in fs:
         blur_box(img, b, scale=1.6)
@@ -126,8 +128,11 @@ def anonymise(img, manual=None, band=False):
                 heads += 1
         elif label in VEHICLES and band:
             x1, y1, x2, y2 = box
-            if x2 - x1 >= 70 * s:
-                blur_box(img, (x1, y1 + 0.38 * (y2 - y1), x2, y2 + 0.04 * (y2 - y1)), scale=1.12, ellipse=False)
+            w, h = x2 - x1, y2 - y1
+            if w >= 70 * s:
+                # oversized because blur_box insets and feathers the rectangle: this way the full blur covers the
+                # whole width from about 30% of the height down (a car seen at an angle has its plate near one side)
+                blur_box(img, (x1 - 0.18 * w, y1 + 0.12 * h, x2 + 0.18 * w, y2 + 0.12 * h), ellipse=False)
                 plates += 1
         elif label in VEHICLES:
             for z in plates_in(img, box, 70 * s):

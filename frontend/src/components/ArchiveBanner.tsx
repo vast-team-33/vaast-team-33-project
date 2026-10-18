@@ -5,7 +5,7 @@ import { getArchiveInfo } from '@/api/client'
 // The counts come from the archive manifest (api/archive.json); the defaults match the archive built from the 17 Oct snapshot.
 export default function ArchiveBanner() {
   const [n, setN] = useState({
-    events: 20, video: 1, when: '17 Oct, 14:16 BST',
+    events: 20, video: 20, when: '17 Oct, 14:16 BST',
     note: 'Cyclists and duplicate clips were removed, as in the final live version.',
   })
   useEffect(() => {
@@ -21,7 +21,9 @@ export default function ArchiveBanner() {
           Read-only snapshot of data that was already processed during the event: the VAST Data VSS pipeline (video segments and
           YOLO11 boxes) and our own steps on the lab GPUs (NVIDIA Cosmos3-Reason, Nemotron VL position judge, optical-flow speed).
           There is no backend here: labels are not saved and new detectors cannot run. Snapshot from {n.when}: {n.events} events,
-          video for {n.video} of them.{n.note && ` ${n.note}`}
+          {n.video === n.events ? ' all with video' : ` video for ${n.video} of them`}.{n.note && ` ${n.note}`} Footage: the public{' '}
+          <a href="https://data.nvision2.eecs.yorku.ca/PIE_dataset" target="_blank" rel="noopener" className="underline">PIE dataset</a>{' '}
+          (York University, MIT License), with faces and number plates blurred.
         </p>
       </div>
     </div>
